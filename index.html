@@ -75,14 +75,6 @@
         </button>
         <button
           class="outline-btn"
-          id="export-btn"
-          data-fr="Exporter"
-          data-en="Export"
-        >
-          Exporter
-        </button>
-        <button
-          class="outline-btn"
           id="language-toggle"
           aria-label="Changer de langue"
         >
@@ -151,7 +143,15 @@
             <h2 data-fr="Favoris" data-en="Favorites">Favoris</h2>
           </div>
           <span class="favorites-count" id="favorites-count"></span>
-          <button class="favorites-toggle" id="favorites-toggle" type="button" aria-expanded="true" aria-label="Fermer les favoris">⌃</button>
+          <button
+            class="favorites-toggle"
+            id="favorites-toggle"
+            type="button"
+            aria-expanded="true"
+            aria-label="Fermer les favoris"
+          >
+            ⌃
+          </button>
         </div>
         <div class="favorite-colors" id="favorite-colors"></div>
       </section>
@@ -169,10 +169,10 @@
         <button
           class="primary-btn"
           id="surprise-btn"
-          data-fr="✦ Surprise-moi"
+          data-fr="✦ Surprends-moi"
           data-en="✦ Surprise me"
         >
-          ✦ Surprise-moi
+          ✦ Surprends-moi
         </button>
         <button
           class="outline-btn"
@@ -242,14 +242,25 @@
                 Palette surprise
               </h2>
             </div>
-            <button
-              class="primary-btn"
-              id="generate-palette"
-              data-fr="✦ Générer"
-              data-en="✦ Generate"
-            >
-              ✦ Générer
-            </button>
+            <div class="tool-actions">
+              <button
+                class="outline-btn ai-palette-btn"
+                id="ai-palette-toggle"
+                type="button"
+                data-fr="✦ Décrire"
+                data-en="✦ Describe"
+              >
+                ✦ Décrire
+              </button>
+              <button
+                class="primary-btn"
+                id="generate-palette"
+                data-fr="✦ Générer"
+                data-en="✦ Generate"
+              >
+                ✦ Générer
+              </button>
+            </div>
           </div>
           <p class="tool-description">
             <span
@@ -259,6 +270,40 @@
               nouvelle idée.</span
             >
           </p>
+          <form class="ai-palette-form" id="ai-palette-form" hidden>
+            <label
+              for="ai-palette-prompt"
+              data-fr="Décris la palette souhaitée"
+              data-en="Describe the palette you want"
+            >
+              Décris la palette souhaitée
+            </label>
+            <div class="ai-palette-fields">
+              <input
+                id="ai-palette-prompt"
+                type="text"
+                required
+                autocomplete="off"
+                data-placeholder-fr="Ex. une palette sombre avec du bleu et du vert"
+                data-placeholder-en="e.g. a dark palette with blue and green"
+                placeholder="Ex. une palette sombre avec du bleu et du vert"
+              />
+              <button
+                class="primary-btn"
+                type="submit"
+                data-fr="Trouver"
+                data-en="Find"
+              >
+                Trouver
+              </button>
+            </div>
+            <p
+              class="ai-palette-status"
+              id="ai-palette-status"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </form>
           <div
             class="generated-palette"
             id="generated-palette"

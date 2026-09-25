@@ -75,6 +75,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const input = document.querySelector("#color-search");
     input.placeholder =
       input.dataset[`placeholder${language === "fr" ? "Fr" : "En"}`];
+    const aiPrompt = document.querySelector("#ai-palette-prompt");
+    if (aiPrompt)
+      aiPrompt.placeholder =
+        aiPrompt.dataset[`placeholder${language === "fr" ? "Fr" : "En"}`];
     document.querySelector("#language-toggle").textContent =
       language === "fr" ? "EN" : "FR";
     refreshAccountButton();
@@ -127,6 +131,64 @@ document.addEventListener("DOMContentLoaded", async () => {
       const lightness = 30 + Math.floor(Math.random() * 42);
       return hslToHex(hue, saturation, lightness);
     });
+  };
+
+  const normalizeText = (value) =>
+    value
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+
+  const aiPaletteAliases = {
+    rouge: ["red", "crimson", "scarlet", "royal obsidian"],
+    red: ["rouge", "crimson", "scarlet"],
+    bleu: ["blue", "navy", "ocean", "midnight"],
+    bleue: ["blue", "navy", "ocean", "midnight"],
+    blue: ["bleu", "navy", "ocean", "midnight"],
+    vert: ["green", "emerald", "lime"],
+    verte: ["green", "emerald", "lime"],
+    green: ["vert", "emerald", "lime"],
+    violet: ["purple", "violet", "night"],
+    purple: ["violet", "purple", "night"],
+    rose: ["pink", "magenta", "dream"],
+    rosee: ["pink", "magenta", "dream"],
+    pink: ["rose", "magenta", "dream"],
+    jaune: ["yellow", "gold", "lime"],
+    yellow: ["jaune", "gold", "lime"],
+    dore: ["gold", "metallic", "yellow"],
+    orange: ["gold", "crimson"],
+    noir: ["black", "obsidian", "midnight", "shadow"],
+    sombre: ["black", "obsidian", "midnight", "shadow", "night"],
+    dark: ["black", "obsidian", "midnight", "shadow", "night"],
+    pastel: ["pastel"],
+    metallique: ["metallic", "silver", "gold"],
+    metallic: ["metallique", "silver", "gold"],
+    bijou: ["jewel", "royal", "gem"],
+    jewel: ["bijou", "royal", "gem"],
+    royal: ["royal", "jewel", "gem"],
+  };
+
+  const findAiPalette = (prompt) => {
+    const terms = normalizeText(prompt).split(" ").filter(Boolean);
+    return paletteData
+      .map((color) => {
+        const searchable = normalizeText(`${color.name} ${color.category}`);
+        const score = terms.reduce((total, term) => {
+          if (searchable.includes(term)) return total + 3;
+          const aliases = aiPaletteAliases[term] || [];
+          return (
+            total +
+            (aliases.some((alias) => searchable.includes(alias)) ? 2 : 0)
+          );
+        }, 0);
+        return { ...color, score };
+      })
+      .filter((color) => color.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5)
+      .map(({ code }) => code.toUpperCase());
   };
 
   const hslToHex = (hue, saturation, lightness) => {
@@ -214,7 +276,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       favorites.has(card.dataset.favoriteKey),
     );
     dock.hidden = favoriteCards.length === 0;
-    dock.classList.toggle("is-collapsed", favoritesCollapsed && favoriteCards.length > 0);
+    dock.classList.toggle(
+      "is-collapsed",
+      favoritesCollapsed && favoriteCards.length > 0,
+    );
     count.textContent =
       currentLanguage === "fr"
         ? `${favoriteCards.length} couleur${favoriteCards.length > 1 ? "s" : ""}`
@@ -239,7 +304,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const toggle = document.querySelector("#favorites-toggle");
     dock.classList.toggle("is-collapsed", favoritesCollapsed);
     toggle.setAttribute("aria-expanded", String(!favoritesCollapsed));
-    toggle.setAttribute("aria-label", favoritesCollapsed ? "Ouvrir les favoris" : "Fermer les favoris");
+    toggle.setAttribute(
+      "aria-label",
+      favoritesCollapsed ? "Ouvrir les favoris" : "Fermer les favoris",
+    );
     toggle.textContent = favoritesCollapsed ? "⌄" : "⌃";
   });
 
@@ -253,6 +321,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   });
   renderColorStrip(generatedPalette, randomPalette());
+
+  const aiPaletteForm = document.querySelector("#ai-palette-form");
+  const aiPalettePrompt = document.querySelector("#ai-palette-prompt");
+  const aiPaletteStatus = document.querySelector("#ai-palette-status");
+  document.querySelector("#ai-palette-toggle").addEventListener("click", () => {
+    aiPaletteForm.hidden = !aiPaletteForm.hidden;
+    if (!aiPaletteForm.hidden) aiPalettePrompt.focus();
+  });
+  aiPaletteForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const colors = findAiPalette(aiPalettePrompt.value);
+    aiPaletteStatus.classList.remove("is-success", "is-empty");
+    if (!colors.length) {
+      renderColorStrip(generatedPalette, []);
+      aiPaletteStatus.textContent =
+        currentLanguage === "fr"
+          ? "Désolé, je n’ai trouvé aucune couleur correspondante dans le site."
+          : "Sorry, I could not find any matching color on the site.";
+      aiPaletteStatus.classList.add("is-empty");
+      return;
+    }
+    renderColorStrip(generatedPalette, colors);
+    aiPaletteStatus.textContent =
+      currentLanguage === "fr"
+        ? `${colors.length} couleur${colors.length > 1 ? "s" : ""} trouvée${colors.length > 1 ? "s" : ""} dans la collection.`
+        : `${colors.length} color${colors.length > 1 ? "s" : ""} found in the collection.`;
+    aiPaletteStatus.classList.add("is-success");
+  });
 
   document.querySelector("#image-input").addEventListener("change", (event) => {
     const [file] = event.target.files;
@@ -662,21 +758,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   if (localStorage.getItem("palette-theme") === "dark")
     document.body.classList.add("dark");
-
-  document.querySelector("#export-btn").addEventListener("click", () => {
-    const codes = cards
-      .map((card) =>
-        card.querySelector("[data-code]").dataset.code.toUpperCase(),
-      )
-      .join("\n");
-    const blob = new Blob([codes], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "atelier-chromatique.txt";
-    link.click();
-    URL.revokeObjectURL(link.href);
-    showToast("Palette exportée");
-  });
 
   applyLanguage(currentLanguage);
   updateResults();
