@@ -1285,7 +1285,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     heading.classList.add("panel-heading");
     const content = document.createElement("div");
     content.className = "panel-content";
-    while (heading.nextElementSibling) content.append(heading.nextElementSibling);
+    while (heading.nextElementSibling)
+      content.append(heading.nextElementSibling);
     panel.append(content);
     const updateContentHeight = () => {
       panel.style.setProperty(
