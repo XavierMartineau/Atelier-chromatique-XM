@@ -1,822 +1,922 @@
 ﻿[
-    {
-        "category":  "jewel",
-        "name":  "Royal Obsidian",
-        "code":  "#A4123F"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Crimson Gem",
-        "code":  "#8B2232"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Violet Night",
-        "code":  "#7D00AB"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Emerald Mist",
-        "code":  "#007B5F"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Blue Jewel",
-        "code":  "#0F52BA"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Ocean Depth",
-        "code":  "#005F6A"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Midnight Shadow",
-        "code":  "#1C1C1C"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Magenta Dream",
-        "code":  "#6A1D56"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Scarlet Fire",
-        "code":  "#65000B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Electric Blue",
-        "code":  "#3F00FF"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Purple Thunder",
-        "code":  "#6A0DAD"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Crimson Red",
-        "code":  "#9B111E"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Garnet Stone",
-        "code":  "#9A2A2A"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Jade Green",
-        "code":  "#006F2B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Golden Touch",
-        "code":  "#FFC87C"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Sunlit Yellow",
-        "code":  "#FFBF00"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Purple Vibe",
-        "code":  "#7A378B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Blue Waves",
-        "code":  "#0F52BA"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Deep Forest",
-        "code":  "#004425"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Blood Red",
-        "code":  "#8B0000"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Purple Hue",
-        "code":  "#8E4585"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Burgundy Glow",
-        "code":  "#6D071A"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Lavender Mist",
-        "code":  "#DA70D6"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Blue Deep",
-        "code":  "#003153"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Night Blue",
-        "code":  "#191970"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Earth Brown",
-        "code":  "#3D1C02"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Electric Purple",
-        "code":  "#3F00FF"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Lavender Light",
-        "code":  "#DA70D6"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Light Lavender",
-        "code":  "#CCCCFF"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Ocean Blue",
-        "code":  "#082567"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Purple Velvet",
-        "code":  "#5E2750"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Deep Sea Blue",
-        "code":  "#2D3E8B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Magenta Shadow",
-        "code":  "#6A1D56"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Dark Night",
-        "code":  "#1B1B1B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Dark Burgundy",
-        "code":  "#560027"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Golden Dream",
-        "code":  "#F8E0A0"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Mystic Ruby",
-        "code":  "#99182C"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Sapphire Spell",
-        "code":  "#082567"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Emerald Whisper",
-        "code":  "#50C878"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Opal Gaze",
-        "code":  "#A9A9F5"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Royal Garnet",
-        "code":  "#8B0000"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Twilight Amethyst",
-        "code":  "#9966CC"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Crimson Bloom",
-        "code":  "#DC143C"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Amber Flame",
-        "code":  "#FFBF00"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Jade Spirit",
-        "code":  "#00A86B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Moonlight Topaz",
-        "code":  "#483D8B"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Velvet Ruby",
-        "code":  "#C41E3A"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Obsidian Flame",
-        "code":  "#3B0A2E"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Electric Emerald",
-        "code":  "#50C878"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Midnight Sapphire",
-        "code":  "#0F52BA"
-    },
-    {
-        "category":  "jewel",
-        "name":  "Royal Twilight",
-        "code":  "#8A2BE2"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Golden Crown",
-        "code":  "#D4AF37"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Silver Light",
-        "code":  "#C0C0C0"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Bronze Medal",
-        "code":  "#CD7F32"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Royal Platinum",
-        "code":  "#E5E4E2"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Antique Gold",
-        "code":  "#CFB53B"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Polished Steel",
-        "code":  "#8C92AC"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Iron Shadow",
-        "code":  "#4B4B4B"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Champagne Shine",
-        "code":  "#F7E7CE"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Metal Rose",
-        "code":  "#B76E79"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Copper Flame",
-        "code":  "#B87333"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Steel Blue",
-        "code":  "#4682B4"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Titanium White",
-        "code":  "#EAEAEA"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Graphite Grey",
-        "code":  "#474A51"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Pearl Glow",
-        "code":  "#F8F6F0"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Rust Iron",
-        "code":  "#B7410E"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Silver Frost",
-        "code":  "#E1E1E1"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Charcoal Metal",
-        "code":  "#36454F"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Golden Beam",
-        "code":  "#FFD700"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Platinum Dust",
-        "code":  "#E5E4E2"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Cobalt Steel",
-        "code":  "#3D59AB"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Zinc Shadow",
-        "code":  "#7F7F7F"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Alloy Grey",
-        "code":  "#6E7F80"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Tarnished Silver",
-        "code":  "#A9A9A9"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Gilded Bronze",
-        "code":  "#996515"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Frosted Chrome",
-        "code":  "#B0C4DE"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Silver Pearl",
-        "code":  "#C9C0BB"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Mercury Flash",
-        "code":  "#D9D6CF"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Shadow Alloy",
-        "code":  "#5A5A5A"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Iron Dust",
-        "code":  "#B2BEB5"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Plated Brass",
-        "code":  "#B5A642"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Copper Gleam",
-        "code":  "#DA8A67"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Silver Rose",
-        "code":  "#C4AEAD"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Chrome Glint",
-        "code":  "#D1D0CE"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Golden Alloy",
-        "code":  "#FFD700"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Matte Steel",
-        "code":  "#9A9A9A"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Vintage Bronze",
-        "code":  "#665D1E"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Pearlescent White",
-        "code":  "#FDFDFF"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Satin Platinum",
-        "code":  "#CECECE"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Steel Mist",
-        "code":  "#A2A2A2"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Shiny Nickel",
-        "code":  "#BFBFBF"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Bright Pewter",
-        "code":  "#BFC1C2"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Iron Glow",
-        "code":  "#9B9B9B"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Metal Cloud",
-        "code":  "#D3D3D3"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Golden Sand",
-        "code":  "#ECD540"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Rose Metal",
-        "code":  "#B76E79"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Steel Veil",
-        "code":  "#BCC6CC"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Dark Pewter",
-        "code":  "#8E8E8E"
-    },
-    {
-        "category":  "metallic",
-        "name":  "Moonlight Steel",
-        "code":  "#E3E4FA"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Lavender Breeze",
-        "code":  "#E6E6FA"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Blush Rose",
-        "code":  "#FADADD"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Mint Whisper",
-        "code":  "#D0F0C0"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Sky Veil",
-        "code":  "#B0E0E6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Peach Mist",
-        "code":  "#FFE5B4"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Cloud Pearl",
-        "code":  "#F5F5F5"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Bluebell Frost",
-        "code":  "#A2C2E2"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Lilac Ash",
-        "code":  "#D8BFD8"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Pale Rose",
-        "code":  "#F3E2E4"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Iced Lavender",
-        "code":  "#C7A0D3"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Cotton Candy",
-        "code":  "#FFB3DE"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Soft Mint",
-        "code":  "#A8E6CF"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Sugar Plum",
-        "code":  "#D1A1D0"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Creamy Peach",
-        "code":  "#FFDAB9"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Frozen Blue",
-        "code":  "#A2D8F7"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Lemon Sorbet",
-        "code":  "#FFFACD"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Pastel Pink",
-        "code":  "#F4C7D9"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Opal Glow",
-        "code":  "#C4C4C4"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Seafoam Green",
-        "code":  "#9FE2BF"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Cotton Cloud",
-        "code":  "#FFFFFF"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Blushed Pink",
-        "code":  "#F4D1D1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Lime Light",
-        "code":  "#D3E6A1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Champagne Mist",
-        "code":  "#F7E7CE"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Frozen Mint",
-        "code":  "#C5E8B2"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Peach Glow",
-        "code":  "#FDE4B0"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Light Coral",
-        "code":  "#F5A7A7"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Twilight Sky",
-        "code":  "#E0BBE4"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Soft Butter",
-        "code":  "#FFF1A6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Soft Lilac",
-        "code":  "#D9B3E6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Vanilla Creme",
-        "code":  "#F5F5DC"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Ballet Slippers",
-        "code":  "#F7D4D0"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Lavender Fields",
-        "code":  "#E6DAF1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Morning Dew",
-        "code":  "#A6D1E6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Cotton Fog",
-        "code":  "#C0D6D1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Peachy Dream",
-        "code":  "#FFD3B6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Sea Breeze",
-        "code":  "#B2D6C1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Pastel Aqua",
-        "code":  "#99E0D5"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Rosewater Mist",
-        "code":  "#F6C4D0"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Frozen Pear",
-        "code":  "#B1E3C9"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Misty Coral",
-        "code":  "#F6C3D4"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Light Blueberry",
-        "code":  "#C8D9FF"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Iced Lemonade",
-        "code":  "#FFF9C4"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Baby Peach",
-        "code":  "#FFECB3"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Minty Fresh",
-        "code":  "#C4E4D6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Sugar Frost",
-        "code":  "#D3B6FF"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Pale Coral",
-        "code":  "#FAD8B5"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Rose Quartz",
-        "code":  "#F7C7D1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Light Lavender Mist",
-        "code":  "#E8D1F2"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Aquamarine Dream",
-        "code":  "#A6D6D6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Pale Yellow Glow",
-        "code":  "#FAEBD7"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Floral Breeze",
-        "code":  "#F0E0E6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Lilac Frost",
-        "code":  "#D9C8F1"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Creamy Sky",
-        "code":  "#E4D1A6"
-    },
-    {
-        "category":  "pastel",
-        "name":  "Cloudy Morning",
-        "code":  "#C4D1E0"
-    },
-    {
-        "category":  "other",
-        "name":  "Dark Horizon",
-        "code":  "#6A629B"
-    },
-    {
-        "category":  "other",
-        "name":  "Coral Pulse",
-        "code":  "#FF6B6B"
-    },
-    {
-        "category":  "other",
-        "name":  "Lagoon Glass",
-        "code":  "#2EC4B6"
-    },
-    {
-        "category":  "other",
-        "name":  "Citrus Pop",
-        "code":  "#F4D35E"
-    },
-    {
-        "category":  "other",
-        "name":  "Ink Bloom",
-        "code":  "#25324B"
-    },
-    {
-        "category":  "other",
-        "name":  "Moss Trail",
-        "code":  "#718355"
-    },
-    {
-        "category":  "other",
-        "name":  "Berry Soda",
-        "code":  "#B24C63"
-    },
-    {
-        "category":  "other",
-        "name":  "Apricot Jam",
-        "code":  "#F4A261"
-    },
-    {
-        "category":  "other",
-        "name":  "Arctic Signal",
-        "code":  "#5BC0EB"
-    },
-    {
-        "category":  "other",
-        "name":  "Solar Flare",
-        "code":  "#F9C74F"
-    },
-    {
-        "category":  "other",
-        "name":  "Plum Ink",
-        "code":  "#432818"
-    }
+  {
+    "category": "jewel",
+    "name": "Royal Obsidian",
+    "code": "#A4123F"
+  },
+  {
+    "category": "jewel",
+    "name": "Crimson Gem",
+    "code": "#8B2232"
+  },
+  {
+    "category": "jewel",
+    "name": "Violet Night",
+    "code": "#7D00AB"
+  },
+  {
+    "category": "jewel",
+    "name": "Emerald Mist",
+    "code": "#007B5F"
+  },
+  {
+    "category": "jewel",
+    "name": "Blue Jewel",
+    "code": "#0F52BA"
+  },
+  {
+    "category": "jewel",
+    "name": "Ocean Depth",
+    "code": "#005F6A"
+  },
+  {
+    "category": "jewel",
+    "name": "Midnight Shadow",
+    "code": "#1C1C1C"
+  },
+  {
+    "category": "jewel",
+    "name": "Magenta Dream",
+    "code": "#6A1D56"
+  },
+  {
+    "category": "jewel",
+    "name": "Scarlet Fire",
+    "code": "#65000B"
+  },
+  {
+    "category": "jewel",
+    "name": "Electric Blue",
+    "code": "#3F00FF"
+  },
+  {
+    "category": "jewel",
+    "name": "Purple Thunder",
+    "code": "#6A0DAD"
+  },
+  {
+    "category": "jewel",
+    "name": "Crimson Red",
+    "code": "#9B111E"
+  },
+  {
+    "category": "jewel",
+    "name": "Garnet Stone",
+    "code": "#9A2A2A"
+  },
+  {
+    "category": "jewel",
+    "name": "Jade Green",
+    "code": "#006F2B"
+  },
+  {
+    "category": "jewel",
+    "name": "Golden Touch",
+    "code": "#FFC87C"
+  },
+  {
+    "category": "jewel",
+    "name": "Sunlit Yellow",
+    "code": "#FFBF00"
+  },
+  {
+    "category": "jewel",
+    "name": "Purple Vibe",
+    "code": "#7A378B"
+  },
+  {
+    "category": "jewel",
+    "name": "Blue Waves",
+    "code": "#0F52BA"
+  },
+  {
+    "category": "jewel",
+    "name": "Deep Forest",
+    "code": "#004425"
+  },
+  {
+    "category": "jewel",
+    "name": "Blood Red",
+    "code": "#8B0000"
+  },
+  {
+    "category": "jewel",
+    "name": "Purple Hue",
+    "code": "#8E4585"
+  },
+  {
+    "category": "jewel",
+    "name": "Burgundy Glow",
+    "code": "#6D071A"
+  },
+  {
+    "category": "jewel",
+    "name": "Lavender Mist",
+    "code": "#DA70D6"
+  },
+  {
+    "category": "jewel",
+    "name": "Blue Deep",
+    "code": "#003153"
+  },
+  {
+    "category": "jewel",
+    "name": "Night Blue",
+    "code": "#191970"
+  },
+  {
+    "category": "jewel",
+    "name": "Earth Brown",
+    "code": "#3D1C02"
+  },
+  {
+    "category": "jewel",
+    "name": "Electric Purple",
+    "code": "#3F00FF"
+  },
+  {
+    "category": "jewel",
+    "name": "Lavender Light",
+    "code": "#DA70D6"
+  },
+  {
+    "category": "jewel",
+    "name": "Light Lavender",
+    "code": "#CCCCFF"
+  },
+  {
+    "category": "jewel",
+    "name": "Ocean Blue",
+    "code": "#082567"
+  },
+  {
+    "category": "jewel",
+    "name": "Purple Velvet",
+    "code": "#5E2750"
+  },
+  {
+    "category": "jewel",
+    "name": "Deep Sea Blue",
+    "code": "#2D3E8B"
+  },
+  {
+    "category": "jewel",
+    "name": "Magenta Shadow",
+    "code": "#6A1D56"
+  },
+  {
+    "category": "jewel",
+    "name": "Dark Night",
+    "code": "#1B1B1B"
+  },
+  {
+    "category": "jewel",
+    "name": "Dark Burgundy",
+    "code": "#560027"
+  },
+  {
+    "category": "jewel",
+    "name": "Golden Dream",
+    "code": "#F8E0A0"
+  },
+  {
+    "category": "jewel",
+    "name": "Mystic Ruby",
+    "code": "#99182C"
+  },
+  {
+    "category": "jewel",
+    "name": "Sapphire Spell",
+    "code": "#082567"
+  },
+  {
+    "category": "jewel",
+    "name": "Emerald Whisper",
+    "code": "#50C878"
+  },
+  {
+    "category": "jewel",
+    "name": "Opal Gaze",
+    "code": "#A9A9F5"
+  },
+  {
+    "category": "jewel",
+    "name": "Royal Garnet",
+    "code": "#8B0000"
+  },
+  {
+    "category": "jewel",
+    "name": "Twilight Amethyst",
+    "code": "#9966CC"
+  },
+  {
+    "category": "jewel",
+    "name": "Crimson Bloom",
+    "code": "#DC143C"
+  },
+  {
+    "category": "jewel",
+    "name": "Amber Flame",
+    "code": "#FFBF00"
+  },
+  {
+    "category": "jewel",
+    "name": "Jade Spirit",
+    "code": "#00A86B"
+  },
+  {
+    "category": "jewel",
+    "name": "Moonlight Topaz",
+    "code": "#483D8B"
+  },
+  {
+    "category": "jewel",
+    "name": "Velvet Ruby",
+    "code": "#C41E3A"
+  },
+  {
+    "category": "jewel",
+    "name": "Obsidian Flame",
+    "code": "#3B0A2E"
+  },
+  {
+    "category": "jewel",
+    "name": "Electric Emerald",
+    "code": "#50C878"
+  },
+  {
+    "category": "jewel",
+    "name": "Midnight Sapphire",
+    "code": "#0F52BA"
+  },
+  {
+    "category": "jewel",
+    "name": "Royal Twilight",
+    "code": "#8A2BE2"
+  },
+  {
+    "category": "metallic",
+    "name": "Golden Crown",
+    "code": "#D4AF37"
+  },
+  {
+    "category": "metallic",
+    "name": "Silver Light",
+    "code": "#C0C0C0"
+  },
+  {
+    "category": "metallic",
+    "name": "Bronze Medal",
+    "code": "#CD7F32"
+  },
+  {
+    "category": "metallic",
+    "name": "Royal Platinum",
+    "code": "#E5E4E2"
+  },
+  {
+    "category": "metallic",
+    "name": "Antique Gold",
+    "code": "#CFB53B"
+  },
+  {
+    "category": "metallic",
+    "name": "Polished Steel",
+    "code": "#8C92AC"
+  },
+  {
+    "category": "metallic",
+    "name": "Iron Shadow",
+    "code": "#4B4B4B"
+  },
+  {
+    "category": "metallic",
+    "name": "Champagne Shine",
+    "code": "#F7E7CE"
+  },
+  {
+    "category": "metallic",
+    "name": "Metal Rose",
+    "code": "#B76E79"
+  },
+  {
+    "category": "metallic",
+    "name": "Copper Flame",
+    "code": "#B87333"
+  },
+  {
+    "category": "metallic",
+    "name": "Steel Blue",
+    "code": "#4682B4"
+  },
+  {
+    "category": "metallic",
+    "name": "Titanium White",
+    "code": "#EAEAEA"
+  },
+  {
+    "category": "metallic",
+    "name": "Graphite Grey",
+    "code": "#474A51"
+  },
+  {
+    "category": "metallic",
+    "name": "Pearl Glow",
+    "code": "#F8F6F0"
+  },
+  {
+    "category": "metallic",
+    "name": "Rust Iron",
+    "code": "#B7410E"
+  },
+  {
+    "category": "metallic",
+    "name": "Silver Frost",
+    "code": "#E1E1E1"
+  },
+  {
+    "category": "metallic",
+    "name": "Charcoal Metal",
+    "code": "#36454F"
+  },
+  {
+    "category": "metallic",
+    "name": "Golden Beam",
+    "code": "#FFD700"
+  },
+  {
+    "category": "metallic",
+    "name": "Platinum Dust",
+    "code": "#E5E4E2"
+  },
+  {
+    "category": "metallic",
+    "name": "Cobalt Steel",
+    "code": "#3D59AB"
+  },
+  {
+    "category": "metallic",
+    "name": "Zinc Shadow",
+    "code": "#7F7F7F"
+  },
+  {
+    "category": "metallic",
+    "name": "Alloy Grey",
+    "code": "#6E7F80"
+  },
+  {
+    "category": "metallic",
+    "name": "Tarnished Silver",
+    "code": "#A9A9A9"
+  },
+  {
+    "category": "metallic",
+    "name": "Gilded Bronze",
+    "code": "#996515"
+  },
+  {
+    "category": "metallic",
+    "name": "Frosted Chrome",
+    "code": "#B0C4DE"
+  },
+  {
+    "category": "metallic",
+    "name": "Silver Pearl",
+    "code": "#C9C0BB"
+  },
+  {
+    "category": "metallic",
+    "name": "Mercury Flash",
+    "code": "#D9D6CF"
+  },
+  {
+    "category": "metallic",
+    "name": "Shadow Alloy",
+    "code": "#5A5A5A"
+  },
+  {
+    "category": "metallic",
+    "name": "Iron Dust",
+    "code": "#B2BEB5"
+  },
+  {
+    "category": "metallic",
+    "name": "Plated Brass",
+    "code": "#B5A642"
+  },
+  {
+    "category": "metallic",
+    "name": "Copper Gleam",
+    "code": "#DA8A67"
+  },
+  {
+    "category": "metallic",
+    "name": "Silver Rose",
+    "code": "#C4AEAD"
+  },
+  {
+    "category": "metallic",
+    "name": "Chrome Glint",
+    "code": "#D1D0CE"
+  },
+  {
+    "category": "metallic",
+    "name": "Golden Alloy",
+    "code": "#FFD700"
+  },
+  {
+    "category": "metallic",
+    "name": "Matte Steel",
+    "code": "#9A9A9A"
+  },
+  {
+    "category": "metallic",
+    "name": "Vintage Bronze",
+    "code": "#665D1E"
+  },
+  {
+    "category": "metallic",
+    "name": "Pearlescent White",
+    "code": "#FDFDFF"
+  },
+  {
+    "category": "metallic",
+    "name": "Satin Platinum",
+    "code": "#CECECE"
+  },
+  {
+    "category": "metallic",
+    "name": "Steel Mist",
+    "code": "#A2A2A2"
+  },
+  {
+    "category": "metallic",
+    "name": "Shiny Nickel",
+    "code": "#BFBFBF"
+  },
+  {
+    "category": "metallic",
+    "name": "Bright Pewter",
+    "code": "#BFC1C2"
+  },
+  {
+    "category": "metallic",
+    "name": "Iron Glow",
+    "code": "#9B9B9B"
+  },
+  {
+    "category": "metallic",
+    "name": "Metal Cloud",
+    "code": "#D3D3D3"
+  },
+  {
+    "category": "metallic",
+    "name": "Golden Sand",
+    "code": "#ECD540"
+  },
+  {
+    "category": "metallic",
+    "name": "Rose Metal",
+    "code": "#B76E79"
+  },
+  {
+    "category": "metallic",
+    "name": "Steel Veil",
+    "code": "#BCC6CC"
+  },
+  {
+    "category": "metallic",
+    "name": "Dark Pewter",
+    "code": "#8E8E8E"
+  },
+  {
+    "category": "metallic",
+    "name": "Moonlight Steel",
+    "code": "#E3E4FA"
+  },
+  {
+    "category": "pastel",
+    "name": "Lavender Breeze",
+    "code": "#E6E6FA"
+  },
+  {
+    "category": "pastel",
+    "name": "Blush Rose",
+    "code": "#FADADD"
+  },
+  {
+    "category": "pastel",
+    "name": "Mint Whisper",
+    "code": "#D0F0C0"
+  },
+  {
+    "category": "pastel",
+    "name": "Sky Veil",
+    "code": "#B0E0E6"
+  },
+  {
+    "category": "pastel",
+    "name": "Peach Mist",
+    "code": "#FFE5B4"
+  },
+  {
+    "category": "pastel",
+    "name": "Cloud Pearl",
+    "code": "#F5F5F5"
+  },
+  {
+    "category": "pastel",
+    "name": "Bluebell Frost",
+    "code": "#A2C2E2"
+  },
+  {
+    "category": "pastel",
+    "name": "Lilac Ash",
+    "code": "#D8BFD8"
+  },
+  {
+    "category": "pastel",
+    "name": "Pale Rose",
+    "code": "#F3E2E4"
+  },
+  {
+    "category": "pastel",
+    "name": "Iced Lavender",
+    "code": "#C7A0D3"
+  },
+  {
+    "category": "pastel",
+    "name": "Cotton Candy",
+    "code": "#FFB3DE"
+  },
+  {
+    "category": "pastel",
+    "name": "Soft Mint",
+    "code": "#A8E6CF"
+  },
+  {
+    "category": "pastel",
+    "name": "Sugar Plum",
+    "code": "#D1A1D0"
+  },
+  {
+    "category": "pastel",
+    "name": "Creamy Peach",
+    "code": "#FFDAB9"
+  },
+  {
+    "category": "pastel",
+    "name": "Frozen Blue",
+    "code": "#A2D8F7"
+  },
+  {
+    "category": "pastel",
+    "name": "Lemon Sorbet",
+    "code": "#FFFACD"
+  },
+  {
+    "category": "pastel",
+    "name": "Pastel Pink",
+    "code": "#F4C7D9"
+  },
+  {
+    "category": "pastel",
+    "name": "Opal Glow",
+    "code": "#C4C4C4"
+  },
+  {
+    "category": "pastel",
+    "name": "Seafoam Green",
+    "code": "#9FE2BF"
+  },
+  {
+    "category": "pastel",
+    "name": "Cotton Cloud",
+    "code": "#FFFFFF"
+  },
+  {
+    "category": "pastel",
+    "name": "Blushed Pink",
+    "code": "#F4D1D1"
+  },
+  {
+    "category": "pastel",
+    "name": "Lime Light",
+    "code": "#D3E6A1"
+  },
+  {
+    "category": "pastel",
+    "name": "Champagne Mist",
+    "code": "#F7E7CE"
+  },
+  {
+    "category": "pastel",
+    "name": "Frozen Mint",
+    "code": "#C5E8B2"
+  },
+  {
+    "category": "pastel",
+    "name": "Peach Glow",
+    "code": "#FDE4B0"
+  },
+  {
+    "category": "pastel",
+    "name": "Light Coral",
+    "code": "#F5A7A7"
+  },
+  {
+    "category": "pastel",
+    "name": "Twilight Sky",
+    "code": "#E0BBE4"
+  },
+  {
+    "category": "pastel",
+    "name": "Soft Butter",
+    "code": "#FFF1A6"
+  },
+  {
+    "category": "pastel",
+    "name": "Soft Lilac",
+    "code": "#D9B3E6"
+  },
+  {
+    "category": "pastel",
+    "name": "Vanilla Creme",
+    "code": "#F5F5DC"
+  },
+  {
+    "category": "pastel",
+    "name": "Ballet Slippers",
+    "code": "#F7D4D0"
+  },
+  {
+    "category": "pastel",
+    "name": "Lavender Fields",
+    "code": "#E6DAF1"
+  },
+  {
+    "category": "pastel",
+    "name": "Morning Dew",
+    "code": "#A6D1E6"
+  },
+  {
+    "category": "pastel",
+    "name": "Cotton Fog",
+    "code": "#C0D6D1"
+  },
+  {
+    "category": "pastel",
+    "name": "Peachy Dream",
+    "code": "#FFD3B6"
+  },
+  {
+    "category": "pastel",
+    "name": "Sea Breeze",
+    "code": "#B2D6C1"
+  },
+  {
+    "category": "pastel",
+    "name": "Pastel Aqua",
+    "code": "#99E0D5"
+  },
+  {
+    "category": "pastel",
+    "name": "Rosewater Mist",
+    "code": "#F6C4D0"
+  },
+  {
+    "category": "pastel",
+    "name": "Frozen Pear",
+    "code": "#B1E3C9"
+  },
+  {
+    "category": "pastel",
+    "name": "Misty Coral",
+    "code": "#F6C3D4"
+  },
+  {
+    "category": "pastel",
+    "name": "Light Blueberry",
+    "code": "#C8D9FF"
+  },
+  {
+    "category": "pastel",
+    "name": "Iced Lemonade",
+    "code": "#FFF9C4"
+  },
+  {
+    "category": "pastel",
+    "name": "Baby Peach",
+    "code": "#FFECB3"
+  },
+  {
+    "category": "pastel",
+    "name": "Minty Fresh",
+    "code": "#C4E4D6"
+  },
+  {
+    "category": "pastel",
+    "name": "Sugar Frost",
+    "code": "#D3B6FF"
+  },
+  {
+    "category": "pastel",
+    "name": "Pale Coral",
+    "code": "#FAD8B5"
+  },
+  {
+    "category": "pastel",
+    "name": "Rose Quartz",
+    "code": "#F7C7D1"
+  },
+  {
+    "category": "pastel",
+    "name": "Light Lavender Mist",
+    "code": "#E8D1F2"
+  },
+  {
+    "category": "pastel",
+    "name": "Aquamarine Dream",
+    "code": "#A6D6D6"
+  },
+  {
+    "category": "pastel",
+    "name": "Pale Yellow Glow",
+    "code": "#FAEBD7"
+  },
+  {
+    "category": "pastel",
+    "name": "Floral Breeze",
+    "code": "#F0E0E6"
+  },
+  {
+    "category": "pastel",
+    "name": "Lilac Frost",
+    "code": "#D9C8F1"
+  },
+  {
+    "category": "pastel",
+    "name": "Creamy Sky",
+    "code": "#E4D1A6"
+  },
+  {
+    "category": "pastel",
+    "name": "Cloudy Morning",
+    "code": "#C4D1E0"
+  },
+  {
+    "category": "other",
+    "name": "Dark Horizon",
+    "code": "#6A629B"
+  },
+  {
+    "category": "other",
+    "name": "Coral Pulse",
+    "code": "#FF6B6B"
+  },
+  {
+    "category": "other",
+    "name": "Lagoon Glass",
+    "code": "#2EC4B6"
+  },
+  {
+    "category": "other",
+    "name": "Citrus Pop",
+    "code": "#F4D35E"
+  },
+  {
+    "category": "other",
+    "name": "Ink Bloom",
+    "code": "#25324B"
+  },
+  {
+    "category": "other",
+    "name": "Moss Trail",
+    "code": "#718355"
+  },
+  {
+    "category": "other",
+    "name": "Berry Soda",
+    "code": "#B24C63"
+  },
+  {
+    "category": "other",
+    "name": "Apricot Jam",
+    "code": "#F4A261"
+  },
+  {
+    "category": "other",
+    "name": "Arctic Signal",
+    "code": "#5BC0EB"
+  },
+  {
+    "category": "other",
+    "name": "Solar Flare",
+    "code": "#F9C74F"
+  },
+  {
+    "category": "other",
+    "name": "Plum Ink",
+    "code": "#432818"
+  },
+  {
+    "category": "jewel",
+    "name": "Cobalt Flame",
+    "code": "#0047AB"
+  },
+  {
+    "category": "jewel",
+    "name": "Ruby Eclipse",
+    "code": "#8E0E2F"
+  },
+  {
+    "category": "jewel",
+    "name": "Teal Sapphire",
+    "code": "#006D77"
+  },
+  {
+    "category": "jewel",
+    "name": "Amethyst Pulse",
+    "code": "#563D7C"
+  },
+  {
+    "category": "jewel",
+    "name": "Verdant Crown",
+    "code": "#1B6B50"
+  },
+  {
+    "category": "metallic",
+    "name": "Copper Dusk",
+    "code": "#B87333"
+  },
+  {
+    "category": "metallic",
+    "name": "Rose Alloy",
+    "code": "#C08081"
+  },
+  {
+    "category": "metallic",
+    "name": "Champagne Gold",
+    "code": "#D6B36A"
+  },
+  {
+    "category": "metallic",
+    "name": "Graphite Shine",
+    "code": "#4B5056"
+  },
+  {
+    "category": "metallic",
+    "name": "Aqua Chrome",
+    "code": "#8CCEDB"
+  },
+  {
+    "category": "pastel",
+    "name": "Blueberry Milk",
+    "code": "#B8C6E8"
+  },
+  {
+    "category": "pastel",
+    "name": "Pistachio Cream",
+    "code": "#CDE8B5"
+  },
+  {
+    "category": "pastel",
+    "name": "Apricot Veil",
+    "code": "#F8C8A8"
+  },
+  {
+    "category": "pastel",
+    "name": "Periwinkle Haze",
+    "code": "#BFC7F2"
+  },
+  {
+    "category": "pastel",
+    "name": "Powder Coral",
+    "code": "#F2B5A7"
+  },
+  {
+    "category": "other",
+    "name": "Mossy Stone",
+    "code": "#687259"
+  },
+  {
+    "category": "other",
+    "name": "Electric Tangerine",
+    "code": "#F97316"
+  },
+  {
+    "category": "other",
+    "name": "Rainy Harbor",
+    "code": "#537895"
+  },
+  {
+    "category": "other",
+    "name": "Wild Fig",
+    "code": "#633A58"
+  },
+  {
+    "category": "other",
+    "name": "Lime Circuit",
+    "code": "#A7C957"
+  }
 ]

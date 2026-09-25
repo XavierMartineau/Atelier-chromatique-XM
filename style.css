@@ -577,7 +577,7 @@ h1 {
 .generated-palette,
 .image-result {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
   min-height: 84px;
 }
@@ -592,6 +592,40 @@ h1 {
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
     var(--shadow);
 }
+.generated-history {
+  margin-top: 14px;
+}
+.history-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+.history-heading .tool-kicker {
+  font-size: 0.58rem;
+}
+.history-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+.history-palette {
+  min-width: 0;
+  height: 24px;
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  border-radius: 7px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.history-palette:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 32%, transparent);
+}
 .clear-image-btn {
   white-space: nowrap;
 }
@@ -599,6 +633,7 @@ h1 {
 .image-color {
   border: 0;
   appearance: none;
+  min-width: 0;
   min-height: 84px;
   border-radius: 10px;
   display: flex;
@@ -607,6 +642,8 @@ h1 {
   color: white;
   font-size: 0.67rem;
   font-weight: 700;
+  overflow: hidden;
+  overflow-wrap: anywhere;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   cursor: pointer;
   transition: transform 0.2s ease;

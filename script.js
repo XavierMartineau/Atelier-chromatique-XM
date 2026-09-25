@@ -315,15 +315,53 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const generatedPalette = document.querySelector("#generated-palette");
   const generatedGradient = document.querySelector("#generated-gradient");
+  const generatedHistory = document.querySelector("#generated-history");
+  const historyList = document.querySelector("#history-list");
   let generatedColors = randomPalette();
+  let paletteHistory = JSON.parse(
+    localStorage.getItem("palette-history") || "[]",
+  ).filter((palette) => Array.isArray(palette) && palette.length === 5);
   const renderGeneratedGradient = () => {
     generatedGradient.style.minHeight = "46px";
     generatedGradient.style.background = `linear-gradient(110deg, ${generatedColors.join(", ")})`;
+  };
+  const renderGeneratedHistory = () => {
+    generatedHistory.hidden = paletteHistory.length === 0;
+    historyList.innerHTML = "";
+    paletteHistory.forEach((palette, index) => {
+      const button = document.createElement("button");
+      button.className = "history-palette";
+      button.type = "button";
+      button.style.background = `linear-gradient(110deg, ${palette.join(", ")})`;
+      button.title = `${currentLanguage === "fr" ? "Restaurer" : "Restore"} ${palette.join(", ")}`;
+      button.setAttribute(
+        "aria-label",
+        `${currentLanguage === "fr" ? "Restaurer la palette" : "Restore palette"} ${index + 1}`,
+      );
+      button.addEventListener("click", () => {
+        generatedColors = [...palette];
+        renderColorStrip(generatedPalette, generatedColors);
+        renderGeneratedGradient();
+        showToast(
+          currentLanguage === "fr" ? "Palette restaurée" : "Palette restored",
+        );
+      });
+      historyList.append(button);
+    });
+  };
+  const rememberGeneratedPalette = (palette) => {
+    paletteHistory = [
+      palette,
+      ...paletteHistory.filter((item) => item.join() !== palette.join()),
+    ].slice(0, 5);
+    localStorage.setItem("palette-history", JSON.stringify(paletteHistory));
+    renderGeneratedHistory();
   };
   document.querySelector("#generate-palette").addEventListener("click", () => {
     generatedColors = randomPalette();
     renderColorStrip(generatedPalette, generatedColors);
     renderGeneratedGradient();
+    rememberGeneratedPalette(generatedColors);
     showToast(
       currentLanguage === "fr"
         ? "Une nouvelle palette vient d’apparaître"
@@ -344,6 +382,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   renderColorStrip(generatedPalette, generatedColors);
   renderGeneratedGradient();
+  rememberGeneratedPalette(generatedColors);
 
   const imageInput = document.querySelector("#image-input");
   const imageResult = document.querySelector("#image-result");
@@ -704,7 +743,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .classList.toggle("is-visible", visible === 0);
   };
 
-  document.querySelector("#total-colors").textContent = cards.length;
+  document.querySelector("#total-colors").textContent = paletteData.length;
   search.addEventListener("input", updateResults);
   document.querySelector("#surprise-btn").addEventListener("click", () => {
     const visibleCards = cards.filter(
