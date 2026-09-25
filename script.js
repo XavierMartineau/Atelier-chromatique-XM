@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const response = await fetch("colors.json");
+  const response = await fetch(`colors.json?version=${Date.now()}`, {
+    cache: "no-store",
+  });
   if (!response.ok) throw new Error("Impossible de charger colors.json");
   const paletteData = await response.json();
   const paletteList = document.querySelector("#palette-list");
@@ -1269,14 +1271,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       navLinks.classList.remove("show");
     });
   });
-  document.querySelector("#top-surprise").addEventListener("click", () => {
-    const panel = document.querySelector(".random-tool");
-    if (panel.classList.contains("is-collapsed"))
-      panel.querySelector(".panel-toggle")?.click();
-    panel.scrollIntoView({ behavior: "smooth", block: "center" });
-    document.querySelector("#generate-palette").click();
-  });
-
   document.querySelectorAll(".tool-panel, .manual-builder").forEach((panel) => {
     const heading = panel.classList.contains("manual-builder")
       ? panel.firstElementChild

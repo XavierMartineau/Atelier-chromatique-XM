@@ -918,5 +918,125 @@
     "category": "other",
     "name": "Lime Circuit",
     "code": "#A7C957"
+  },
+  {
+    "category": "jewel",
+    "name": "Sapphire Storm",
+    "code": "#123C69"
+  },
+  {
+    "category": "jewel",
+    "name": "Rosewood Ruby",
+    "code": "#7B1E3A"
+  },
+  {
+    "category": "jewel",
+    "name": "Malachite Glow",
+    "code": "#0B7A53"
+  },
+  {
+    "category": "jewel",
+    "name": "Imperial Indigo",
+    "code": "#312E81"
+  },
+  {
+    "category": "jewel",
+    "name": "Garnet Night",
+    "code": "#4C102A"
+  },
+  {
+    "category": "jewel",
+    "name": "Turquoise Crown",
+    "code": "#007C91"
+  },
+  {
+    "category": "metallic",
+    "name": "Antique Brass",
+    "code": "#A88932"
+  },
+  {
+    "category": "metallic",
+    "name": "Silver Dust",
+    "code": "#AEB7C2"
+  },
+  {
+    "category": "metallic",
+    "name": "Bronze Ember",
+    "code": "#8C5A3C"
+  },
+  {
+    "category": "metallic",
+    "name": "Platinum Mist",
+    "code": "#D9E1E8"
+  },
+  {
+    "category": "metallic",
+    "name": "Titanium Blue",
+    "code": "#667C99"
+  },
+  {
+    "category": "metallic",
+    "name": "Golden Hour",
+    "code": "#D4A017"
+  },
+  {
+    "category": "pastel",
+    "name": "Dusted Lilac",
+    "code": "#C9B7E8"
+  },
+  {
+    "category": "pastel",
+    "name": "Milk Tea",
+    "code": "#E8D3B9"
+  },
+  {
+    "category": "pastel",
+    "name": "Soft Pistachio",
+    "code": "#D7E8B2"
+  },
+  {
+    "category": "pastel",
+    "name": "Powder Blue",
+    "code": "#B7D7F0"
+  },
+  {
+    "category": "pastel",
+    "name": "Peony Mist",
+    "code": "#F1C1D2"
+  },
+  {
+    "category": "pastel",
+    "name": "Lemon Cream",
+    "code": "#FFF0B5"
+  },
+  {
+    "category": "other",
+    "name": "Volcanic Ash",
+    "code": "#4A4E55"
+  },
+  {
+    "category": "other",
+    "name": "Tropical Punch",
+    "code": "#E85D75"
+  },
+  {
+    "category": "other",
+    "name": "Deep Lagoon",
+    "code": "#135D66"
+  },
+  {
+    "category": "other",
+    "name": "Canyon Clay",
+    "code": "#B45A3C"
+  },
+  {
+    "category": "other",
+    "name": "Neon Fern",
+    "code": "#56C596"
+  },
+  {
+    "category": "other",
+    "name": "Midnight Plum",
+    "code": "#35214F"
   }
 ]
