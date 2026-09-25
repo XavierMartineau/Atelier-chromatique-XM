@@ -1259,6 +1259,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.querySelector(".nav-toggle").addEventListener("click", () => {
     navLinks.classList.toggle("show");
   });
+  const homeLogo = document.querySelector("#home-logo");
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  homeLogo.addEventListener("click", scrollToTop);
+  homeLogo.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      scrollToTop();
+    }
+  });
   document.querySelectorAll(".nav-links a").forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();

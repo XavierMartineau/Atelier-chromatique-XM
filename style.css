@@ -242,6 +242,12 @@ button {
   font-weight: 700;
   white-space: nowrap;
   letter-spacing: -0.03em;
+  cursor: pointer;
+}
+.nav-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+  border-radius: 6px;
 }
 .nav-logo > span:first-child {
   color: var(--accent);
