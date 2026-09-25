@@ -9,6 +9,7 @@ Atelier Chromatique est une galerie interactive de couleurs avec une direction v
 - Recherche par nom ou par code hexadecimal
 - Copie d'une couleur en cliquant sur une pastille
 - Favoris sauvegardes dans le navigateur
+- Zone de favoris affichee en haut de la page
 - Generateur de palettes aleatoires
 - Extraction des couleurs dominantes d'une image locale
 - Selection manuelle de couleurs pour creer sa propre palette
@@ -16,10 +17,17 @@ Atelier Chromatique est une galerie interactive de couleurs avec une direction v
 - Theme neon futuriste avec animations et effets lumineux
 - Interface responsive pour PC, portable, tablette et telephone
 - Interface disponible en francais et en anglais
+- Connexion locale optionnelle avec nom d'utilisateur, mot de passe et option de memorisation
 
 ## Utilisation
 
-Ouvre [index.html](index.html) dans un navigateur moderne.
+Lance un petit serveur local depuis le dossier du projet :
+
+```powershell
+python -m http.server 8000
+```
+
+Puis ouvre <http://localhost:8000> dans un navigateur moderne. Le serveur est nécessaire pour charger correctement `colors.json`.
 
 Dans le site :
 
@@ -31,10 +39,13 @@ Dans le site :
 
 Les images importees sont analysees directement dans le navigateur et ne sont envoyees vers aucun serveur.
 
+Le compte est volontairement local : le nom d'utilisateur et le mot de passe hache sont conserves dans le navigateur utilise. Il ne s'agit pas d'une authentification serveur et les donnees ne sont pas partagees entre appareils.
+
 ## Structure
 
 ```text
-index.html   Interface principale et catalogue de couleurs
+index.html   Interface principale
+colors.json  Catalogue des noms, catégories et codes couleurs
 style.css    Theme neon, responsive et animations
 script.js    Recherche, favoris, export, Studio et interactions
 README.md    Documentation du projet
@@ -47,6 +58,20 @@ README.md    Documentation du projet
 - JavaScript natif
 - Canvas API pour l'analyse des images
 - LocalStorage pour les favoris, le theme et la langue
+
+## Modifier le catalogue
+
+Pour ajouter ou modifier une couleur, ouvre `colors.json` et change une entrée :
+
+```json
+{
+  "category": "other",
+  "name": "Neon Lime",
+  "code": "#B7FF00"
+}
+```
+
+Les catégories disponibles sont `jewel`, `metallic`, `pastel` et `other`.
 
 ## Credit
 

@@ -1,4 +1,49 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  const response = await fetch("colors.json");
+  if (!response.ok) throw new Error("Impossible de charger colors.json");
+  const paletteData = await response.json();
+  const paletteList = document.querySelector("#palette-list");
+  const paletteLabels = {
+    jewel: {
+      fr: "Palette 1 : Tons bijoux majestueux",
+      en: "Palette 1: Majestic Jewel Tones",
+    },
+    metallic: {
+      fr: "Palette 2 : Élégance métallique royale",
+      en: "Palette 2: Royal Metallic Elegance",
+    },
+    pastel: {
+      fr: "Palette 3 : Pastels royaux délicats",
+      en: "Palette 3: Soft Pastel Royals",
+    },
+    other: { fr: "Palette 4 : Autres", en: "Palette 4: Other" },
+  };
+
+  Object.entries(paletteLabels).forEach(([category, labels]) => {
+    const section = document.createElement("section");
+    section.className = "palette";
+    section.id = category;
+    const title = document.createElement("h2");
+    title.dataset.fr = labels.fr;
+    title.dataset.en = labels.en;
+    title.textContent = labels.fr;
+    const colors = document.createElement("div");
+    colors.className = `colors ${category}`;
+    paletteData
+      .filter((color) => color.category === category)
+      .forEach(({ name, code }) => {
+        const card = document.createElement("div");
+        card.dataset.name = name;
+        const codeElement = document.createElement("span");
+        codeElement.dataset.code = code;
+        codeElement.textContent = code;
+        card.append(codeElement);
+        colors.append(card);
+      });
+    section.append(title, colors);
+    paletteList.append(section);
+  });
+
   const cards = [...document.querySelectorAll(".colors > div")];
   const sections = [...document.querySelectorAll(".palette")];
   const search = document.querySelector("#color-search");
@@ -7,9 +52,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const favorites = new Set(
     JSON.parse(localStorage.getItem("palette-favorites") || "[]"),
   );
+  let accountProfile = JSON.parse(
+    localStorage.getItem("palette-account") || "null",
+  );
+  let accountSession = localStorage.getItem("palette-session");
+  if (!accountProfile || accountProfile.username !== accountSession) {
+    accountSession = null;
+    localStorage.removeItem("palette-session");
+  }
   let currentLanguage = localStorage.getItem("palette-language") || "fr";
   const manualSelection = new Map();
   let manualMode = false;
+  let favoritesCollapsed = false;
   let toastTimer;
 
   const applyLanguage = (language) => {
@@ -23,7 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
       input.dataset[`placeholder${language === "fr" ? "Fr" : "En"}`];
     document.querySelector("#language-toggle").textContent =
       language === "fr" ? "EN" : "FR";
+    refreshAccountButton();
     localStorage.setItem("palette-language", language);
+  };
+
+  const refreshAccountButton = () => {
+    const button = document.querySelector("#account-toggle");
+    button.textContent =
+      accountSession || (currentLanguage === "fr" ? "Se connecter" : "Sign in");
+    button.title = accountSession
+      ? currentLanguage === "fr"
+        ? "Se déconnecter"
+        : "Sign out"
+      : currentLanguage === "fr"
+        ? "Créer ou ouvrir un compte local"
+        : "Create or open a local account";
   };
 
   const showToast = (message) => {
@@ -138,6 +206,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const renderFavorites = () => {
+    const dock = document.querySelector("#favorites-dock");
+    const container = document.querySelector("#favorite-colors");
+    const count = document.querySelector("#favorites-count");
+    const favoriteCards = cards.filter((card) =>
+      favorites.has(card.dataset.favoriteKey),
+    );
+    dock.hidden = favoriteCards.length === 0;
+    dock.classList.toggle("is-collapsed", favoritesCollapsed && favoriteCards.length > 0);
+    count.textContent =
+      currentLanguage === "fr"
+        ? `${favoriteCards.length} couleur${favoriteCards.length > 1 ? "s" : ""}`
+        : `${favoriteCards.length} color${favoriteCards.length > 1 ? "s" : ""}`;
+    container.innerHTML = "";
+    favoriteCards.forEach((card) => {
+      const code = card.querySelector("[data-code]").dataset.code.toUpperCase();
+      const chip = document.createElement("button");
+      chip.className = "favorite-color";
+      chip.type = "button";
+      chip.style.backgroundColor = code;
+      chip.textContent = code;
+      chip.title = currentLanguage === "fr" ? `Copier ${code}` : `Copy ${code}`;
+      chip.addEventListener("click", () => copyText(code));
+      container.append(chip);
+    });
+  };
+
+  document.querySelector("#favorites-toggle").addEventListener("click", () => {
+    favoritesCollapsed = !favoritesCollapsed;
+    const dock = document.querySelector("#favorites-dock");
+    const toggle = document.querySelector("#favorites-toggle");
+    dock.classList.toggle("is-collapsed", favoritesCollapsed);
+    toggle.setAttribute("aria-expanded", String(!favoritesCollapsed));
+    toggle.setAttribute("aria-label", favoritesCollapsed ? "Ouvrir les favoris" : "Fermer les favoris");
+    toggle.textContent = favoritesCollapsed ? "⌄" : "⌃";
+  });
+
   const generatedPalette = document.querySelector("#generated-palette");
   document.querySelector("#generate-palette").addEventListener("click", () => {
     renderColorStrip(generatedPalette, randomPalette());
@@ -231,6 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
       else favorites.add(key);
       favorite.classList.toggle("is-favorite", favorites.has(key));
       localStorage.setItem("palette-favorites", JSON.stringify([...favorites]));
+      renderFavorites();
       showToast(
         favorites.has(key)
           ? `${name} ajouté aux favoris`
@@ -238,7 +344,109 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
     card.dataset.index = index;
+    card.dataset.favoriteKey = `${name}-${code}`;
     card.style.setProperty("--card-index", index % 12);
+  });
+  renderFavorites();
+
+  const accountDialog = document.querySelector("#account-dialog");
+  const accountForm = document.querySelector("#account-form");
+  const accountFeedback = document.querySelector("#account-feedback");
+  const panda = document.querySelector("#panda");
+  const usernameInput = document.querySelector("#account-username");
+  const passwordInput = document.querySelector("#account-password");
+  usernameInput.addEventListener("focus", () => {
+    panda.classList.add("is-watching");
+    panda.classList.remove("is-password");
+  });
+  passwordInput.addEventListener("focus", () => {
+    panda.classList.add("is-password");
+    panda.classList.remove("is-watching");
+  });
+  const hashPassword = async (password) => {
+    const bytes = new TextEncoder().encode(password);
+    if (globalThis.crypto?.subtle) {
+      const digest = await crypto.subtle.digest("SHA-256", bytes);
+      return [...new Uint8Array(digest)]
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
+    }
+    let hash = 2166136261;
+    bytes.forEach((byte) => {
+      hash ^= byte;
+      hash = Math.imul(hash, 16777619);
+    });
+    return (hash >>> 0).toString(16).padStart(8, "0");
+  };
+  const updateAccountDialog = () => {
+    const hasProfile = Boolean(accountProfile);
+    document.querySelector("#account-title").textContent = hasProfile
+      ? currentLanguage === "fr"
+        ? "Ouvrir ma session"
+        : "Sign in"
+      : currentLanguage === "fr"
+        ? "Créer un compte local"
+        : "Create a local account";
+    document.querySelector("#account-submit").textContent = hasProfile
+      ? currentLanguage === "fr"
+        ? "Se connecter"
+        : "Sign in"
+      : currentLanguage === "fr"
+        ? "Créer mon compte"
+        : "Create my account";
+    document.querySelector("#account-password").autocomplete = hasProfile
+      ? "current-password"
+      : "new-password";
+  };
+  document.querySelector("#account-toggle").addEventListener("click", () => {
+    if (accountSession) {
+      accountSession = null;
+      localStorage.removeItem("palette-session");
+      refreshAccountButton();
+      showToast(currentLanguage === "fr" ? "Session fermée" : "Signed out");
+      return;
+    }
+    accountForm.reset();
+    accountFeedback.textContent = "";
+    updateAccountDialog();
+    accountDialog.showModal();
+  });
+  document
+    .querySelector("#account-cancel")
+    .addEventListener("click", () => accountDialog.close());
+  accountForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const username = document.querySelector("#account-username").value.trim();
+    const passwordHash = await hashPassword(
+      document.querySelector("#account-password").value,
+    );
+    if (!accountProfile) {
+      accountProfile = { username, passwordHash };
+      localStorage.setItem("palette-account", JSON.stringify(accountProfile));
+    } else if (
+      username !== accountProfile.username ||
+      passwordHash !== accountProfile.passwordHash
+    ) {
+      accountFeedback.textContent =
+        currentLanguage === "fr"
+          ? "Nom d’utilisateur ou mot de passe incorrect."
+          : "Incorrect username or password.";
+      return;
+    }
+    if (document.querySelector("#remember-account").checked) {
+      accountSession = username;
+      localStorage.setItem("palette-session", username);
+    } else {
+      accountSession = null;
+      localStorage.removeItem("palette-session");
+    }
+    refreshAccountButton();
+    accountDialog.close();
+    showToast(
+      currentLanguage === "fr"
+        ? `Bienvenue ${username}`
+        : `Welcome ${username}`,
+    );
   });
 
   document.querySelector("#manual-toggle").addEventListener("click", () => {
