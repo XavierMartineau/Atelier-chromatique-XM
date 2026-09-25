@@ -101,18 +101,18 @@
             Collection 01 · Curated colors
           </div>
           <h1
-            data-fr="Des couleurs qui donnent le ton."
+            data-fr="Des couleurs qui donnent envie de décorer."
             data-en="Colors that set the mood."
           >
-            Des couleurs qui donnent le ton.
+            Des couleurs qui donnent envie de décorer.
           </h1>
           <p
             class="hero-copy"
-            data-fr="Explorez une collection de teintes royales, trouvez l’accord juste et composez une palette qui a du caractère."
+            data-fr="Explorez des couleurs inspirantes, trouvez l’harmonie parfaite et composez une palette qui vous ressemble."
             data-en="Explore a collection of royal shades, find the right match and build a palette with character."
           >
-            Explorez une collection de teintes royales, trouvez l’accord juste
-            et composez une palette qui a du caractère.
+            Explorez des couleurs inspirantes, trouvez l’harmonie parfaite et
+            composez une palette qui vous ressemble.
           </p>
         </div>
         <div class="hero-note">
@@ -244,13 +244,13 @@
             </div>
             <div class="tool-actions">
               <button
-                class="outline-btn ai-palette-btn"
-                id="ai-palette-toggle"
+                class="outline-btn"
+                id="copy-generated-palette"
                 type="button"
-                data-fr="✦ Décrire"
-                data-en="✦ Describe"
+                data-fr="Copier"
+                data-en="Copy"
               >
-                ✦ Décrire
+                Copier
               </button>
               <button
                 class="primary-btn"
@@ -259,6 +259,17 @@
                 data-en="✦ Generate"
               >
                 ✦ Générer
+              </button>
+              <button
+                class="outline-btn"
+                id="gradient-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="generated-gradient"
+                data-fr="◈ Dégradé"
+                data-en="◈ Gradient"
+              >
+                ◈ Dégradé
               </button>
             </div>
           </div>
@@ -270,45 +281,12 @@
               nouvelle idée.</span
             >
           </p>
-          <form class="ai-palette-form" id="ai-palette-form" hidden>
-            <label
-              for="ai-palette-prompt"
-              data-fr="Décris la palette souhaitée"
-              data-en="Describe the palette you want"
-            >
-              Décris la palette souhaitée
-            </label>
-            <div class="ai-palette-fields">
-              <input
-                id="ai-palette-prompt"
-                type="text"
-                required
-                autocomplete="off"
-                data-placeholder-fr="Ex. une palette sombre avec du bleu et du vert"
-                data-placeholder-en="e.g. a dark palette with blue and green"
-                placeholder="Ex. une palette sombre avec du bleu et du vert"
-              />
-              <button
-                class="primary-btn"
-                type="submit"
-                data-fr="Trouver"
-                data-en="Find"
-              >
-                Trouver
-              </button>
-            </div>
-            <p
-              class="ai-palette-status"
-              id="ai-palette-status"
-              role="status"
-              aria-live="polite"
-            ></p>
-          </form>
           <div
             class="generated-palette"
             id="generated-palette"
             aria-live="polite"
           ></div>
+          <div class="generated-gradient" id="generated-gradient" hidden></div>
         </div>
         <div class="tool-panel image-tool">
           <div class="tool-heading">
@@ -330,6 +308,16 @@
               data-en="⌁ Upload"
               >⌁ Importer</label
             >
+            <button
+              class="outline-btn clear-image-btn"
+              id="clear-image"
+              type="button"
+              hidden
+              data-fr="× Supprimer"
+              data-en="× Remove"
+            >
+              × Supprimer
+            </button>
             <input id="image-input" type="file" accept="image/*" />
           </div>
           <p class="tool-description">

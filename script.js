@@ -75,10 +75,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const input = document.querySelector("#color-search");
     input.placeholder =
       input.dataset[`placeholder${language === "fr" ? "Fr" : "En"}`];
-    const aiPrompt = document.querySelector("#ai-palette-prompt");
-    if (aiPrompt)
-      aiPrompt.placeholder =
-        aiPrompt.dataset[`placeholder${language === "fr" ? "Fr" : "En"}`];
     document.querySelector("#language-toggle").textContent =
       language === "fr" ? "EN" : "FR";
     refreshAccountButton();
@@ -131,64 +127,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const lightness = 30 + Math.floor(Math.random() * 42);
       return hslToHex(hue, saturation, lightness);
     });
-  };
-
-  const normalizeText = (value) =>
-    value
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, " ")
-      .trim();
-
-  const aiPaletteAliases = {
-    rouge: ["red", "crimson", "scarlet", "royal obsidian"],
-    red: ["rouge", "crimson", "scarlet"],
-    bleu: ["blue", "navy", "ocean", "midnight"],
-    bleue: ["blue", "navy", "ocean", "midnight"],
-    blue: ["bleu", "navy", "ocean", "midnight"],
-    vert: ["green", "emerald", "lime"],
-    verte: ["green", "emerald", "lime"],
-    green: ["vert", "emerald", "lime"],
-    violet: ["purple", "violet", "night"],
-    purple: ["violet", "purple", "night"],
-    rose: ["pink", "magenta", "dream"],
-    rosee: ["pink", "magenta", "dream"],
-    pink: ["rose", "magenta", "dream"],
-    jaune: ["yellow", "gold", "lime"],
-    yellow: ["jaune", "gold", "lime"],
-    dore: ["gold", "metallic", "yellow"],
-    orange: ["gold", "crimson"],
-    noir: ["black", "obsidian", "midnight", "shadow"],
-    sombre: ["black", "obsidian", "midnight", "shadow", "night"],
-    dark: ["black", "obsidian", "midnight", "shadow", "night"],
-    pastel: ["pastel"],
-    metallique: ["metallic", "silver", "gold"],
-    metallic: ["metallique", "silver", "gold"],
-    bijou: ["jewel", "royal", "gem"],
-    jewel: ["bijou", "royal", "gem"],
-    royal: ["royal", "jewel", "gem"],
-  };
-
-  const findAiPalette = (prompt) => {
-    const terms = normalizeText(prompt).split(" ").filter(Boolean);
-    return paletteData
-      .map((color) => {
-        const searchable = normalizeText(`${color.name} ${color.category}`);
-        const score = terms.reduce((total, term) => {
-          if (searchable.includes(term)) return total + 3;
-          const aliases = aiPaletteAliases[term] || [];
-          return (
-            total +
-            (aliases.some((alias) => searchable.includes(alias)) ? 2 : 0)
-          );
-        }, 0);
-        return { ...color, score };
-      })
-      .filter((color) => color.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 5)
-      .map(({ code }) => code.toUpperCase());
   };
 
   const hslToHex = (hue, saturation, lightness) => {
@@ -292,8 +230,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       chip.type = "button";
       chip.style.backgroundColor = code;
       chip.textContent = code;
-      chip.title = currentLanguage === "fr" ? `Copier ${code}` : `Copy ${code}`;
-      chip.addEventListener("click", () => copyText(code));
+      chip.title =
+        currentLanguage === "fr"
+          ? `Supprimer ${code} des favoris`
+          : `Remove ${code} from favorites`;
+      chip.setAttribute("aria-label", chip.title);
+      chip.addEventListener("click", () => {
+        favorites.delete(card.dataset.favoriteKey);
+        localStorage.setItem(
+          "palette-favorites",
+          JSON.stringify([...favorites]),
+        );
+        card.querySelector(".favorite-btn")?.classList.remove("is-favorite");
+        renderFavorites();
+        showToast(
+          currentLanguage === "fr"
+            ? `${code} supprimée des favoris`
+            : `${code} removed from favorites`,
+        );
+      });
       container.append(chip);
     });
   };
@@ -312,45 +267,41 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   const generatedPalette = document.querySelector("#generated-palette");
+  const generatedGradient = document.querySelector("#generated-gradient");
+  let generatedColors = randomPalette();
+  const renderGeneratedGradient = () => {
+    generatedGradient.style.minHeight = "46px";
+    generatedGradient.style.background = `linear-gradient(110deg, ${generatedColors.join(", ")})`;
+  };
   document.querySelector("#generate-palette").addEventListener("click", () => {
-    renderColorStrip(generatedPalette, randomPalette());
+    generatedColors = randomPalette();
+    renderColorStrip(generatedPalette, generatedColors);
+    renderGeneratedGradient();
     showToast(
       currentLanguage === "fr"
         ? "Une nouvelle palette vient d’apparaître"
         : "A new palette just appeared",
     );
   });
-  renderColorStrip(generatedPalette, randomPalette());
-
-  const aiPaletteForm = document.querySelector("#ai-palette-form");
-  const aiPalettePrompt = document.querySelector("#ai-palette-prompt");
-  const aiPaletteStatus = document.querySelector("#ai-palette-status");
-  document.querySelector("#ai-palette-toggle").addEventListener("click", () => {
-    aiPaletteForm.hidden = !aiPaletteForm.hidden;
-    if (!aiPaletteForm.hidden) aiPalettePrompt.focus();
+  document
+    .querySelector("#copy-generated-palette")
+    .addEventListener("click", () => copyText(generatedColors.join("\n")));
+  const gradientToggle = document.querySelector("#gradient-toggle");
+  gradientToggle.addEventListener("click", () => {
+    generatedGradient.hidden = !generatedGradient.hidden;
+    gradientToggle.setAttribute(
+      "aria-expanded",
+      String(!generatedGradient.hidden),
+    );
+    if (!generatedGradient.hidden) renderGeneratedGradient();
   });
-  aiPaletteForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const colors = findAiPalette(aiPalettePrompt.value);
-    aiPaletteStatus.classList.remove("is-success", "is-empty");
-    if (!colors.length) {
-      renderColorStrip(generatedPalette, []);
-      aiPaletteStatus.textContent =
-        currentLanguage === "fr"
-          ? "Désolé, je n’ai trouvé aucune couleur correspondante dans le site."
-          : "Sorry, I could not find any matching color on the site.";
-      aiPaletteStatus.classList.add("is-empty");
-      return;
-    }
-    renderColorStrip(generatedPalette, colors);
-    aiPaletteStatus.textContent =
-      currentLanguage === "fr"
-        ? `${colors.length} couleur${colors.length > 1 ? "s" : ""} trouvée${colors.length > 1 ? "s" : ""} dans la collection.`
-        : `${colors.length} color${colors.length > 1 ? "s" : ""} found in the collection.`;
-    aiPaletteStatus.classList.add("is-success");
-  });
+  renderColorStrip(generatedPalette, generatedColors);
+  renderGeneratedGradient();
 
-  document.querySelector("#image-input").addEventListener("change", (event) => {
+  const imageInput = document.querySelector("#image-input");
+  const imageResult = document.querySelector("#image-result");
+  const clearImage = document.querySelector("#clear-image");
+  imageInput.addEventListener("change", (event) => {
     const [file] = event.target.files;
     if (!file) return;
     const image = new Image();
@@ -380,8 +331,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             .map((value) => Number(value).toString(16).padStart(2, "0"))
             .join("")}`.toUpperCase(),
         );
-      const imageResult = document.querySelector("#image-result");
       imageResult.classList.add("has-colors");
+      clearImage.hidden = false;
       imageResult.innerHTML = `<img class="image-preview" src="${URL.createObjectURL(file)}" alt="Image importée" />`;
       renderColorStrip(imageResult, colors);
       showToast(
@@ -391,6 +342,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
     };
     image.src = URL.createObjectURL(file);
+  });
+  clearImage.addEventListener("click", () => {
+    imageInput.value = "";
+    clearImage.hidden = true;
+    imageResult.classList.remove("has-colors");
+    imageResult.innerHTML = `<span data-fr="Aucune image choisie pour le moment." data-en="No image selected yet.">${currentLanguage === "fr" ? "Aucune image choisie pour le moment." : "No image selected yet."}</span>`;
   });
 
   cards.forEach((card, index) => {
