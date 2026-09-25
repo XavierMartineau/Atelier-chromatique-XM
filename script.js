@@ -303,10 +303,63 @@ document.addEventListener("DOMContentLoaded", () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) revealObserver.unobserve(entry.target);
         entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        entry.target
+          .querySelector(".colors")
+          ?.classList.toggle("is-visible", entry.isIntersecting);
       }),
     { threshold: 0.08 },
   );
   sections.forEach((section) => revealObserver.observe(section));
+
+  sections.forEach((section) => {
+    const title = section.querySelector("h2");
+    if (!title) return;
+    const heading = document.createElement("div");
+    heading.className = "palette-heading";
+    const toggle = document.createElement("button");
+    toggle.className = "palette-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute(
+      "aria-label",
+      currentLanguage === "fr" ? "Réduire la palette" : "Collapse palette",
+    );
+    const arrow = document.createElement("span");
+    arrow.className = "palette-arrow";
+    arrow.textContent = "⌃";
+    const hint = document.createElement("span");
+    hint.className = "palette-hint";
+    hint.textContent = currentLanguage === "fr" ? "Fermer" : "Collapse";
+    toggle.title =
+      currentLanguage === "fr"
+        ? "Ouvrir ou fermer la palette"
+        : "Open or close palette";
+    title.parentNode.insertBefore(heading, title);
+    heading.append(toggle);
+    toggle.append(title, hint, arrow);
+    toggle.addEventListener("click", () => {
+      const collapsed = section.classList.toggle("is-collapsed");
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+      arrow.textContent = collapsed ? "⌄" : "⌃";
+      hint.textContent = collapsed
+        ? currentLanguage === "fr"
+          ? "Ouvrir"
+          : "Open"
+        : currentLanguage === "fr"
+          ? "Fermer"
+          : "Collapse";
+      toggle.setAttribute(
+        "aria-label",
+        collapsed
+          ? currentLanguage === "fr"
+            ? "Ouvrir la palette"
+            : "Open palette"
+          : currentLanguage === "fr"
+            ? "Réduire la palette"
+            : "Collapse palette",
+      );
+    });
+  });
 
   const updateResults = () => {
     const query = search.value.trim().toLowerCase();
