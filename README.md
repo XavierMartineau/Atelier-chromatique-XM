@@ -11,7 +11,7 @@ Atelier Chromatique est un studio interactif pour explorer, tester et composer d
 - **Palette surprise** : génération de cinq couleurs selon une harmonie aléatoire, analogue, complémentaire, triadique ou monochromatique ; couleurs verrouillables, aperçu en dégradé et historique restaurable.
 - **Exports avancés** : un menu unique permet de télécharger en PNG, CSS, JSON, configuration Tailwind ou Adobe `.ase`, avec partage par URL.
 - **Couleurs d'une image** : import local et extraction des cinq teintes dominantes via Canvas.
-- **Contraste et filtres** : filtres par catégorie, température, luminosité, saturation et contraste minimum ; résumé AA/AAA et suggestion accessible.
+- **Contraste et filtres** : zone de filtres toujours visible sous la recherche, avec catégorie, température, luminosité, saturation et contraste minimum ; bouton Réinitialiser, résumé AA/AAA et suggestion accessible.
 - **Mode inspiration** : aperçu de la palette en interface, carte ou affiche.
 - **Panneaux indépendants** : chaque outil du Studio et Ton espace s'ouvre ou se ferme séparément, avec une animation fluide.
 - **Accessibilité** : test de contraste, simulations de vision et interface compatible avec `prefers-reduced-motion`.
@@ -37,9 +37,10 @@ Une installation de dépendances n'est pas nécessaire : le projet utilise uniqu
 2. Clique sur une pastille pour copier son code hexadécimal.
 3. Utilise l'étoile pour ajouter une teinte aux favoris.
 4. Active **Sélection manuelle** pour construire une palette personnalisée.
-5. Ouvre le **Studio** pour générer une palette, analyser une image ou contrôler son contraste.
-6. Ouvre le menu **Exporter** pour choisir PNG, CSS, JSON, Tailwind ou ASE.
-7. Clique sur une palette de l'historique pour la restaurer ou sur `×` pour la supprimer.
+5. Utilise directement la zone **Filtres intelligents** pour affiner les résultats, puis **Réinitialiser** pour revenir au catalogue complet.
+6. Ouvre le **Studio** pour générer une palette, analyser une image ou contrôler son contraste.
+7. Ouvre le menu **Exporter** pour choisir PNG, CSS, JSON, Tailwind ou ASE.
+8. Clique sur une palette de l'historique pour la restaurer ou sur `×` pour la supprimer.
 
 Les images sont analysées directement dans le navigateur. Elles ne sont envoyées vers aucun serveur.
 
