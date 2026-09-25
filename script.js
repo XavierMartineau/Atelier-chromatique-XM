@@ -1299,11 +1299,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const toggle = document.createElement("button");
     toggle.className = "panel-toggle";
     toggle.type = "button";
+    const panelKey = panel.classList.contains("manual-builder")
+      ? "manual-builder"
+      : [...panel.classList].find((name) => name.endsWith("-tool")) || "panel";
+    panel.dataset.panelKey = panelKey;
+    toggle.dataset.panelKey = panelKey;
     toggle.textContent = "⌃";
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "Fermer cette section");
     heading.append(toggle);
-    const storageKey = `palette-panel-${panel.classList[1] || "manual"}`;
+    const storageKey = `palette-panel-${panelKey}`;
     const collapsePanel = (collapsed) => {
       panel.classList.toggle("is-collapsed", collapsed);
       toggle.textContent = collapsed ? "⌄" : "⌃";
@@ -1314,9 +1319,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
       localStorage.setItem(storageKey, String(collapsed));
     };
-    toggle.addEventListener("click", () =>
-      collapsePanel(!panel.classList.contains("is-collapsed")),
-    );
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      collapsePanel(!panel.classList.contains("is-collapsed"));
+    });
     if (localStorage.getItem(storageKey) === "true") collapsePanel(true);
   });
 
