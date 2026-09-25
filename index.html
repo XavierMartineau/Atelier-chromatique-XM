@@ -336,6 +336,59 @@
             >
           </div>
         </div>
+        <div class="tool-panel contrast-tool">
+          <div class="tool-heading">
+            <div>
+              <span
+                class="tool-kicker"
+                data-fr="Test d'accessibilité"
+                data-en="Accessibility check"
+                >Test d'accessibilité</span
+              >
+              <h2 data-fr="Contraste lisible" data-en="Readable contrast">
+                Contraste lisible
+              </h2>
+            </div>
+            <button
+              class="outline-btn"
+              id="swap-contrast"
+              type="button"
+              aria-label="Inverser les couleurs"
+              title="Inverser les couleurs"
+            >
+              ⇄
+            </button>
+          </div>
+          <p class="tool-description">
+            <span
+              data-fr="Vérifie si une paire de couleurs reste confortable à lire."
+              data-en="Check whether a color pair stays comfortable to read."
+              >Vérifie si une paire de couleurs reste confortable à lire.</span
+            >
+          </p>
+          <div class="contrast-controls">
+            <label
+              ><span data-fr="Texte" data-en="Text">Texte</span
+              ><input id="contrast-foreground" type="color" value="#16243B"
+            /></label>
+            <label
+              ><span data-fr="Fond" data-en="Background">Fond</span
+              ><input id="contrast-background" type="color" value="#F3F7FB"
+            /></label>
+          </div>
+          <div class="contrast-preview" id="contrast-preview">
+            <strong data-fr="Aa Lisibilité" data-en="Aa Readability"
+              >Aa Lisibilité</strong
+            >
+            <span data-fr="Un texte qui respire." data-en="Text that breathes."
+              >Un texte qui respire.</span
+            >
+          </div>
+          <div class="contrast-result" aria-live="polite">
+            <strong id="contrast-ratio">—</strong>
+            <span id="contrast-status"></span>
+          </div>
+        </div>
       </section>
       <div id="empty-state" class="empty-state">
         <span

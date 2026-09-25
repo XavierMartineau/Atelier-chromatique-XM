@@ -157,6 +157,53 @@ document.addEventListener("DOMContentLoaded", async () => {
       .join("")}`.toUpperCase();
   };
 
+  const contrastRatio = (foreground, background) => {
+    const luminance = (hex) => {
+      const channels = hex
+        .slice(1)
+        .match(/.{2}/g)
+        .map((channel) => parseInt(channel, 16) / 255)
+        .map((channel) =>
+          channel <= 0.03928
+            ? channel / 12.92
+            : ((channel + 0.055) / 1.055) ** 2.4,
+        );
+      return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+    };
+    const light = luminance(foreground);
+    const dark = luminance(background);
+    return (Math.max(light, dark) + 0.05) / (Math.min(light, dark) + 0.05);
+  };
+
+  const updateContrast = () => {
+    const foreground = document.querySelector("#contrast-foreground").value;
+    const background = document.querySelector("#contrast-background").value;
+    const ratio = contrastRatio(foreground, background);
+    const status = document.querySelector("#contrast-status");
+    const passesAA = ratio >= 4.5;
+    const passesAAA = ratio >= 7;
+    document.querySelector("#contrast-preview").style.color = foreground;
+    document.querySelector("#contrast-preview").style.backgroundColor =
+      background;
+    document.querySelector("#contrast-ratio").textContent =
+      `${ratio.toFixed(2)}:1`;
+    status.textContent =
+      currentLanguage === "fr"
+        ? `${passesAAA ? "AAA" : passesAA ? "AA" : "À renforcer"} · ${passesAA ? "Texte courant OK" : "Choisis des teintes plus contrastées"}`
+        : `${passesAAA ? "AAA" : passesAA ? "AA" : "Needs work"} · ${passesAA ? "Body text passes" : "Choose more contrasting shades"}`;
+    status.className = passesAA ? "contrast-pass" : "contrast-fail";
+  };
+
+  document
+    .querySelectorAll("#contrast-foreground, #contrast-background")
+    .forEach((input) => input.addEventListener("input", updateContrast));
+  document.querySelector("#swap-contrast").addEventListener("click", () => {
+    const foreground = document.querySelector("#contrast-foreground");
+    const background = document.querySelector("#contrast-background");
+    [foreground.value, background.value] = [background.value, foreground.value];
+    updateContrast();
+  });
+
   const renderColorStrip = (container, colors) => {
     const preview = container.querySelector(".image-preview");
     container.innerHTML = "";
@@ -717,5 +764,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.classList.add("dark");
 
   applyLanguage(currentLanguage);
+  updateContrast();
   updateResults();
 });

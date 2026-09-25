@@ -12,6 +12,7 @@ Atelier Chromatique est une galerie interactive de couleurs avec une direction v
 - Zone de favoris affichée en haut de la page et repliable
 - Générateur de palettes aléatoires
 - Extraction des couleurs dominantes d'une image locale
+- Laboratoire de contraste WCAG avec aperçu de lisibilité et inversion des couleurs
 - Sélection manuelle pour créer une palette personnelle
 - Export de la collection complète ou de la palette personnelle en fichier texte
 - Thème néon futuriste avec animations fluides et effets lumineux
