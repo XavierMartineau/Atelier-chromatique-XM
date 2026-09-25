@@ -506,18 +506,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   renderManualPalette();
 
-  const revealObserver = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) revealObserver.unobserve(entry.target);
-        entry.target.classList.toggle("is-visible", entry.isIntersecting);
-        entry.target
-          .querySelector(".colors")
-          ?.classList.toggle("is-visible", entry.isIntersecting);
-      }),
-    { threshold: 0.08 },
-  );
-  sections.forEach((section) => revealObserver.observe(section));
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) revealObserver.unobserve(entry.target);
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+          entry.target
+            .querySelector(".colors")
+            ?.classList.toggle("is-visible", entry.isIntersecting);
+        }),
+      { threshold: 0.08 },
+    );
+    sections.forEach((section) => revealObserver.observe(section));
+  } else {
+    sections.forEach((section) => {
+      section.classList.add("is-visible");
+      section.querySelector(".colors")?.classList.add("is-visible");
+    });
+  }
 
   sections.forEach((section) => {
     const title = section.querySelector("h2");
