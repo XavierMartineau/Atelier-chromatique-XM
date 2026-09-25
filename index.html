@@ -182,6 +182,86 @@
         >
           ☷ Sélection manuelle
         </button>
+        <button
+          class="outline-btn"
+          id="filters-toggle"
+          data-fr="⚙ Filtres"
+          data-en="⚙ Filters"
+        >
+          ⚙ Filtres
+        </button>
+      </section>
+      <section
+        class="smart-filters"
+        id="smart-filters"
+        hidden
+        aria-label="Filtres intelligents"
+      >
+        <label
+          ><span data-fr="Catégorie" data-en="Category">Catégorie</span
+          ><select id="category-filter">
+            <option value="all" data-fr="Toutes" data-en="All">Toutes</option>
+            <option value="jewel">Bijoux</option>
+            <option value="metallic">Métalliques</option>
+            <option value="pastel">Pastels</option>
+            <option value="other">Autres</option>
+          </select></label
+        >
+        <label
+          ><span data-fr="Température" data-en="Temperature">Température</span
+          ><select id="temperature-filter">
+            <option value="all" data-fr="Toutes" data-en="All">Toutes</option>
+            <option value="warm" data-fr="Chaudes" data-en="Warm">
+              Chaudes
+            </option>
+            <option value="cool" data-fr="Froides" data-en="Cool">
+              Froides
+            </option>
+          </select></label
+        >
+        <label
+          ><span data-fr="Luminosité" data-en="Brightness">Luminosité</span
+          ><select id="brightness-filter">
+            <option value="all" data-fr="Toutes" data-en="All">Toutes</option>
+            <option value="light" data-fr="Claires" data-en="Light">
+              Claires
+            </option>
+            <option value="dark" data-fr="Foncées" data-en="Dark">
+              Foncées
+            </option>
+          </select></label
+        >
+        <label
+          ><span data-fr="Saturation minimale" data-en="Minimum saturation"
+            >Saturation minimale</span
+          ><input
+            id="saturation-filter"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+          /><output id="saturation-value">0%</output></label
+        >
+        <label
+          ><span data-fr="Contraste minimum" data-en="Minimum contrast"
+            >Contraste minimum</span
+          ><input
+            id="contrast-filter"
+            type="number"
+            min="1"
+            max="21"
+            step="0.1"
+            value="1"
+          /><output id="contrast-filter-value">1:1</output></label
+        >
+        <button
+          class="outline-btn"
+          id="reset-filters"
+          data-fr="Réinitialiser"
+          data-en="Reset"
+        >
+          Réinitialiser
+        </button>
       </section>
       <section
         class="manual-builder"
@@ -205,6 +285,30 @@
           </p>
         </div>
         <div class="manual-colors" id="manual-colors"></div>
+        <div class="manual-meta">
+          <input
+            id="palette-name"
+            type="text"
+            placeholder="Nom de la palette"
+            data-placeholder-fr="Nom de la palette"
+            data-placeholder-en="Palette name"
+          />
+          <textarea
+            id="palette-notes"
+            rows="2"
+            placeholder="Notes (optionnel)"
+            data-placeholder-fr="Notes (optionnel)"
+            data-placeholder-en="Notes (optional)"
+          ></textarea>
+          <button
+            class="outline-btn"
+            id="save-palette"
+            data-fr="Sauvegarder"
+            data-en="Save"
+          >
+            Sauvegarder
+          </button>
+        </div>
         <div class="manual-actions">
           <button
             class="outline-btn"
@@ -222,6 +326,15 @@
           >
             Exporter ma palette
           </button>
+        </div>
+        <div class="saved-palettes" id="saved-palettes" hidden>
+          <span
+            class="tool-kicker"
+            data-fr="Mes collections"
+            data-en="My collections"
+            >Mes collections</span
+          >
+          <div id="saved-palette-list"></div>
         </div>
       </section>
       <section
@@ -243,6 +356,16 @@
               </h2>
             </div>
             <div class="tool-actions">
+              <label class="harmony-control">
+                <span class="sr-only">Harmonie</span>
+                <select id="harmony-mode" aria-label="Choisir une harmonie">
+                  <option value="random">Aléatoire</option>
+                  <option value="analogous">Analogue</option>
+                  <option value="complementary">Complémentaire</option>
+                  <option value="triadic">Triadique</option>
+                  <option value="monochromatic">Monochromatique</option>
+                </select>
+              </label>
               <button
                 class="outline-btn"
                 id="copy-generated-palette"
@@ -270,6 +393,58 @@
                 data-en="◈ Gradient"
               >
                 ◈ Dégradé
+              </button>
+              <div class="export-menu">
+                <button
+                  class="outline-btn export-trigger"
+                  id="export-trigger"
+                  type="button"
+                  aria-expanded="false"
+                  aria-haspopup="menu"
+                  data-fr="↧ Exporter"
+                  data-en="↧ Export"
+                >
+                  ↧ Exporter
+                </button>
+                <div
+                  class="export-options"
+                  id="export-options"
+                  role="menu"
+                  hidden
+                >
+                  <button id="export-png-palette" type="button" role="menuitem">
+                    ▧ PNG
+                  </button>
+                  <button id="export-css-palette" type="button" role="menuitem">
+                    ↧ CSS
+                  </button>
+                  <button
+                    id="export-json-palette"
+                    type="button"
+                    role="menuitem"
+                  >
+                    {} JSON
+                  </button>
+                  <button
+                    id="export-tailwind-palette"
+                    type="button"
+                    role="menuitem"
+                  >
+                    Tailwind
+                  </button>
+                  <button id="export-ase-palette" type="button" role="menuitem">
+                    ASE
+                  </button>
+                </div>
+              </div>
+              <button
+                class="outline-btn"
+                id="share-palette"
+                type="button"
+                data-fr="Partager"
+                data-en="Share"
+              >
+                Partager
               </button>
             </div>
           </div>
@@ -402,6 +577,88 @@
             <strong id="contrast-ratio">—</strong>
             <span id="contrast-status"></span>
           </div>
+        </div>
+        <div class="tool-panel inspiration-tool">
+          <div class="tool-heading">
+            <div>
+              <span
+                class="tool-kicker"
+                data-fr="Mode inspiration"
+                data-en="Inspiration mode"
+                >Mode inspiration</span
+              >
+              <h2
+                data-fr="Voir la palette en action"
+                data-en="See it in action"
+              >
+                Voir la palette en action
+              </h2>
+            </div>
+            <select id="inspiration-mode" aria-label="Type d'aperçu">
+              <option value="interface">Interface</option>
+              <option value="card">Carte</option>
+              <option value="poster">Affiche</option>
+            </select>
+          </div>
+          <div class="inspiration-preview" id="inspiration-preview">
+            <div class="inspiration-window">
+              <span></span><span></span><span></span>
+            </div>
+            <strong data-fr="Une idée prend forme" data-en="An idea takes shape"
+              >Une idée prend forme</strong
+            >
+            <p
+              data-fr="Teste ta palette sur une interface fictive."
+              data-en="Test your palette on a fictional interface."
+            >
+              Teste ta palette sur une interface fictive.
+            </p>
+            <button type="button" data-fr="Découvrir" data-en="Discover">
+              Découvrir
+            </button>
+          </div>
+        </div>
+        <div class="tool-panel accessibility-tool">
+          <div class="tool-heading">
+            <div>
+              <span
+                class="tool-kicker"
+                data-fr="Accessibilité"
+                data-en="Accessibility"
+                >Accessibilité</span
+              >
+              <h2
+                data-fr="Vision et lisibilité"
+                data-en="Vision and readability"
+              >
+                Vision et lisibilité
+              </h2>
+            </div>
+            <select id="vision-mode" aria-label="Simulation de vision">
+              <option value="normal">Vision normale</option>
+              <option value="achromatopsia">Achromatopsie</option>
+              <option value="protanopia">Protanopie</option>
+              <option value="deuteranopia">Deutéranopie</option>
+            </select>
+          </div>
+          <p
+            class="tool-description"
+            data-fr="Simule une vision des couleurs différente et vérifie toute ta palette."
+            data-en="Simulate a different color vision and check your whole palette."
+          >
+            Simule une vision des couleurs différente et vérifie toute ta
+            palette.
+          </p>
+          <div class="accessibility-summary" id="accessibility-summary"></div>
+          <button
+            class="outline-btn"
+            id="suggest-accessible"
+            type="button"
+            data-fr="Suggérer une couleur accessible"
+            data-en="Suggest an accessible color"
+          >
+            Suggérer une couleur accessible
+          </button>
         </div>
       </section>
       <div id="empty-state" class="empty-state">

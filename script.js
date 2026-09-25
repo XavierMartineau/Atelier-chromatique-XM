@@ -62,6 +62,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   let currentLanguage = localStorage.getItem("palette-language") || "fr";
   const manualSelection = new Map();
+  let savedPalettes = JSON.parse(
+    localStorage.getItem("palette-collections") || "[]",
+  );
   let manualMode = false;
   let favoritesCollapsed = false;
   let toastTimer;
@@ -119,12 +122,104 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   };
 
-  const randomPalette = () => {
+  const downloadFile = (filename, content, type) => {
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([content], { type }));
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  const createAseFile = (colors) => {
+    const bytes = [];
+    const pushU16 = (value) => bytes.push((value >> 8) & 255, value & 255);
+    const pushU32 = (value) =>
+      bytes.push(
+        (value >>> 24) & 255,
+        (value >>> 16) & 255,
+        (value >>> 8) & 255,
+        value & 255,
+      );
+    const pushF32 = (value) =>
+      new Uint8Array(new Float32Array([value]).buffer)
+        .reverse()
+        .forEach((byte) => bytes.push(byte));
+    const pushText = (value) =>
+      [...value].forEach((character) => pushU16(character.charCodeAt(0)));
+    pushText("ASEF");
+    pushU16(1);
+    pushU16(0);
+    pushU32(colors.length);
+    colors.forEach((hex, index) => {
+      const payload = [];
+      const addU16 = (value) => payload.push((value >> 8) & 255, value & 255);
+      const addF32 = (value) =>
+        new Uint8Array(new Float32Array([value]).buffer)
+          .reverse()
+          .forEach((byte) => payload.push(byte));
+      const name = `Palette ${index + 1}`;
+      addU16(name.length + 1);
+      [...name].forEach((character) => addU16(character.charCodeAt(0)));
+      addU16(0);
+      [..."RGB "].forEach((character) => addU16(character.charCodeAt(0)));
+      addU16(0);
+      const rgb = hex
+        .slice(1)
+        .match(/.{2}/g)
+        .map((channel) => parseInt(channel, 16) / 255);
+      addF32(rgb[0]);
+      addF32(rgb[1]);
+      addF32(rgb[2]);
+      addU16(0);
+      pushU16(0x0001);
+      pushU32(payload.length);
+      payload.forEach((byte) => bytes.push(byte));
+    });
+    return new Uint8Array(bytes);
+  };
+
+  const hexToHsl = (hex) => {
+    const [red, green, blue] = hex
+      .slice(1)
+      .match(/.{2}/g)
+      .map((channel) => parseInt(channel, 16) / 255);
+    const max = Math.max(red, green, blue);
+    const min = Math.min(red, green, blue);
+    const delta = max - min;
+    let hue = 0;
+    if (delta) {
+      if (max === red) hue = 60 * (((green - blue) / delta) % 6);
+      else if (max === green) hue = 60 * ((blue - red) / delta + 2);
+      else hue = 60 * ((red - green) / delta + 4);
+    }
+    if (hue < 0) hue += 360;
+    const lightness = (max + min) / 2;
+    const saturation =
+      delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
+    return [hue, saturation * 100, lightness * 100];
+  };
+
+  const randomPalette = (mode = "random", lockedColors = []) => {
     const baseHue = Math.floor(Math.random() * 360);
+    const offsets = {
+      random: [0, 31, 62, 93, 124],
+      analogous: [0, 20, 40, 60, 80],
+      complementary: [0, 180, 30, 210, 330],
+      triadic: [0, 120, 240, 60, 180],
+      monochromatic: [0, 0, 0, 0, 0],
+    }[mode] || [0, 31, 62, 93, 124];
     return Array.from({ length: 5 }, (_, index) => {
-      const hue = (baseHue + index * 31 + Math.floor(Math.random() * 16)) % 360;
-      const saturation = 54 + Math.floor(Math.random() * 29);
-      const lightness = 30 + Math.floor(Math.random() * 42);
+      if (lockedColors[index]) return lockedColors[index];
+      const hue =
+        (baseHue + offsets[index] + Math.floor(Math.random() * 10)) % 360;
+      const saturation =
+        mode === "monochromatic"
+          ? 48 + index * 7
+          : 54 + Math.floor(Math.random() * 29);
+      const lightness =
+        mode === "monochromatic"
+          ? 28 + index * 11
+          : 30 + Math.floor(Math.random() * 42);
       return hslToHex(hue, saturation, lightness);
     });
   };
@@ -204,21 +299,84 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateContrast();
   });
 
+  const updateInspiration = () => {
+    const preview = document.querySelector("#inspiration-preview");
+    generatedColors.forEach((color, index) =>
+      preview.style.setProperty(`--inspire-${index + 1}`, color),
+    );
+    preview.dataset.mode = document.querySelector("#inspiration-mode").value;
+  };
+  const updateAccessibility = () => {
+    const passing = generatedColors.filter(
+      (color) =>
+        Math.max(
+          contrastRatio(color, "#FFFFFF"),
+          contrastRatio(color, "#000000"),
+        ) >= 4.5,
+    ).length;
+    document.querySelector("#accessibility-summary").textContent =
+      currentLanguage === "fr"
+        ? `${passing}/5 couleurs ont un contraste AA avec du texte noir ou blanc.`
+        : `${passing}/5 colors pass AA with black or white text.`;
+  };
+  document
+    .querySelector("#inspiration-mode")
+    .addEventListener("change", updateInspiration);
+  document.querySelector("#vision-mode").addEventListener("change", (event) => {
+    document.body.className = document.body.className.replace(
+      /vision-\S+/g,
+      "",
+    );
+    if (event.target.value !== "normal")
+      document.body.classList.add(`vision-${event.target.value}`);
+  });
+  document
+    .querySelector("#suggest-accessible")
+    .addEventListener("click", () => {
+      const color =
+        generatedColors.find(
+          (item) =>
+            Math.max(
+              contrastRatio(item, "#FFFFFF"),
+              contrastRatio(item, "#000000"),
+            ) >= 4.5,
+        ) || "#16243B";
+      copyText(color);
+      showToast(
+        currentLanguage === "fr"
+          ? `Suggestion accessible : ${color}`
+          : `Accessible suggestion: ${color}`,
+      );
+    });
+
   const renderColorStrip = (container, colors) => {
     const preview = container.querySelector(".image-preview");
     container.innerHTML = "";
     if (preview) container.append(preview);
-    colors.forEach((color) => {
+    colors.forEach((color, index) => {
+      const isGenerated = container.id === "generated-palette";
       const chip = document.createElement("button");
-      chip.className =
-        container.id === "generated-palette"
-          ? "generated-color"
-          : "image-color";
+      chip.className = isGenerated ? "generated-color" : "image-color";
       chip.type = "button";
       chip.style.backgroundColor = color;
       chip.textContent = color;
-      chip.title = `Copier ${color}`;
+      chip.title = isGenerated
+        ? `Copier ${color}. Double-cliquer pour verrouiller.`
+        : `Copier ${color}`;
       chip.addEventListener("click", () => copyText(color));
+      if (isGenerated) {
+        chip.classList.toggle("is-locked", Boolean(lockedGenerated[index]));
+        chip.addEventListener("dblclick", (event) => {
+          event.preventDefault();
+          lockedGenerated[index] = lockedGenerated[index] ? null : color;
+          chip.classList.toggle("is-locked", Boolean(lockedGenerated[index]));
+          showToast(
+            lockedGenerated[index]
+              ? `Couleur ${index + 1} verrouillée`
+              : `Couleur ${index + 1} libérée`,
+          );
+        });
+      }
       container.append(chip);
     });
   };
@@ -234,6 +392,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const chip = document.createElement("button");
       chip.className = "manual-chip";
       chip.type = "button";
+      chip.draggable = true;
       chip.style.backgroundColor = code;
       chip.textContent = code;
       chip.title =
@@ -249,7 +408,82 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         renderManualPalette();
       });
+      chip.addEventListener("dragstart", () => {
+        chip.classList.add("is-dragging");
+        draggedManualCode = code;
+      });
+      chip.addEventListener("dragend", () =>
+        chip.classList.remove("is-dragging"),
+      );
+      chip.addEventListener("dragover", (event) => event.preventDefault());
+      chip.addEventListener("drop", (event) => {
+        event.preventDefault();
+        const entries = [...manualSelection.entries()];
+        const from = entries.findIndex(
+          ([entryCode]) => entryCode === draggedManualCode,
+        );
+        const to = entries.findIndex(([entryCode]) => entryCode === code);
+        if (from < 0 || to < 0 || from === to) return;
+        const [moved] = entries.splice(from, 1);
+        entries.splice(to, 0, moved);
+        manualSelection.clear();
+        entries.forEach(([entryCode, entry]) =>
+          manualSelection.set(entryCode, entry),
+        );
+        renderManualPalette();
+      });
       container.append(chip);
+    });
+  };
+
+  let draggedManualCode = null;
+  const renderSavedPalettes = () => {
+    const wrapper = document.querySelector("#saved-palettes");
+    const list = document.querySelector("#saved-palette-list");
+    wrapper.hidden = savedPalettes.length === 0;
+    list.innerHTML = "";
+    savedPalettes.forEach((palette, index) => {
+      const row = document.createElement("div");
+      row.className = "saved-palette-row";
+      const load = document.createElement("button");
+      load.className = "saved-palette-preview";
+      load.type = "button";
+      load.style.background = `linear-gradient(90deg, ${palette.colors.map((color) => color.code).join(",")})`;
+      load.textContent = palette.name;
+      load.title = palette.notes || palette.name;
+      load.addEventListener("click", () => {
+        manualSelection.clear();
+        palette.colors.forEach((color) =>
+          manualSelection.set(color.code, color),
+        );
+        document.querySelectorAll(".colors > div").forEach((card) => {
+          const code = card
+            .querySelector("[data-code]")
+            .dataset.code.toUpperCase();
+          card.classList.toggle("manual-selected", manualSelection.has(code));
+        });
+        document.querySelector("#palette-name").value = palette.name;
+        document.querySelector("#palette-notes").value = palette.notes || "";
+        renderManualPalette();
+        showToast(
+          currentLanguage === "fr" ? "Palette chargée" : "Palette loaded",
+        );
+      });
+      const remove = document.createElement("button");
+      remove.className = "saved-palette-remove";
+      remove.type = "button";
+      remove.textContent = "×";
+      remove.setAttribute("aria-label", "Supprimer la palette");
+      remove.addEventListener("click", () => {
+        savedPalettes.splice(index, 1);
+        localStorage.setItem(
+          "palette-collections",
+          JSON.stringify(savedPalettes),
+        );
+        renderSavedPalettes();
+      });
+      row.append(load, remove);
+      list.append(row);
     });
   };
 
@@ -315,9 +549,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const generatedPalette = document.querySelector("#generated-palette");
   const generatedGradient = document.querySelector("#generated-gradient");
+  const harmonyMode = document.querySelector("#harmony-mode");
   const generatedHistory = document.querySelector("#generated-history");
   const historyList = document.querySelector("#history-list");
   let generatedColors = randomPalette();
+  const lockedGenerated = [null, null, null, null, null];
+  try {
+    const sharedPalette = new URLSearchParams(location.hash.slice(1)).get(
+      "palette",
+    );
+    if (sharedPalette) {
+      const parsedPalette = JSON.parse(atob(sharedPalette));
+      if (Array.isArray(parsedPalette) && parsedPalette.length === 5)
+        generatedColors = parsedPalette;
+    }
+  } catch {
+    // Ignore malformed shared palette links.
+  }
   let paletteHistory = JSON.parse(
     localStorage.getItem("palette-history") || "[]",
   ).filter((palette) => Array.isArray(palette) && palette.length === 5);
@@ -329,6 +577,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     generatedHistory.hidden = paletteHistory.length === 0;
     historyList.innerHTML = "";
     paletteHistory.forEach((palette, index) => {
+      const item = document.createElement("div");
+      item.className = "history-item";
       const button = document.createElement("button");
       button.className = "history-palette";
       button.type = "button";
@@ -342,11 +592,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         generatedColors = [...palette];
         renderColorStrip(generatedPalette, generatedColors);
         renderGeneratedGradient();
+        updateInspiration();
+        updateAccessibility();
         showToast(
           currentLanguage === "fr" ? "Palette restaurée" : "Palette restored",
         );
       });
-      historyList.append(button);
+      const remove = document.createElement("button");
+      remove.className = "history-remove";
+      remove.type = "button";
+      remove.textContent = "×";
+      remove.setAttribute(
+        "aria-label",
+        currentLanguage === "fr"
+          ? `Supprimer la palette ${index + 1}`
+          : `Delete palette ${index + 1}`,
+      );
+      remove.title = remove.getAttribute("aria-label");
+      remove.addEventListener("click", () => {
+        paletteHistory.splice(index, 1);
+        localStorage.setItem("palette-history", JSON.stringify(paletteHistory));
+        renderGeneratedHistory();
+        showToast(
+          currentLanguage === "fr" ? "Palette supprimée" : "Palette deleted",
+        );
+      });
+      item.append(button, remove);
+      historyList.append(item);
     });
   };
   const rememberGeneratedPalette = (palette) => {
@@ -358,9 +630,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderGeneratedHistory();
   };
   document.querySelector("#generate-palette").addEventListener("click", () => {
-    generatedColors = randomPalette();
+    generatedColors = randomPalette(harmonyMode.value, lockedGenerated);
     renderColorStrip(generatedPalette, generatedColors);
     renderGeneratedGradient();
+    updateInspiration();
+    updateAccessibility();
     rememberGeneratedPalette(generatedColors);
     showToast(
       currentLanguage === "fr"
@@ -371,6 +645,116 @@ document.addEventListener("DOMContentLoaded", async () => {
   document
     .querySelector("#copy-generated-palette")
     .addEventListener("click", () => copyText(generatedColors.join("\n")));
+  const exportTrigger = document.querySelector("#export-trigger");
+  const exportOptions = document.querySelector("#export-options");
+  const closeExportMenu = () => {
+    exportOptions.hidden = true;
+    exportTrigger.setAttribute("aria-expanded", "false");
+  };
+  exportTrigger.addEventListener("click", () => {
+    exportOptions.hidden = !exportOptions.hidden;
+    exportTrigger.setAttribute("aria-expanded", String(!exportOptions.hidden));
+  });
+  document.querySelectorAll("#export-options button").forEach((button) => {
+    button.addEventListener("click", closeExportMenu);
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".export-menu")) closeExportMenu();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeExportMenu();
+  });
+  document
+    .querySelector("#export-css-palette")
+    .addEventListener("click", () => {
+      const content = `:root {\n${generatedColors.map((color, index) => `  --color-${index + 1}: ${color};`).join("\n")}\n}\n`;
+      downloadFile("ma-palette.css", content, "text/css");
+      showToast(
+        currentLanguage === "fr"
+          ? "Variables CSS téléchargées"
+          : "CSS variables downloaded",
+      );
+    });
+  document
+    .querySelector("#export-png-palette")
+    .addEventListener("click", () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1400;
+      canvas.height = 360;
+      const context = canvas.getContext("2d");
+      const width = canvas.width / generatedColors.length;
+      generatedColors.forEach((color, index) => {
+        context.fillStyle = color;
+        context.fillRect(index * width, 0, width, canvas.height);
+        context.fillStyle = "#FFFFFF";
+        context.font = "700 24px sans-serif";
+        context.fillText(color, index * width + 24, canvas.height - 28);
+      });
+      canvas.toBlob((blob) => {
+        if (blob) downloadFile("ma-palette.png", blob, "image/png");
+      }, "image/png");
+      showToast(
+        currentLanguage === "fr"
+          ? "Palette PNG téléchargée"
+          : "PNG palette downloaded",
+      );
+    });
+  document
+    .querySelector("#export-json-palette")
+    .addEventListener("click", () => {
+      downloadFile(
+        "ma-palette.json",
+        JSON.stringify(
+          { name: "Atelier Chromatique", colors: generatedColors },
+          null,
+          2,
+        ),
+        "application/json",
+      );
+      showToast(
+        currentLanguage === "fr"
+          ? "Palette JSON téléchargée"
+          : "JSON palette downloaded",
+      );
+    });
+  document
+    .querySelector("#export-tailwind-palette")
+    .addEventListener("click", () => {
+      const content = `export default {\n  theme: {\n    extend: {\n      colors: {\n        palette: {\n${generatedColors.map((color, index) => `          ${index + 1}: "${color}",`).join("\n")}\n        }\n      }\n    }\n  }\n};\n`;
+      downloadFile("ma-palette.tailwind.js", content, "text/javascript");
+      showToast(
+        currentLanguage === "fr"
+          ? "Palette Tailwind téléchargée"
+          : "Tailwind palette downloaded",
+      );
+    });
+  document
+    .querySelector("#export-ase-palette")
+    .addEventListener("click", () => {
+      downloadFile(
+        "ma-palette.ase",
+        createAseFile(generatedColors),
+        "application/octet-stream",
+      );
+      showToast(
+        currentLanguage === "fr"
+          ? "Palette ASE téléchargée"
+          : "ASE palette downloaded",
+      );
+    });
+  document
+    .querySelector("#share-palette")
+    .addEventListener("click", async () => {
+      const encoded = btoa(JSON.stringify(generatedColors));
+      const url = `${location.origin}${location.pathname}#palette=${encoded}`;
+      if (navigator.share) await navigator.share({ title: "Ma palette", url });
+      else await copyText(url);
+      showToast(
+        currentLanguage === "fr"
+          ? "Lien de palette prêt à partager"
+          : "Palette link ready to share",
+      );
+    });
   const gradientToggle = document.querySelector("#gradient-toggle");
   gradientToggle.addEventListener("click", () => {
     generatedGradient.hidden = !generatedGradient.hidden;
@@ -382,6 +766,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   renderColorStrip(generatedPalette, generatedColors);
   renderGeneratedGradient();
+  updateInspiration();
+  updateAccessibility();
   rememberGeneratedPalette(generatedColors);
 
   const imageInput = document.querySelector("#image-input");
@@ -440,6 +826,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const name = card.dataset.name || "Couleur";
     const codeElement = card.querySelector("[data-code]");
     const code = codeElement.dataset.code.toUpperCase();
+    const category = card.closest(".colors").classList[1];
+    const [hue, saturation, lightness] = hexToHsl(code);
+    card.dataset.category = category;
+    card.dataset.hue = hue;
+    card.dataset.saturation = saturation;
+    card.dataset.lightness = lightness;
+    card.dataset.contrast = Math.max(
+      contrastRatio(code, "#FFFFFF"),
+      contrastRatio(code, "#000000"),
+    );
     card.style.backgroundColor = code;
     card.setAttribute("title", `Copier ${code}`);
     codeElement.textContent = code;
@@ -620,6 +1016,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       .forEach((card) => card.classList.remove("manual-selected"));
     renderManualPalette();
   });
+  document.querySelector("#save-palette").addEventListener("click", () => {
+    if (!manualSelection.size)
+      return showToast(
+        currentLanguage === "fr"
+          ? "Ajoute d’abord des couleurs"
+          : "Add colors first",
+      );
+    const name =
+      document.querySelector("#palette-name").value.trim() ||
+      `Palette ${savedPalettes.length + 1}`;
+    const notes = document.querySelector("#palette-notes").value.trim();
+    const colors = [...manualSelection.values()];
+    savedPalettes = [
+      { name, notes, colors, updatedAt: new Date().toISOString() },
+      ...savedPalettes.filter((palette) => palette.name !== name),
+    ].slice(0, 12);
+    localStorage.setItem("palette-collections", JSON.stringify(savedPalettes));
+    renderSavedPalettes();
+    showToast(
+      currentLanguage === "fr" ? "Palette sauvegardée" : "Palette saved",
+    );
+  });
   document.querySelector("#export-custom-btn").addEventListener("click", () => {
     if (!manualSelection.size)
       return showToast(
@@ -644,6 +1062,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   });
   renderManualPalette();
+  renderSavedPalettes();
 
   if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
@@ -668,6 +1087,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   sections.forEach((section) => {
     const title = section.querySelector("h2");
     if (!title) return;
+    const paletteColors = section.querySelector(".colors");
+    const updatePaletteHeight = () => {
+      section.style.setProperty(
+        "--palette-height",
+        `${paletteColors.scrollHeight}px`,
+      );
+    };
+    updatePaletteHeight();
+    window.addEventListener("resize", updatePaletteHeight, { passive: true });
     const heading = document.createElement("div");
     heading.className = "palette-heading";
     const toggle = document.createElement("button");
@@ -692,6 +1120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     heading.append(toggle);
     toggle.append(title, hint, arrow);
     toggle.addEventListener("click", () => {
+      updatePaletteHeight();
       const collapsed = section.classList.toggle("is-collapsed");
       toggle.setAttribute("aria-expanded", String(!collapsed));
       arrow.textContent = collapsed ? "⌄" : "⌃";
@@ -712,20 +1141,49 @@ document.addEventListener("DOMContentLoaded", async () => {
             ? "Réduire la palette"
             : "Collapse palette",
       );
+      requestAnimationFrame(updatePaletteHeight);
     });
   });
 
   const updateResults = () => {
     const query = search.value.trim().toLowerCase();
+    const category = document.querySelector("#category-filter").value;
+    const temperature = document.querySelector("#temperature-filter").value;
+    const brightness = document.querySelector("#brightness-filter").value;
+    const minimumSaturation = Number(
+      document.querySelector("#saturation-filter").value,
+    );
+    const minimumContrast = Number(
+      document.querySelector("#contrast-filter").value,
+    );
     let visible = 0;
     sections.forEach((section) => {
       const sectionCards = [...section.querySelectorAll(".colors > div")];
       let sectionVisible = 0;
       sectionCards.forEach((card) => {
-        const matches =
+        const hue = Number(card.dataset.hue);
+        const lightness = Number(card.dataset.lightness);
+        const matchesSearch =
           `${card.dataset.name} ${card.querySelector("[data-code]").dataset.code}`
             .toLowerCase()
             .includes(query);
+        const matchesCategory =
+          category === "all" || card.dataset.category === category;
+        const matchesTemperature =
+          temperature === "all" ||
+          (temperature === "warm" && (hue < 70 || hue >= 300)) ||
+          (temperature === "cool" && hue >= 70 && hue < 300);
+        const matchesBrightness =
+          brightness === "all" ||
+          (brightness === "light" && lightness >= 55) ||
+          (brightness === "dark" && lightness < 55);
+        const matches =
+          matchesSearch &&
+          matchesCategory &&
+          matchesTemperature &&
+          matchesBrightness &&
+          Number(card.dataset.saturation) >= minimumSaturation &&
+          Number(card.dataset.contrast) >= minimumContrast;
         card.classList.toggle("is-hidden", !matches);
         if (matches) {
           visible += 1;
@@ -745,6 +1203,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.querySelector("#total-colors").textContent = paletteData.length;
   search.addEventListener("input", updateResults);
+  document.querySelector("#filters-toggle").addEventListener("click", () => {
+    const filters = document.querySelector("#smart-filters");
+    filters.hidden = !filters.hidden;
+  });
+  document
+    .querySelectorAll("#smart-filters select, #smart-filters input")
+    .forEach((control) => {
+      control.addEventListener("input", () => {
+        document.querySelector("#saturation-value").textContent =
+          `${document.querySelector("#saturation-filter").value}%`;
+        document.querySelector("#contrast-filter-value").textContent =
+          `${document.querySelector("#contrast-filter").value}:1`;
+        updateResults();
+      });
+    });
+  document.querySelector("#reset-filters").addEventListener("click", () => {
+    document.querySelector("#category-filter").value = "all";
+    document.querySelector("#temperature-filter").value = "all";
+    document.querySelector("#brightness-filter").value = "all";
+    document.querySelector("#saturation-filter").value = "0";
+    document.querySelector("#contrast-filter").value = "1";
+    document.querySelector("#saturation-value").textContent = "0%";
+    document.querySelector("#contrast-filter-value").textContent = "1:1";
+    updateResults();
+  });
   document.querySelector("#surprise-btn").addEventListener("click", () => {
     const visibleCards = cards.filter(
       (card) => !card.classList.contains("is-hidden"),
@@ -787,6 +1270,52 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
+  document.querySelectorAll(".tool-panel, .manual-builder").forEach((panel) => {
+    const heading = panel.classList.contains("manual-builder")
+      ? panel.firstElementChild
+      : panel.querySelector(".tool-heading");
+    if (!heading) return;
+    heading.classList.add("panel-heading");
+    let content = null;
+    if (!panel.classList.contains("manual-builder")) {
+      content = document.createElement("div");
+      content.className = "panel-content";
+      while (heading.nextElementSibling)
+        content.append(heading.nextElementSibling);
+      panel.append(content);
+      const updateContentHeight = () => {
+        panel.style.setProperty(
+          "--panel-content-height",
+          `${content.scrollHeight}px`,
+        );
+      };
+      updateContentHeight();
+      window.addEventListener("resize", updateContentHeight, { passive: true });
+    }
+    const toggle = document.createElement("button");
+    toggle.className = "panel-toggle";
+    toggle.type = "button";
+    toggle.textContent = "⌃";
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "Fermer cette section");
+    heading.append(toggle);
+    const storageKey = `palette-panel-${panel.classList[1] || "manual"}`;
+    const collapsePanel = (collapsed) => {
+      panel.classList.toggle("is-collapsed", collapsed);
+      toggle.textContent = collapsed ? "⌄" : "⌃";
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+      toggle.setAttribute(
+        "aria-label",
+        collapsed ? "Ouvrir cette section" : "Fermer cette section",
+      );
+      localStorage.setItem(storageKey, String(collapsed));
+    };
+    toggle.addEventListener("click", () =>
+      collapsePanel(!panel.classList.contains("is-collapsed")),
+    );
+    if (localStorage.getItem(storageKey) === "true") collapsePanel(true);
+  });
+
   document.querySelector("#language-toggle").addEventListener("click", () => {
     applyLanguage(currentLanguage === "fr" ? "en" : "fr");
     showToast(currentLanguage === "fr" ? "Français activé" : "English enabled");
@@ -801,6 +1330,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   if (localStorage.getItem("palette-theme") === "dark")
     document.body.classList.add("dark");
+
+  document.addEventListener("keydown", (event) => {
+    if (event.target.matches("input, textarea, select")) return;
+    if (event.key.toLowerCase() === "g")
+      document.querySelector("#generate-palette").click();
+    if (event.key.toLowerCase() === "c")
+      document.querySelector("#copy-generated-palette").click();
+    if (event.key.toLowerCase() === "e")
+      document.querySelector("#export-css-palette").click();
+    if (event.key.toLowerCase() === "f")
+      document.querySelector("#filters-toggle").click();
+  });
 
   applyLanguage(currentLanguage);
   updateContrast();

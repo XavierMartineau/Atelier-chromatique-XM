@@ -1,76 +1,72 @@
 # Atelier Chromatique
 
-Atelier Chromatique est une galerie interactive de couleurs avec une direction visuelle néon futuriste. Le site permet d'explorer des collections, de créer une palette personnalisée et d'extraire des couleurs depuis une image.
+Atelier Chromatique est un studio interactif pour explorer, tester et composer des palettes de couleurs. Le catalogue contient **184 teintes** réparties en quatre familles, avec une interface néon responsive et disponible en français ou en anglais.
 
-## Fonctionnalités
+## Aperçu des outils
 
-- Navigation fluide entre les collections de couleurs
-- Palettes repliables avec flèche et animation d'ouverture et de fermeture
-- Recherche par nom ou par code hexadécimal
-- Copie d'une couleur en cliquant sur une pastille
-- Favoris sauvegardés dans le navigateur
-- Zone de favoris affichée en haut de la page et repliable
-- Générateur de palettes aléatoires
-- Extraction des couleurs dominantes d'une image locale
-- Laboratoire de contraste WCAG avec aperçu de lisibilité et inversion des couleurs
-- Sélection manuelle pour créer une palette personnelle
-- Export de la collection complète ou de la palette personnelle en fichier texte
-- Thème néon futuriste avec animations fluides et effets lumineux
-- Interface responsive pour PC, portable, tablette et téléphone
-- Interface disponible en français et en anglais
-- Fenêtre de connexion locale avec nom d'utilisateur, mot de passe et option de mémorisation
-- Petit panda animé qui suit le champ actif et ferme les yeux pour le mot de passe
+- **Explorer** : navigation par famille, recherche par nom ou code hexadécimal et palettes repliables.
+- **Copier** : clic sur une couleur pour copier son code dans le presse-papiers.
+- **Favoris** : sauvegarde locale des teintes préférées, avec une zone de favoris repliable.
+- **Palette personnelle** : sélection manuelle, suppression individuelle et export en fichier texte.
+- **Palette surprise** : génération de cinq couleurs selon une harmonie aléatoire, analogue, complémentaire, triadique ou monochromatique ; couleurs verrouillables, aperçu en dégradé et historique restaurable.
+- **Exports avancés** : téléchargement en PNG, CSS, JSON, configuration Tailwind et Adobe `.ase`, avec partage par URL.
+- **Couleurs d'une image** : import local et extraction des cinq teintes dominantes via Canvas.
+- **Contraste et filtres** : filtres par catégorie, température, luminosité, saturation et contraste minimum ; résumé AA/AAA et suggestion accessible.
+- **Mode inspiration** : aperçu de la palette en interface, carte ou affiche.
+- **Palettes personnelles** : noms, notes, glisser-déposer, sauvegarde de plusieurs collections et export.
+- **Accessibilité** : test de contraste, simulations de vision et interface compatible avec `prefers-reduced-motion`.
+- **Interaction** : raccourcis `G` génération, `C` copie, `E` export CSS et `F` filtres.
+- **Personnalisation** : thème clair ou sombre, animations, menu responsive et changement de langue.
+- **Compte local** : profil facultatif stocké dans le navigateur, avec mot de passe haché et option de mémorisation.
 
-## Installation et lancement
+## Installation
 
-Le catalogue étant chargé depuis `colors.json`, utilise un serveur local depuis le dossier du projet :
+Le navigateur doit charger `colors.json` via HTTP. Depuis le dossier du projet, lance un serveur local :
 
 ```powershell
 python -m http.server 8000
 ```
 
-Ouvre ensuite <http://localhost:8000> dans un navigateur moderne.
+Puis ouvre [http://localhost:8000](http://localhost:8000).
 
-## Utilisation
+Une installation de dépendances n'est pas nécessaire : le projet utilise uniquement HTML, CSS et JavaScript natifs.
 
-1. Utilise la navigation ou la recherche pour explorer les couleurs.
+## Parcours rapide
+
+1. Recherche une couleur ou ouvre une famille depuis la navigation.
 2. Clique sur une pastille pour copier son code hexadécimal.
-3. Clique sur l'étoile d'une couleur pour l'ajouter aux favoris.
-4. Active **Sélection manuelle** pour composer une palette personnelle.
-5. Utilise le **Studio** pour générer une palette ou importer une image.
-6. Utilise les boutons d'export pour télécharger tes couleurs.
-7. Ouvre **Se connecter** pour créer un compte local facultatif.
+3. Utilise l'étoile pour ajouter une teinte aux favoris.
+4. Active **Sélection manuelle** pour construire une palette personnalisée.
+5. Ouvre le **Studio** pour générer une palette, analyser une image ou contrôler son contraste.
+6. Clique sur une palette de l'historique pour la restaurer.
 
-Les images importées sont analysées directement dans le navigateur et ne sont envoyées vers aucun serveur.
+Les images sont analysées directement dans le navigateur. Elles ne sont envoyées vers aucun serveur.
 
-## Compte local
+## Données locales et confidentialité
 
-Le compte est facultatif et fonctionne uniquement dans le navigateur utilisé. Le mot de passe est haché avant d'être enregistré dans le stockage local. La case **Se souvenir de moi** conserve la session après un rechargement.
+Les préférences sont conservées dans `localStorage` du navigateur :
 
-Ce système n'est pas une authentification serveur : les données ne sont pas partagées entre appareils et ne remplacent pas un vrai système de comptes avec serveur et base de données.
+- `palette-favorites` : couleurs favorites ;
+- `palette-history` : cinq dernières palettes générées ;
+- `palette-theme` : thème clair ou sombre ;
+- `palette-language` : langue active ;
+- `palette-account` et `palette-session` : compte local facultatif.
 
-## Structure du projet
+Le compte local n'est pas une authentification serveur. Les données ne sont pas synchronisées entre appareils et ne remplacent pas un système de comptes avec backend.
+
+## Structure
 
 ```text
-index.html   Interface principale
-colors.json  Catalogue des noms, catégories et codes couleurs
-style.css    Thème néon, responsive et animations
-script.js    Recherche, favoris, compte local, export et Studio
-README.md    Documentation du projet
+index.html   Interface et structure des outils
+colors.json  Catalogue des 184 couleurs
+style.css    Thème, responsive et animations
+script.js    Rendu, interactions, stockage et exports
+README.md    Documentation
 ```
-
-## Technologies
-
-- HTML5
-- CSS3
-- JavaScript natif
-- Canvas API pour l'analyse des images
-- LocalStorage pour les favoris, le compte, le thème et la langue
-- Web Crypto API pour le hachage du mot de passe lorsque disponible
 
 ## Modifier le catalogue
 
-Pour ajouter ou modifier une couleur, ouvre `colors.json` et change une entrée :
+Ajoute une entrée dans `colors.json` en respectant ce format :
 
 ```json
 {
@@ -80,7 +76,16 @@ Pour ajouter ou modifier une couleur, ouvre `colors.json` et change une entrée 
 }
 ```
 
-Les catégories disponibles sont `jewel`, `metallic`, `pastel` et `other`.
+Catégories disponibles : `jewel`, `metallic`, `pastel` et `other`. Le compteur de la page est calculé automatiquement à partir du nombre d'entrées du fichier.
+
+## Technologies
+
+- HTML5, CSS3 et JavaScript natif
+- Canvas API pour l'analyse des images
+- Clipboard API avec solution de secours pour la copie
+- LocalStorage pour les préférences et les palettes
+- Web Crypto API pour le hachage du mot de passe lorsque disponible
+- `<dialog>` pour la fenêtre de compte locale
 
 ## Crédits
 
