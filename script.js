@@ -1205,20 +1205,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.querySelector("#total-colors").textContent = paletteData.length;
   search.addEventListener("input", updateResults);
-  document.querySelector("#filters-toggle").addEventListener("click", () => {
-    const filters = document.querySelector("#smart-filters");
-    filters.hidden = !filters.hidden;
-  });
+  const refreshFilters = () => {
+    document.querySelector("#saturation-value").textContent =
+      `${document.querySelector("#saturation-filter").value}%`;
+    document.querySelector("#contrast-filter-value").textContent =
+      `${document.querySelector("#contrast-filter").value}:1`;
+    updateResults();
+  };
   document
     .querySelectorAll("#smart-filters select, #smart-filters input")
     .forEach((control) => {
-      control.addEventListener("input", () => {
-        document.querySelector("#saturation-value").textContent =
-          `${document.querySelector("#saturation-filter").value}%`;
-        document.querySelector("#contrast-filter-value").textContent =
-          `${document.querySelector("#contrast-filter").value}:1`;
-        updateResults();
-      });
+      control.addEventListener("input", refreshFilters);
+      control.addEventListener("change", refreshFilters);
     });
   document.querySelector("#reset-filters").addEventListener("click", () => {
     document.querySelector("#category-filter").value = "all";
@@ -1345,7 +1343,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (event.key.toLowerCase() === "e")
       document.querySelector("#export-css-palette").click();
     if (event.key.toLowerCase() === "f")
-      document.querySelector("#filters-toggle").click();
+      document
+        .querySelector("#smart-filters")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
   applyLanguage(currentLanguage);

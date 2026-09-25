@@ -1,19 +1,19 @@
 # Atelier Chromatique
 
-Atelier Chromatique est un studio interactif pour explorer, tester et composer des palettes de couleurs. Le catalogue contient **184 teintes** réparties en quatre familles, avec une interface néon responsive et disponible en français ou en anglais.
+Atelier Chromatique est un studio interactif pour explorer, tester et composer des palettes de couleurs. Le catalogue contient **208 teintes** réparties en quatre familles, avec une interface néon responsive et disponible en français ou en anglais.
 
 ## Aperçu des outils
 
 - **Explorer** : navigation par famille, recherche par nom ou code hexadécimal et palettes repliables.
 - **Copier** : clic sur une couleur pour copier son code dans le presse-papiers.
 - **Favoris** : sauvegarde locale des teintes préférées, avec une zone de favoris repliable.
-- **Palette personnelle** : sélection manuelle, suppression individuelle et export en fichier texte.
+- **Palette personnelle** : sélection manuelle, suppression individuelle, notes, glisser-déposer, sauvegarde de collections et export en fichier texte.
 - **Palette surprise** : génération de cinq couleurs selon une harmonie aléatoire, analogue, complémentaire, triadique ou monochromatique ; couleurs verrouillables, aperçu en dégradé et historique restaurable.
-- **Exports avancés** : téléchargement en PNG, CSS, JSON, configuration Tailwind et Adobe `.ase`, avec partage par URL.
+- **Exports avancés** : un menu unique permet de télécharger en PNG, CSS, JSON, configuration Tailwind ou Adobe `.ase`, avec partage par URL.
 - **Couleurs d'une image** : import local et extraction des cinq teintes dominantes via Canvas.
 - **Contraste et filtres** : filtres par catégorie, température, luminosité, saturation et contraste minimum ; résumé AA/AAA et suggestion accessible.
 - **Mode inspiration** : aperçu de la palette en interface, carte ou affiche.
-- **Palettes personnelles** : noms, notes, glisser-déposer, sauvegarde de plusieurs collections et export.
+- **Panneaux indépendants** : chaque outil du Studio et Ton espace s'ouvre ou se ferme séparément, avec une animation fluide.
 - **Accessibilité** : test de contraste, simulations de vision et interface compatible avec `prefers-reduced-motion`.
 - **Interaction** : raccourcis `G` génération, `C` copie, `E` export CSS et `F` filtres.
 - **Personnalisation** : thème clair ou sombre, animations, menu responsive et changement de langue.
@@ -38,7 +38,8 @@ Une installation de dépendances n'est pas nécessaire : le projet utilise uniqu
 3. Utilise l'étoile pour ajouter une teinte aux favoris.
 4. Active **Sélection manuelle** pour construire une palette personnalisée.
 5. Ouvre le **Studio** pour générer une palette, analyser une image ou contrôler son contraste.
-6. Clique sur une palette de l'historique pour la restaurer.
+6. Ouvre le menu **Exporter** pour choisir PNG, CSS, JSON, Tailwind ou ASE.
+7. Clique sur une palette de l'historique pour la restaurer ou sur `×` pour la supprimer.
 
 Les images sont analysées directement dans le navigateur. Elles ne sont envoyées vers aucun serveur.
 
@@ -58,7 +59,7 @@ Le compte local n'est pas une authentification serveur. Les données ne sont pas
 
 ```text
 index.html   Interface et structure des outils
-colors.json  Catalogue des 184 couleurs
+colors.json  Catalogue des 208 couleurs
 style.css    Thème, responsive et animations
 script.js    Rendu, interactions, stockage et exports
 README.md    Documentation

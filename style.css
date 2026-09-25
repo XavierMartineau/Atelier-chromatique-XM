@@ -676,6 +676,19 @@ h1 {
   background: var(--surface);
   box-shadow: var(--shadow);
 }
+.smart-filters.is-open {
+  animation: filter-panel-in 0.28s var(--ease-smooth) both;
+}
+@keyframes filter-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .smart-filters label {
   display: grid;
   gap: 6px;
