@@ -16,17 +16,53 @@
       <i class="spark spark-two">✦</i>
     </div>
     <nav class="navbar">
-      <div class="nav-logo"><span>✦</span> Atelier chromatique</div>
+      <div class="nav-logo">
+        <span>✦</span>
+        <span data-fr="Atelier chromatique" data-en="Color atelier"
+          >Atelier chromatique</span
+        >
+      </div>
       <button class="nav-toggle" aria-label="Ouvrir le menu">☰</button>
       <ul class="nav-links">
         <li>
-          <a href="#jewel" data-target=".colors.jewel">Bijoux</a>
+          <a
+            href="#jewel"
+            data-target=".colors.jewel"
+            data-fr="Bijoux"
+            data-en="Jewel"
+            >Bijoux</a
+          >
         </li>
         <li>
-          <a href="#metallic" data-target=".colors.metallic">Métalliques</a>
+          <a
+            href="#metallic"
+            data-target=".colors.metallic"
+            data-fr="Métalliques"
+            data-en="Metallic"
+            >Métalliques</a
+          >
         </li>
-        <li><a href="#pastel" data-target=".colors.pastel">Pastels</a></li>
-        <li><a href="#other" data-target=".colors.other">Autres</a></li>
+        <li>
+          <a
+            href="#pastel"
+            data-target=".colors.pastel"
+            data-fr="Pastels"
+            data-en="Pastels"
+            >Pastels</a
+          >
+        </li>
+        <li>
+          <a
+            href="#other"
+            data-target=".colors.other"
+            data-fr="Autres"
+            data-en="Other"
+            >Autres</a
+          >
+        </li>
+        <li>
+          <a href="#creative-tools" data-fr="Studio" data-en="Studio">Studio</a>
+        </li>
       </ul>
       <div class="nav-actions">
         <button
@@ -37,22 +73,57 @@
         >
           ◐
         </button>
-        <button class="outline-btn" id="export-btn">Exporter</button>
+        <button
+          class="outline-btn"
+          id="export-btn"
+          data-fr="Exporter"
+          data-en="Export"
+        >
+          Exporter
+        </button>
+        <button
+          class="outline-btn"
+          id="language-toggle"
+          aria-label="Changer de langue"
+        >
+          EN
+        </button>
       </div>
     </nav>
     <main class="page-shell">
       <section class="hero">
         <div>
-          <div class="eyebrow">Collection 01 · Curated colors</div>
-          <h1>Des couleurs qui donnent le ton.</h1>
-          <p class="hero-copy">
+          <div
+            class="eyebrow"
+            data-fr="Collection 01 · Curated colors"
+            data-en="Collection 01 · Curated colors"
+          >
+            Collection 01 · Curated colors
+          </div>
+          <h1
+            data-fr="Des couleurs qui donnent le ton."
+            data-en="Colors that set the mood."
+          >
+            Des couleurs qui donnent le ton.
+          </h1>
+          <p
+            class="hero-copy"
+            data-fr="Explorez une collection de teintes royales, trouvez l’accord juste et composez une palette qui a du caractère."
+            data-en="Explore a collection of royal shades, find the right match and build a palette with character."
+          >
             Explorez une collection de teintes royales, trouvez l’accord juste
             et composez une palette qui a du caractère.
           </p>
         </div>
         <div class="hero-note">
-          <strong id="total-colors">—</strong>teintes à explorer<br />Une
-          couleur, un clic, une nouvelle idée.
+          <strong id="total-colors">—</strong
+          ><span data-fr="teintes à explorer" data-en="shades to explore"
+            >teintes à explorer</span
+          ><br /><span
+            data-fr="Une couleur, un clic, une nouvelle idée."
+            data-en="One color, one click, one new idea."
+            >Une couleur, un clic, une nouvelle idée.</span
+          >
         </div>
       </section>
       <section class="toolbar" aria-label="Outils de recherche">
@@ -62,15 +133,162 @@
             id="color-search"
             type="search"
             placeholder="Rechercher une couleur ou un code hex…"
+            data-placeholder-fr="Rechercher une couleur ou un code hex…"
+            data-placeholder-en="Search a color or hex code…"
         /></label>
         <span class="toolbar-status" id="results-count"></span>
-        <button class="primary-btn" id="surprise-btn">✦ Surprise-moi</button>
+        <button
+          class="primary-btn"
+          id="surprise-btn"
+          data-fr="✦ Surprise-moi"
+          data-en="✦ Surprise me"
+        >
+          ✦ Surprise-moi
+        </button>
+        <button
+          class="outline-btn"
+          id="manual-toggle"
+          data-fr="☷ Sélection manuelle"
+          data-en="☷ Manual selection"
+        >
+          ☷ Sélection manuelle
+        </button>
+      </section>
+      <section
+        class="manual-builder"
+        id="manual-builder"
+        aria-label="Palette personnelle"
+      >
+        <div>
+          <span
+            class="tool-kicker"
+            data-fr="Ton espace"
+            data-en="Your workspace"
+            >Ton espace</span
+          >
+          <h2 data-fr="Ma palette" data-en="My palette">Ma palette</h2>
+          <p
+            id="manual-status"
+            data-fr="Active la sélection manuelle puis clique sur les couleurs à garder."
+            data-en="Turn on manual selection, then click the colors you want to keep."
+          >
+            Active la sélection manuelle puis clique sur les couleurs à garder.
+          </p>
+        </div>
+        <div class="manual-colors" id="manual-colors"></div>
+        <div class="manual-actions">
+          <button
+            class="outline-btn"
+            id="clear-manual"
+            data-fr="Effacer"
+            data-en="Clear"
+          >
+            Effacer
+          </button>
+          <button
+            class="primary-btn"
+            id="export-custom-btn"
+            data-fr="Exporter ma palette"
+            data-en="Export my palette"
+          >
+            Exporter ma palette
+          </button>
+        </div>
+      </section>
+      <section
+        class="creative-tools"
+        id="creative-tools"
+        aria-label="Studio créatif"
+      >
+        <div class="tool-panel random-tool">
+          <div class="tool-heading">
+            <div>
+              <span
+                class="tool-kicker"
+                data-fr="Générateur express"
+                data-en="Quick generator"
+                >Générateur express</span
+              >
+              <h2 data-fr="Palette surprise" data-en="Surprise palette">
+                Palette surprise
+              </h2>
+            </div>
+            <button
+              class="primary-btn"
+              id="generate-palette"
+              data-fr="✦ Générer"
+              data-en="✦ Generate"
+            >
+              ✦ Générer
+            </button>
+          </div>
+          <p class="tool-description">
+            <span
+              data-fr="Cinq teintes inédites, créées au hasard pour débloquer une nouvelle idée."
+              data-en="Five fresh shades, randomly created to unlock a new idea."
+              >Cinq teintes inédites, créées au hasard pour débloquer une
+              nouvelle idée.</span
+            >
+          </p>
+          <div
+            class="generated-palette"
+            id="generated-palette"
+            aria-live="polite"
+          ></div>
+        </div>
+        <div class="tool-panel image-tool">
+          <div class="tool-heading">
+            <div>
+              <span
+                class="tool-kicker"
+                data-fr="Inspiration visuelle"
+                data-en="Visual inspiration"
+                >Inspiration visuelle</span
+              >
+              <h2 data-fr="Couleurs d’une image" data-en="Colors from an image">
+                Couleurs d’une image
+              </h2>
+            </div>
+            <label
+              class="upload-btn"
+              for="image-input"
+              data-fr="⌁ Importer"
+              data-en="⌁ Upload"
+              >⌁ Importer</label
+            >
+            <input id="image-input" type="file" accept="image/*" />
+          </div>
+          <p class="tool-description">
+            <span
+              data-fr="Importe une image et récupère ses teintes dominantes directement dans ton navigateur."
+              data-en="Upload an image and get its dominant shades directly in your browser."
+              >Importe une image et récupère ses teintes dominantes directement
+              dans ton navigateur.</span
+            >
+          </p>
+          <div class="image-result" id="image-result">
+            <span
+              data-fr="Aucune image choisie pour le moment."
+              data-en="No image selected yet."
+              >Aucune image choisie pour le moment.</span
+            >
+          </div>
+        </div>
       </section>
       <div id="empty-state" class="empty-state">
-        Aucune couleur ne correspond à votre recherche.
+        <span
+          data-fr="Aucune couleur ne correspond à votre recherche."
+          data-en="No color matches your search."
+          >Aucune couleur ne correspond à votre recherche.</span
+        >
       </div>
       <div class="palette" id="jewel">
-        <h2>Palette 1: Majestic Jewel Tones</h2>
+        <h2
+          data-fr="Palette 1 : Tons bijoux majestueux"
+          data-en="Palette 1: Majestic Jewel Tones"
+        >
+          Palette 1: Majestic Jewel Tones
+        </h2>
         <div class="colors jewel">
           <div data-name="Royal Obsidian">
             <span data-code="#a4123f">#a4123f</span>
@@ -229,7 +447,12 @@
       </div>
 
       <div class="palette" id="metallic">
-        <h2>Palette 2: Royal Metallic Elegance</h2>
+        <h2
+          data-fr="Palette 2 : Élégance métallique royale"
+          data-en="Palette 2: Royal Metallic Elegance"
+        >
+          Palette 2: Royal Metallic Elegance
+        </h2>
         <div class="colors metallic">
           <div data-name="Golden Crown">
             <span data-code="#D4AF37">#D4AF37</span>
@@ -378,7 +601,12 @@
         </div>
       </div>
       <div class="palette" id="pastel">
-        <h2>Palette 3: Soft Pastel Royals</h2>
+        <h2
+          data-fr="Palette 3 : Pastels royaux délicats"
+          data-en="Palette 3: Soft Pastel Royals"
+        >
+          Palette 3: Soft Pastel Royals
+        </h2>
         <div class="colors pastel">
           <div data-name="Lavender Breeze">
             <span data-code="#E6E6FA">#E6E6FA</span>
@@ -546,18 +774,54 @@
       </div>
 
       <div class="palette" id="other">
-        <h2>Palette 4: Other</h2>
+        <h2 data-fr="Palette 4 : Autres" data-en="Palette 4: Other">
+          Palette 4: Other
+        </h2>
         <div class="colors other">
           <div data-name="Dark Horizon">
             <span data-code="#6a629b">#6a629b</span>
+          </div>
+          <div data-name="Coral Pulse">
+            <span data-code="#FF6B6B">#FF6B6B</span>
+          </div>
+          <div data-name="Lagoon Glass">
+            <span data-code="#2EC4B6">#2EC4B6</span>
+          </div>
+          <div data-name="Citrus Pop">
+            <span data-code="#F4D35E">#F4D35E</span>
+          </div>
+          <div data-name="Ink Bloom">
+            <span data-code="#25324B">#25324B</span>
+          </div>
+          <div data-name="Moss Trail">
+            <span data-code="#718355">#718355</span>
+          </div>
+          <div data-name="Berry Soda">
+            <span data-code="#B24C63">#B24C63</span>
+          </div>
+          <div data-name="Apricot Jam">
+            <span data-code="#F4A261">#F4A261</span>
+          </div>
+          <div data-name="Arctic Signal">
+            <span data-code="#5BC0EB">#5BC0EB</span>
+          </div>
+          <div data-name="Solar Flare">
+            <span data-code="#F9C74F">#F9C74F</span>
+          </div>
+          <div data-name="Plum Ink">
+            <span data-code="#432818">#432818</span>
           </div>
         </div>
       </div>
     </main>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <footer>
-      Une collection imaginée par Xavier Martineau · Cliquez sur une teinte pour
-      copier son code.
+      <span
+        data-fr="Une collection imaginée par Xavier Martineau · Cliquez sur une teinte pour copier son code."
+        data-en="A collection by Xavier Martineau · Click a shade to copy its code."
+        >Une collection imaginée par Xavier Martineau · Cliquez sur une teinte
+        pour copier son code.</span
+      >
     </footer>
     <script src="script.js"></script>
   </body>
