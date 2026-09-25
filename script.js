@@ -1269,6 +1269,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       navLinks.classList.remove("show");
     });
   });
+  document.querySelector("#top-surprise").addEventListener("click", () => {
+    const panel = document.querySelector(".random-tool");
+    if (panel.classList.contains("is-collapsed"))
+      panel.querySelector(".panel-toggle")?.click();
+    panel.scrollIntoView({ behavior: "smooth", block: "center" });
+    document.querySelector("#generate-palette").click();
+  });
 
   document.querySelectorAll(".tool-panel, .manual-builder").forEach((panel) => {
     const heading = panel.classList.contains("manual-builder")
@@ -1276,22 +1283,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       : panel.querySelector(".tool-heading");
     if (!heading) return;
     heading.classList.add("panel-heading");
-    let content = null;
-    if (!panel.classList.contains("manual-builder")) {
-      content = document.createElement("div");
-      content.className = "panel-content";
-      while (heading.nextElementSibling)
-        content.append(heading.nextElementSibling);
-      panel.append(content);
-      const updateContentHeight = () => {
-        panel.style.setProperty(
-          "--panel-content-height",
-          `${content.scrollHeight}px`,
-        );
-      };
-      updateContentHeight();
-      window.addEventListener("resize", updateContentHeight, { passive: true });
-    }
+    const content = document.createElement("div");
+    content.className = "panel-content";
+    while (heading.nextElementSibling) content.append(heading.nextElementSibling);
+    panel.append(content);
+    const updateContentHeight = () => {
+      panel.style.setProperty(
+        "--panel-content-height",
+        `${content.scrollHeight}px`,
+      );
+    };
+    updateContentHeight();
+    window.addEventListener("resize", updateContentHeight, { passive: true });
     const toggle = document.createElement("button");
     toggle.className = "panel-toggle";
     toggle.type = "button";
