@@ -1,636 +1,532 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+:root {
+  --bg: #f5f1ea;
+  --surface: #fffdf9;
+  --surface-strong: #fff;
+  --ink: #25221f;
+  --muted: #746e66;
+  --line: #e7dfd5;
+  --accent: #bb4d36;
+  --accent-dark: #7e2e27;
+  --shadow: 0 18px 50px rgba(55, 39, 27, 0.1);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #353535;
-  color: white;
-  border-color: black;
-  transition: background-color 0.3s ease; /* Transition de fond */
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+  text-align: left;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
-
-/* Style du titre */
-h1 {
-  margin-top: 20px;
-  color: white;
+body.dark {
+  --bg: #1e1c1b;
+  --surface: #292624;
+  --surface-strong: #332e2b;
+  --ink: #f9f1e7;
+  --muted: #b9aea2;
+  --line: #48403a;
+  --accent: #f08b6e;
+  --accent-dark: #ffc1ad;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
 }
-/* Style du sous-titre */
-.credits {
-  font-size: 14px;
-  color: #666;
-  text-align: center;
-  font-weight: normal;
-  margin-top: -10px;
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
-/* Nav container */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #5a2a99;
-  padding: 10px 20px;
-  position: relative;
+.orb {
+  position: absolute;
+  display: block;
+  width: 110px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(1px);
+  animation: drift 18s ease-in-out infinite alternate;
 }
-
-.nav-logo {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
+.orb-one {
+  top: 12%;
+  left: 4%;
+  background: #f0a45d;
 }
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
+.orb-two {
+  top: 28%;
+  right: 5%;
+  width: 170px;
+  background: #6ba9c8;
+  animation-delay: -6s;
+  animation-duration: 23s;
 }
-
-.nav-links li a {
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
-  transition: color 0.3s;
+.orb-three {
+  top: 63%;
+  left: 10%;
+  width: 78px;
+  background: #d56a77;
+  animation-delay: -11s;
+  animation-duration: 20s;
+}
+.orb-four {
+  top: 84%;
+  right: 16%;
+  width: 125px;
+  background: #8fbf87;
+  animation-delay: -3s;
+  animation-duration: 26s;
+}
+.spark {
+  position: absolute;
+  color: var(--accent);
+  font-style: normal;
+  opacity: 0.35;
+  animation: twinkle 4s ease-in-out infinite;
+}
+.spark-one {
+  top: 21%;
+  left: 48%;
+  font-size: 1.5rem;
+}
+.spark-two {
+  top: 72%;
+  right: 8%;
+  font-size: 2rem;
+  animation-delay: -2s;
+}
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(34px, -42px, 0) rotate(24deg);
+  }
+  100% {
+    transform: translate3d(-20px, 28px, 0) rotate(-18deg);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(0.7) rotate(0deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 0.55;
+  }
+}
+button,
+input {
+  font: inherit;
+}
+button {
   cursor: pointer;
 }
-
-.nav-links li a:hover {
-  color: #ffd700;
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 72px;
+  padding: 14px max(20px, calc((100vw - 1180px) / 2));
+  background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
 }
-
+.nav-logo {
+  color: var(--ink);
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: -0.03em;
+}
+.nav-logo span {
+  color: var(--accent);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  margin: 0 auto 0 0;
+  list-style: none;
+}
+.nav-links a,
+.back-btn {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.86rem;
+  padding: 9px 12px;
+  border-radius: 99px;
+  transition: 0.2s ease;
+}
+.nav-links a:hover,
+.nav-links a.active,
+.back-btn:hover {
+  color: var(--ink);
+  background: var(--bg);
+}
 .nav-toggle {
   display: none;
-  font-size: 24px;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.35rem;
 }
-
-@media (max-width: 768px) {
-  .nav-links {
-    position: fixed; /* fixé par-dessus tout */
-    top: 60px;
-    right: 0;
-    background: #5a2a99;
-    flex-direction: column;
-    width: 200px;
-    display: none;
-    padding: 15px;
-    border-radius: 0 0 0 10px;
-    z-index: 1000; /* passe devant le contenu */
-    .palette:hover {
-      box-shadow: none !important;
-    }
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-btn,
+.outline-btn {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--surface-strong);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+.icon-btn:hover,
+.outline-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.page-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 48px;
+  align-items: end;
+  padding: 82px 0 58px;
+}
+.eyebrow {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+h1,
+h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  letter-spacing: -0.035em;
+}
+h1 {
+  max-width: 720px;
+  margin: 12px 0 16px;
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  line-height: 0.98;
+}
+.hero-copy {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.hero-note {
+  justify-self: end;
+  max-width: 260px;
+  padding: 22px;
+  border-left: 2px solid var(--accent);
+  color: var(--muted);
+  line-height: 1.5;
+}
+.hero-note strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+.toolbar {
+  position: sticky;
+  top: 72px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(10px);
+}
+.search-box {
+  flex: 1;
+  position: relative;
+}
+.search-box input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 13px 16px 13px 42px;
+  outline: none;
+}
+.search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 12px;
+  color: var(--muted);
+}
+.toolbar-status {
+  color: var(--muted);
+  font-size: 0.83rem;
+  white-space: nowrap;
+}
+.primary-btn {
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  padding: 13px 17px;
+  font-weight: 700;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.primary-btn:hover {
+  transform: translateY(-2px);
+  background: var(--accent-dark);
+}
+.palette {
+  margin: 24px 0 52px;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  scroll-margin-top: 130px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease,
+    box-shadow 0.3s ease;
+}
+.palette.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero {
+  animation: rise-in 0.8s ease both;
+}
+.toolbar {
+  animation: rise-in 0.8s 0.12s ease both;
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
-
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.colors div {
+  animation: pop-in 0.5s both;
+  animation-delay: calc(var(--card-index, 0) * 18ms);
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+.palette-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.palette h2 {
+  margin: 0;
+  font-size: 1.65rem;
+}
+.palette-count {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.colors {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 12px;
+}
+.colors div {
+  min-height: 138px;
+  padding: 14px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 -45px 45px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.colors div:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    inset 0 -45px 45px rgba(0, 0, 0, 0.2),
+    0 12px 22px rgba(44, 30, 21, 0.15);
+}
+.colors div.is-hidden {
+  display: none;
+}
+.color-name {
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.colors div span {
+  font-size: 0.74rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+.favorite-btn {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  border-radius: 50%;
+  width: 29px;
+  height: 29px;
+  font-size: 1rem;
+}
+.favorite-btn.is-favorite {
+  color: #ffd166;
+}
+.empty-state {
+  display: none;
+  padding: 44px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-state.is-visible {
+  display: block;
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 50;
+  padding: 12px 18px;
+  border-radius: 99px;
+  background: var(--ink);
+  color: var(--bg);
+  transform: translate(-50%, 90px);
+  opacity: 0;
+  transition: 0.25s ease;
+}
+.toast.is-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+footer {
+  padding: 20px 0 50px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+@media (max-width: 760px) {
+  .page-shell {
+    width: min(100% - 28px, 620px);
+  }
+  .navbar {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+  .nav-toggle {
+    display: block;
+    margin-left: auto;
+  }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 14px;
+    right: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+    background: var(--surface-strong);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
   .nav-links.show {
     display: flex;
   }
-
-  .nav-toggle {
-    display: block;
+  .nav-actions {
+    display: none;
   }
-}
-/* Palette */
-.palette {
-  margin: 20px auto;
-  width: 80%;
-  padding: 10px;
-  background-color: #282828; /* Fond gris plus foncé */
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
-  transition: box-shadow 0.3s ease; /* Transition de l'ombre */
-}
-
-.palette:hover {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4); /* Ombre plus intense au survol */
-}
-
-/* Conteneur des couleurs */
-.colors {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Interaction des couleurs au survol */
-.colors div {
-  width: 120px;
-  height: 120px;
-  margin: 10px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  text-shadow: -0.5px -0.5px 0 black, 0.5px -0.5px 0 black, -0.5px 0.5px 0 black,
-    0.5px 0.5px 0 black;
-  font-weight: bold;
-  font-size: 14px;
-  position: relative;
-  padding: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.colors div:hover {
-  transform: scale(1.05); /* Légère augmentation de taille */
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Ombre au survol */
-}
-
-.colors div:active {
-  transform: scale(0.95); /* Réduction au clic */
-  transition: transform 0.2s ease-in-out;
-}
-
-/* Texte clair pour les couleurs sombres */
-.light-text {
-  color: white;
-}
-
-/* Texte sombre pour les couleurs claires */
-.dark-text {
-  color: black;
-}
-/* Palette: Majestic Jewel Tones */
-.palette .colors.jewel div[data-name="Royal Obsidian"] {
-  background-color: #a4123f;
-}
-.palette .colors.jewel div[data-name="Crimson Gem"] {
-  background-color: #8b2232;
-}
-.palette .colors.jewel div[data-name="Violet Night"] {
-  background-color: #7d00ab;
-}
-.palette .colors.jewel div[data-name="Emerald Mist"] {
-  background-color: #007b5f;
-}
-.palette .colors.jewel div[data-name="Blue Jewel"] {
-  background-color: #0f52ba;
-}
-.palette .colors.jewel div[data-name="Ocean Depth"] {
-  background-color: #005f6a;
-}
-.palette .colors.jewel div[data-name="Midnight Shadow"] {
-  background-color: #1c1c1c;
-}
-.palette .colors.jewel div[data-name="Magenta Dream"] {
-  background-color: #6a1d56;
-}
-.palette .colors.jewel div[data-name="Scarlet Fire"] {
-  background-color: #65000b;
-}
-.palette .colors.jewel div[data-name="Electric Blue"] {
-  background-color: #3f00ff;
-}
-.palette .colors.jewel div[data-name="Purple Thunder"] {
-  background-color: #6a0dad;
-}
-.palette .colors.jewel div[data-name="Crimson Red"] {
-  background-color: #9b111e;
-}
-.palette .colors.jewel div[data-name="Garnet Stone"] {
-  background-color: #9a2a2a;
-}
-.palette .colors.jewel div[data-name="Jade Green"] {
-  background-color: #006f2b;
-}
-.palette .colors.jewel div[data-name="Golden Touch"] {
-  background-color: #ffc87c;
-}
-.palette .colors.jewel div[data-name="Sunlit Yellow"] {
-  background-color: #ffbf00;
-}
-.palette .colors.jewel div[data-name="Purple Vibe"] {
-  background-color: #7a378b;
-}
-.palette .colors.jewel div[data-name="Blue Waves"] {
-  background-color: #0f52ba;
-}
-.palette .colors.jewel div[data-name="Deep Forest"] {
-  background-color: #004425;
-}
-.palette .colors.jewel div[data-name="Blood Red"] {
-  background-color: #8b0000;
-}
-.palette .colors.jewel div[data-name="Purple Hue"] {
-  background-color: #8e4585;
-}
-.palette .colors.jewel div[data-name="Burgundy Glow"] {
-  background-color: #6d071a;
-}
-.palette .colors.jewel div[data-name="Lavender Mist"] {
-  background-color: #da70d6;
-}
-.palette .colors.jewel div[data-name="Blue Deep"] {
-  background-color: #003153;
-}
-.palette .colors.jewel div[data-name="Night Blue"] {
-  background-color: #191970;
-}
-.palette .colors.jewel div[data-name="Earth Brown"] {
-  background-color: #3d1c02;
-}
-.palette .colors.jewel div[data-name="Electric Purple"] {
-  background-color: #3f00ff;
-}
-.palette .colors.jewel div[data-name="Lavender Light"] {
-  background-color: #da70d6;
-}
-.palette .colors.jewel div[data-name="Light Lavender"] {
-  background-color: #ccccff;
-}
-.palette .colors.jewel div[data-name="Ocean Blue"] {
-  background-color: #082567;
-}
-.palette .colors.jewel div[data-name="Purple Velvet"] {
-  background-color: #5e2750;
-}
-.palette .colors.jewel div[data-name="Deep Sea Blue"] {
-  background-color: #2d3e8b;
-}
-.palette .colors.jewel div[data-name="Magenta Shadow"] {
-  background-color: #6a1d56;
-}
-.palette .colors.jewel div[data-name="Dark Night"] {
-  background-color: #1b1b1b;
-}
-.palette .colors.jewel div[data-name="Dark Burgundy"] {
-  background-color: #560027;
-}
-.palette .colors.jewel div[data-name="Golden Dream"] {
-  background-color: #f8e0a0;
-}
-.palette .colors.jewel div[data-name="Mystic Ruby"] {
-  background-color: #99182c;
-}
-.palette .colors.jewel div[data-name="Sapphire Spell"] {
-  background-color: #082567;
-}
-.palette .colors.jewel div[data-name="Emerald Whisper"] {
-  background-color: #50c878;
-}
-.palette .colors.jewel div[data-name="Opal Gaze"] {
-  background-color: #a9a9f5;
-}
-.palette .colors.jewel div[data-name="Royal Garnet"] {
-  background-color: #8b0000;
-}
-.palette .colors.jewel div[data-name="Twilight Amethyst"] {
-  background-color: #9966cc;
-}
-.palette .colors.jewel div[data-name="Crimson Bloom"] {
-  background-color: #dc143c;
-}
-.palette .colors.jewel div[data-name="Amber Flame"] {
-  background-color: #ffbf00;
-}
-.palette .colors.jewel div[data-name="Jade Spirit"] {
-  background-color: #00a86b;
-}
-.palette .colors.jewel div[data-name="Moonlight Topaz"] {
-  background-color: #483d8b;
-}
-.palette .colors.jewel div[data-name="Velvet Ruby"] {
-  background-color: #c41e3a;
-}
-.palette .colors.jewel div[data-name="Obsidian Flame"] {
-  background-color: #3b0a2e;
-}
-.palette .colors.jewel div[data-name="Electric Emerald"] {
-  background-color: #50c878;
-}
-.palette .colors.jewel div[data-name="Midnight Sapphire"] {
-  background-color: #0f52ba;
-}
-.palette .colors.jewel div[data-name="Royal Twilight"] {
-  background-color: #8a2be2;
-}
-.palette .colors.metallic div[data-name="Golden Crown"] {
-  background-color: #d4af37;
-}
-.palette .colors.metallic div[data-name="Silver Light"] {
-  background-color: #c0c0c0;
-}
-.palette .colors.metallic div[data-name="Bronze Medal"] {
-  background-color: #cd7f32;
-}
-.palette .colors.metallic div[data-name="Royal Platinum"] {
-  background-color: #e5e4e2;
-}
-.palette .colors.metallic div[data-name="Antique Gold"] {
-  background-color: #cfb53b;
-}
-.palette .colors.metallic div[data-name="Polished Steel"] {
-  background-color: #8c92ac;
-}
-.palette .colors.metallic div[data-name="Iron Shadow"] {
-  background-color: #4b4b4b;
-}
-.palette .colors.metallic div[data-name="Champagne Shine"] {
-  background-color: #f7e7ce;
-}
-.palette .colors.metallic div[data-name="Metal Rose"] {
-  background-color: #b76e79;
-}
-.palette .colors.metallic div[data-name="Copper Flame"] {
-  background-color: #b87333;
-}
-.palette .colors.metallic div[data-name="Steel Blue"] {
-  background-color: #4682b4;
-}
-.palette .colors.metallic div[data-name="Titanium White"] {
-  background-color: #eaeaea;
-}
-.palette .colors.metallic div[data-name="Graphite Grey"] {
-  background-color: #474a51;
-}
-.palette .colors.metallic div[data-name="Pearl Glow"] {
-  background-color: #f8f6f0;
-}
-.palette .colors.metallic div[data-name="Rust Iron"] {
-  background-color: #b7410e;
-}
-.palette .colors.metallic div[data-name="Silver Frost"] {
-  background-color: #e1e1e1;
-}
-.palette .colors.metallic div[data-name="Charcoal Metal"] {
-  background-color: #36454f;
-}
-.palette .colors.metallic div[data-name="Golden Beam"] {
-  background-color: #ffd700;
-}
-.palette .colors.metallic div[data-name="Platinum Dust"] {
-  background-color: #e5e4e2;
-}
-.palette .colors.metallic div[data-name="Cobalt Steel"] {
-  background-color: #3d59ab;
-}
-.palette .colors.metallic div[data-name="Zinc Shadow"] {
-  background-color: #7f7f7f;
-}
-.palette .colors.metallic div[data-name="Alloy Grey"] {
-  background-color: #6e7f80;
-}
-.palette .colors.metallic div[data-name="Tarnished Silver"] {
-  background-color: #a9a9a9;
-}
-.palette .colors.metallic div[data-name="Gilded Bronze"] {
-  background-color: #996515;
-}
-.palette .colors.metallic div[data-name="Frosted Chrome"] {
-  background-color: #b0c4de;
-}
-.palette .colors.metallic div[data-name="Silver Pearl"] {
-  background-color: #c9c0bb;
-}
-.palette .colors.metallic div[data-name="Mercury Flash"] {
-  background-color: #d9d6cf;
-}
-.palette .colors.metallic div[data-name="Shadow Alloy"] {
-  background-color: #5a5a5a;
-}
-.palette .colors.metallic div[data-name="Iron Dust"] {
-  background-color: #b2beb5;
-}
-.palette .colors.metallic div[data-name="Plated Brass"] {
-  background-color: #b5a642;
-}
-.palette .colors.metallic div[data-name="Copper Gleam"] {
-  background-color: #da8a67;
-}
-.palette .colors.metallic div[data-name="Silver Rose"] {
-  background-color: #c4aead;
-}
-.palette .colors.metallic div[data-name="Chrome Glint"] {
-  background-color: #d1d0ce;
-}
-.palette .colors.metallic div[data-name="Golden Alloy"] {
-  background-color: #ffd700;
-}
-.palette .colors.metallic div[data-name="Matte Steel"] {
-  background-color: #9a9a9a;
-}
-.palette .colors.metallic div[data-name="Vintage Bronze"] {
-  background-color: #665d1e;
-}
-.palette .colors.metallic div[data-name="Pearlescent White"] {
-  background-color: #fdfdff;
-}
-.palette .colors.metallic div[data-name="Satin Platinum"] {
-  background-color: #cecece;
-}
-.palette .colors.metallic div[data-name="Steel Mist"] {
-  background-color: #a2a2a2;
-}
-.palette .colors.metallic div[data-name="Shiny Nickel"] {
-  background-color: #bfbfbf;
-}
-.palette .colors.metallic div[data-name="Bright Pewter"] {
-  background-color: #bfc1c2;
-}
-.palette .colors.metallic div[data-name="Iron Glow"] {
-  background-color: #9b9b9b;
-}
-.palette .colors.metallic div[data-name="Metal Cloud"] {
-  background-color: #d3d3d3;
-}
-.palette .colors.metallic div[data-name="Golden Sand"] {
-  background-color: #ecd540;
-}
-.palette .colors.metallic div[data-name="Rose Metal"] {
-  background-color: #b76e79;
-}
-.palette .colors.metallic div[data-name="Steel Veil"] {
-  background-color: #bcc6cc;
-}
-.palette .colors.metallic div[data-name="Dark Pewter"] {
-  background-color: #8e8e8e;
-}
-.palette .colors.metallic div[data-name="Moonlight Steel"] {
-  background-color: #e3e4fa;
-}
-.palette .colors.metallic div[data-name="Radiant Silver"] {
-  background-color: #dcdcdc;
-}
-.palette .colors.pastel div[data-name="Lavender Breeze"] {
-  background-color: #e6e6fa;
-}
-.palette .colors.pastel div[data-name="Blush Rose"] {
-  background-color: #fadadd;
-}
-.palette .colors.pastel div[data-name="Mint Whisper"] {
-  background-color: #d0f0c0;
-}
-.palette .colors.pastel div[data-name="Sky Veil"] {
-  background-color: #b0e0e6;
-}
-.palette .colors.pastel div[data-name="Peach Mist"] {
-  background-color: #ffe5b4;
-}
-.palette .colors.pastel div[data-name="Cloud Pearl"] {
-  background-color: #f5f5f5;
-}
-.palette .colors.pastel div[data-name="Bluebell Frost"] {
-  background-color: #a2c2e2;
-}
-.palette .colors.pastel div[data-name="Lilac Ash"] {
-  background-color: #d8bfd8;
-}
-.palette .colors.pastel div[data-name="Pale Rose"] {
-  background-color: #f3e2e4;
-}
-.palette .colors.pastel div[data-name="Iced Lavender"] {
-  background-color: #c7a0d3;
-}
-.palette .colors.pastel div[data-name="Cotton Candy"] {
-  background-color: #ffb3de;
-}
-.palette .colors.pastel div[data-name="Soft Mint"] {
-  background-color: #a8e6cf;
-}
-.palette .colors.pastel div[data-name="Sugar Plum"] {
-  background-color: #d1a1d0;
-}
-.palette .colors.pastel div[data-name="Creamy Peach"] {
-  background-color: #ffdab9;
-}
-.palette .colors.pastel div[data-name="Frozen Blue"] {
-  background-color: #a2d8f7;
-}
-.palette .colors.pastel div[data-name="Lemon Sorbet"] {
-  background-color: #fffacd;
-}
-.palette .colors.pastel div[data-name="Pastel Pink"] {
-  background-color: #f4c7d9;
-}
-.palette .colors.pastel div[data-name="Opal Glow"] {
-  background-color: #c4c4c4;
-}
-.palette .colors.pastel div[data-name="Seafoam Green"] {
-  background-color: #9fe2bf;
-}
-.palette .colors.pastel div[data-name="Cotton Cloud"] {
-  background-color: #ffffff;
-}
-.palette .colors.pastel div[data-name="Blushed Pink"] {
-  background-color: #f4d1d1;
-}
-.palette .colors.pastel div[data-name="Lime Light"] {
-  background-color: #d3e6a1;
-}
-.palette .colors.pastel div[data-name="Champagne Mist"] {
-  background-color: #f7e7ce;
-}
-.palette .colors.pastel div[data-name="Frozen Mint"] {
-  background-color: #c5e8b2;
-}
-.palette .colors.pastel div[data-name="Peach Glow"] {
-  background-color: #fde4b0;
-}
-.palette .colors.pastel div[data-name="Light Coral"] {
-  background-color: #f5a7a7;
-}
-.palette .colors.pastel div[data-name="Twilight Sky"] {
-  background-color: #e0bbe4;
-}
-.palette .colors.pastel div[data-name="Soft Butter"] {
-  background-color: #fff1a6;
-}
-.palette .colors.pastel div[data-name="Soft Lilac"] {
-  background-color: #d9b3e6;
-}
-.palette .colors.pastel div[data-name="Vanilla Creme"] {
-  background-color: #f5f5dc;
-}
-.palette .colors.pastel div[data-name="Ballet Slippers"] {
-  background-color: #f7d4d0;
-}
-.palette .colors.pastel div[data-name="Lavender Fields"] {
-  background-color: #e6daf1;
-}
-.palette .colors.pastel div[data-name="Morning Dew"] {
-  background-color: #a6d1e6;
-}
-.palette .colors.pastel div[data-name="Cotton Fog"] {
-  background-color: #c0d6d1;
-}
-.palette .colors.pastel div[data-name="Peachy Dream"] {
-  background-color: #ffd3b6;
-}
-.palette .colors.pastel div[data-name="Sea Breeze"] {
-  background-color: #b2d6c1;
-}
-.palette .colors.pastel div[data-name="Pastel Aqua"] {
-  background-color: #99e0d5;
-}
-.palette .colors.pastel div[data-name="Rosewater Mist"] {
-  background-color: #f6c4d0;
-}
-.palette .colors.pastel div[data-name="Frozen Pear"] {
-  background-color: #b1e3c9;
-}
-.palette .colors.pastel div[data-name="Misty Coral"] {
-  background-color: #f6c3d4;
-}
-.palette .colors.pastel div[data-name="Light Blueberry"] {
-  background-color: #c8d9ff;
-}
-.palette .colors.pastel div[data-name="Iced Lemonade"] {
-  background-color: #fff9c4;
-}
-.palette .colors.pastel div[data-name="Baby Peach"] {
-  background-color: #ffecb3;
-}
-.palette .colors.pastel div[data-name="Minty Fresh"] {
-  background-color: #c4e4d6;
-}
-.palette .colors.pastel div[data-name="Sugar Frost"] {
-  background-color: #d3b6ff;
-}
-.palette .colors.pastel div[data-name="Pale Coral"] {
-  background-color: #fad8b5;
-}
-.palette .colors.pastel div[data-name="Rose Quartz"] {
-  background-color: #f7c7d1;
-}
-.palette .colors.pastel div[data-name="Light Lavender Mist"] {
-  background-color: #e8d1f2;
-}
-.palette .colors.pastel div[data-name="Aquamarine Dream"] {
-  background-color: #a6d6d6;
-}
-.palette .colors.pastel div[data-name="Pale Yellow Glow"] {
-  background-color: #faebd7;
-}
-.palette .colors.pastel div[data-name="Floral Breeze"] {
-  background-color: #f0e0e6;
-}
-.palette .colors.pastel div[data-name="Lilac Frost"] {
-  background-color: #d9c8f1;
-}
-.palette .colors.pastel div[data-name="Creamy Sky"] {
-  background-color: #e4d1a6;
-}
-.palette .colors.pastel div[data-name="Cloudy Morning"] {
-  background-color: #c4d1e0;
-}
-.palette .other div[data-name="Dark Horizon"] {
-  background-color: #6a629b;
-}
-.colors div::before {
-  font-size: 14px; /* Taille du texte ajustée */
-  margin-bottom: 10px;
-}
-
-.colors div span {
-  font-size: 12px; /* Légèrement plus grand pour une meilleure lisibilité */
-}
-
-.colors div span::after {
-  font-style: italic;
-  font-size: 14px; /* Corrigé la taille pour que ce soit cohérent */
-  margin-top: 5px;
-}
-.color.copied {
-  outline: 3px solid #fff;
-  box-shadow: 0 0 10px white;
+  .hero {
+    display: block;
+    padding: 55px 0 35px;
+  }
+  h1 {
+    font-size: clamp(2.8rem, 15vw, 4.5rem);
+  }
+  .hero-note {
+    margin-top: 28px;
+  }
+  .toolbar {
+    top: 68px;
+    flex-wrap: wrap;
+  }
+  .toolbar-status {
+    order: 3;
+    width: 100%;
+  }
+  .palette {
+    padding: 18px;
+    border-radius: 14px;
+  }
+  .colors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+  .colors div {
+    min-height: 126px;
+    padding: 11px;
+  }
 }
