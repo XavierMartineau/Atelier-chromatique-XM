@@ -750,7 +750,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     )
     .join(
       "",
-    )}<li><a href="#creative-tools" data-fr="Studio" data-en="Studio">Studio</a></li>`;
+    )}<li><a href="#creative-tools" data-fr="Studio" data-en="Studio">Studio</a></li><li><a href="#tools-dialog" data-tool-dialog="true" data-fr="Outils" data-en="Tools">Outils</a></li>`;
   const categoryFilter = document.querySelector("#category-filter");
   categoryFilter.innerHTML = `<option value="all" data-fr="Toutes" data-en="All">Toutes</option>${categoryDefinitions
     .map(
@@ -2104,6 +2104,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.querySelectorAll(".nav-links a").forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
+      if (link.dataset.toolDialog) {
+        document.querySelector("#tools-dialog").showModal();
+        navLinks.classList.remove("show");
+        return;
+      }
       const target = link.dataset.target
         ? document.querySelector(link.dataset.target)?.closest(".palette")
         : document.querySelector(link.getAttribute("href"));
@@ -2120,6 +2125,58 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
   });
+  const toolsDialog = document.querySelector("#tools-dialog");
+  const toolCodeForeground = document.querySelector("#tool-code-foreground");
+  const toolCodeBackground = document.querySelector("#tool-code-background");
+  const toolCodeAccent = document.querySelector("#tool-code-accent");
+  const fakeCodePage = document.querySelector("#fake-code-page");
+  const toolPreviewText = document.querySelector("#tool-preview-text");
+  const fakeCodeTitle = document.querySelector("#fake-code-title");
+  const gradientText = document.querySelector("#tool-gradient-text");
+  const updateFakeCodePage = () => {
+    fakeCodePage.style.setProperty(
+      "--code-foreground",
+      toolCodeForeground.value,
+    );
+    fakeCodePage.style.setProperty(
+      "--code-background",
+      toolCodeBackground.value,
+    );
+    fakeCodePage.style.setProperty("--code-accent", toolCodeAccent.value);
+    const text = toolPreviewText.value || "Build something bright.";
+    fakeCodeTitle.textContent = text;
+    gradientText.textContent = text;
+  };
+  [
+    toolCodeForeground,
+    toolCodeBackground,
+    toolCodeAccent,
+    toolPreviewText,
+  ].forEach((input) => input.addEventListener("input", updateFakeCodePage));
+  const gradientStart = document.querySelector("#tool-gradient-start");
+  const gradientEnd = document.querySelector("#tool-gradient-end");
+  const gradientAngle = document.querySelector("#tool-gradient-angle");
+  const gradientPreview = document.querySelector("#tool-gradient-preview");
+  const gradientCode = document.querySelector("#tool-gradient-code");
+  const updateToolGradient = () => {
+    const value = `linear-gradient(${gradientAngle.value}deg, ${gradientStart.value}, ${gradientEnd.value})`;
+    gradientPreview.style.background = value;
+    gradientCode.textContent = `background: ${value};`;
+  };
+  [gradientStart, gradientEnd, gradientAngle].forEach((input) =>
+    input.addEventListener("input", updateToolGradient),
+  );
+  document
+    .querySelector("#copy-tool-gradient")
+    .addEventListener("click", () => copyText(gradientCode.textContent));
+  document
+    .querySelector("#tools-dialog-close")
+    .addEventListener("click", () => toolsDialog.close());
+  toolsDialog.addEventListener("click", (event) => {
+    if (event.target === toolsDialog) toolsDialog.close();
+  });
+  updateFakeCodePage();
+  updateToolGradient();
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".navbar")) {
       navLinks.classList.remove("show");

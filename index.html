@@ -715,6 +715,132 @@
         </button>
       </div>
     </dialog>
+    <dialog
+      class="tools-dialog"
+      id="tools-dialog"
+      aria-labelledby="tools-dialog-title"
+    >
+      <div class="tools-dialog-card">
+        <div class="dialog-heading">
+          <div>
+            <span
+              class="tool-kicker"
+              data-fr="Atelier de test"
+              data-en="Testing lab"
+              >Atelier de test</span
+            >
+            <h2
+              id="tools-dialog-title"
+              data-fr="Outils couleur"
+              data-en="Color tools"
+            >
+              Outils couleur
+            </h2>
+          </div>
+          <button
+            class="dialog-close"
+            id="tools-dialog-close"
+            type="button"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+        </div>
+        <div class="tools-dialog-grid">
+          <section class="fake-code-page" id="fake-code-page">
+            <div class="fake-code-toolbar">
+              <span></span><span></span><span></span><b>preview.html</b>
+            </div>
+            <div class="fake-code-body">
+              <p class="fake-code-comment">&lt;!-- ta page de code --&gt;</p>
+              <h3 id="fake-code-title">Build something bright.</h3>
+              <p>
+                Teste la lisibilité de ton interface avec une vraie surface de
+                lecture.
+              </p>
+              <button type="button">Run preview</button>
+              <pre><code><span>const</span> palette = {
+  primary: <i>"#61F7FF"</i>,
+  surface: <i>"#080D25"</i>
+};</code></pre>
+            </div>
+          </section>
+          <section class="tool-gradient-lab">
+            <span
+              class="tool-kicker"
+              data-fr="Dégradé précis"
+              data-en="Precise gradient"
+              >Dégradé précis</span
+            >
+            <h3 data-fr="Compose ton fond" data-en="Compose your background">
+              Compose ton fond
+            </h3>
+            <div class="tool-color-inputs">
+              <label
+                ><span data-fr="Départ" data-en="Start">Départ</span
+                ><input id="tool-gradient-start" type="color" value="#61F7FF"
+              /></label>
+              <label
+                ><span data-fr="Fin" data-en="End">Fin</span
+                ><input id="tool-gradient-end" type="color" value="#FF65C3"
+              /></label>
+              <label
+                ><span data-fr="Angle" data-en="Angle">Angle</span
+                ><input
+                  id="tool-gradient-angle"
+                  type="range"
+                  min="0"
+                  max="360"
+                  value="110"
+                /><output>110°</output></label
+              >
+            </div>
+            <div class="tool-gradient-text" id="tool-gradient-text">
+              Build something bright.
+            </div>
+            <div class="tool-gradient-preview" id="tool-gradient-preview"></div>
+            <code class="tool-gradient-code" id="tool-gradient-code"></code>
+            <button
+              class="outline-btn"
+              id="copy-tool-gradient"
+              type="button"
+              data-fr="Copier le CSS"
+              data-en="Copy CSS"
+            >
+              Copier le CSS
+            </button>
+          </section>
+        </div>
+        <div class="tool-code-controls">
+          <span
+            class="tool-kicker"
+            data-fr="Couleurs de la fausse page"
+            data-en="Fake page colors"
+            >Couleurs de la fausse page</span
+          >
+          <label class="tool-text-control"
+            ><span data-fr="Texte à tester" data-en="Text to test"
+              >Texte à tester</span
+            ><input
+              id="tool-preview-text"
+              type="text"
+              value="Build something bright."
+          /></label>
+          <label
+            ><span data-fr="Texte" data-en="Text">Texte</span
+            ><input id="tool-code-foreground" type="color" value="#F2FDFF"
+          /></label>
+          <label
+            ><span data-fr="Fond" data-en="Background">Fond</span
+            ><input id="tool-code-background" type="color" value="#080D25"
+          /></label>
+          <label
+            ><span data-fr="Accent" data-en="Accent">Accent</span
+            ><input id="tool-code-accent" type="color" value="#61F7FF"
+          /></label>
+        </div>
+      </div>
+    </dialog>
     <dialog class="account-dialog" id="account-dialog">
       <form id="account-form" method="dialog">
         <div class="panda" id="panda" aria-hidden="true">
