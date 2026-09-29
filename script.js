@@ -774,6 +774,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const imageInput = document.querySelector("#image-input");
   const imageResult = document.querySelector("#image-result");
+  const imageColors = document.querySelector("#image-colors");
   const clearImage = document.querySelector("#clear-image");
   imageInput.addEventListener("change", (event) => {
     const [file] = event.target.files;
@@ -805,10 +806,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             .map((value) => Number(value).toString(16).padStart(2, "0"))
             .join("")}`.toUpperCase(),
         );
+      while (colors.length < 5) {
+        colors.push(
+          colors[colors.length % Math.max(colors.length, 1)] || "#000000",
+        );
+      }
       imageResult.classList.add("has-colors");
       clearImage.hidden = false;
       imageResult.innerHTML = `<img class="image-preview" src="${URL.createObjectURL(file)}" alt="Image importée" />`;
-      renderColorStrip(imageResult, colors);
+      renderColorStrip(imageColors, colors);
       showToast(
         currentLanguage === "fr"
           ? `${colors.length} couleurs extraites de l’image`
@@ -822,6 +828,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     clearImage.hidden = true;
     imageResult.classList.remove("has-colors");
     imageResult.innerHTML = `<span data-fr="Aucune image choisie pour le moment." data-en="No image selected yet.">${currentLanguage === "fr" ? "Aucune image choisie pour le moment." : "No image selected yet."}</span>`;
+    imageColors.innerHTML = "";
   });
 
   cards.forEach((card, index) => {
