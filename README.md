@@ -20,18 +20,6 @@ Atelier Chromatique est un studio interactif pour explorer, tester et composer d
 - **Personnalisation** : thème clair ou sombre, animations, menu responsive et changement de langue.
 - **Compte local** : profil facultatif stocké dans le navigateur, avec mot de passe haché et option de mémorisation.
 
-## Installation
-
-Le navigateur doit charger `colors.json` via HTTP. Depuis le dossier du projet, lance un serveur local :
-
-```powershell
-python -m http.server 8000
-```
-
-Puis ouvre [http://localhost:8000](http://localhost:8000).
-
-Une installation de dépendances n'est pas nécessaire : le projet utilise uniquement HTML, CSS et JavaScript natifs.
-
 ## Parcours rapide
 
 1. Recherche une couleur ou ouvre une famille depuis la navigation.
