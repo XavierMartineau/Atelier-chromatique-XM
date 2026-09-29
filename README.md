@@ -1,10 +1,10 @@
 # Atelier Chromatique
 
-Atelier Chromatique est un studio interactif pour explorer, tester et composer des palettes de couleurs. Le catalogue contient **208 teintes** réparties en quatre familles, avec une interface néon responsive et disponible en français ou en anglais.
+Atelier Chromatique est un studio interactif pour explorer, tester et composer des palettes de couleurs. Le catalogue contient **5000 teintes** réparties en douze familles, avec une interface néon responsive et disponible en français ou en anglais.
 
 ## Aperçu des outils
 
-- **Explorer** : navigation par famille, recherche par nom ou code hexadécimal et palettes repliables.
+- **Explorer** : navigation par douze familles, recherche par nom ou code hexadécimal et palettes repliables.
 - **Copier** : clic sur une couleur pour copier son code dans le presse-papiers.
 - **Favoris** : sauvegarde locale des teintes préférées, avec une zone de favoris repliable.
 - **Palette personnelle** : sélection manuelle, suppression individuelle, notes, glisser-déposer, sauvegarde de collections et export en fichier texte.
@@ -60,7 +60,7 @@ Le compte local n'est pas une authentification serveur. Les données ne sont pas
 
 ```text
 index.html   Interface et structure des outils
-colors.json  Catalogue des 208 couleurs
+colors.json  Catalogue de base des 208 couleurs
 style.css    Thème, responsive et animations
 script.js    Rendu, interactions, stockage et exports
 README.md    Documentation
@@ -78,7 +78,7 @@ Ajoute une entrée dans `colors.json` en respectant ce format :
 }
 ```
 
-Catégories disponibles : `jewel`, `metallic`, `pastel` et `other`. Le compteur de la page est calculé automatiquement à partir du nombre d'entrées du fichier.
+Catégories de base disponibles : `jewel`, `metallic`, `pastel` et `other`. Au chargement, l'application complète automatiquement le catalogue jusqu'à 5000 couleurs avec `ocean`, `forest`, `sunset`, `neon`, `earth`, `monochrome`, `retro` et `floral`.
 
 ## Technologies
 

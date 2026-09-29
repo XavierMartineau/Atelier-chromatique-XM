@@ -5,21 +5,122 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!response.ok) throw new Error("Impossible de charger colors.json");
   const paletteData = await response.json();
   const paletteList = document.querySelector("#palette-list");
-  const paletteLabels = {
-    jewel: {
-      fr: "Palette 1 : Tons bijoux majestueux",
-      en: "Palette 1: Majestic Jewel Tones",
+  const navLinks = document.querySelector(".nav-links");
+  const categoryDefinitions = [
+    { id: "jewel", fr: "Bijoux", en: "Jewel", hue: 345 },
+    { id: "metallic", fr: "Métalliques", en: "Metallic", hue: 210 },
+    { id: "pastel", fr: "Pastels", en: "Pastel", hue: 35 },
+    { id: "other", fr: "Autres", en: "Other", hue: 270 },
+    { id: "ocean", fr: "Océans", en: "Oceans", hue: 195 },
+    { id: "forest", fr: "Forêts", en: "Forest", hue: 125 },
+    { id: "sunset", fr: "Couchers de soleil", en: "Sunset", hue: 18 },
+    { id: "neon", fr: "Néons", en: "Neon", hue: 285 },
+    { id: "earth", fr: "Terres", en: "Earth", hue: 28 },
+    { id: "monochrome", fr: "Monochromes", en: "Monochrome", hue: 220 },
+    { id: "retro", fr: "Rétro", en: "Retro", hue: 55 },
+    { id: "floral", fr: "Floraux", en: "Floral", hue: 310 },
+  ];
+  const paletteLabels = Object.fromEntries(
+    categoryDefinitions.map((category, index) => [
+      category.id,
+      {
+        fr: `Palette ${index + 1} : ${category.fr}`,
+        en: `Palette ${index + 1}: ${category.en}`,
+      },
+    ]),
+  );
+  const navGroups = [
+    {
+      fr: "Ambiances",
+      en: "Moods",
+      categories: ["jewel", "sunset", "neon", "retro"],
     },
-    metallic: {
-      fr: "Palette 2 : Élégance métallique royale",
-      en: "Palette 2: Royal Metallic Elegance",
+    {
+      fr: "Nature",
+      en: "Nature",
+      categories: ["ocean", "forest", "earth", "floral"],
     },
-    pastel: {
-      fr: "Palette 3 : Pastels royaux délicats",
-      en: "Palette 3: Soft Pastel Royals",
+    {
+      fr: "Styles",
+      en: "Styles",
+      categories: ["metallic", "pastel", "monochrome", "other"],
     },
-    other: { fr: "Palette 4 : Autres", en: "Palette 4: Other" },
+  ];
+  const generatedHex = (hue, saturation, lightness) => {
+    const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
+    const section = hue / 60;
+    const x = chroma * (1 - Math.abs((section % 2) - 1));
+    const match = lightness - chroma / 2;
+    const rgb =
+      section < 1
+        ? [chroma, x, 0]
+        : section < 2
+          ? [x, chroma, 0]
+          : section < 3
+            ? [0, chroma, x]
+            : section < 4
+              ? [0, x, chroma]
+              : section < 5
+                ? [x, 0, chroma]
+                : [chroma, 0, x];
+    return `#${rgb
+      .map((value) =>
+        Math.round((value + match) * 255)
+          .toString(16)
+          .padStart(2, "0"),
+      )
+      .join("")}`.toUpperCase();
   };
+  const baseColorCount = paletteData.length;
+  const targetColorCount = 5000;
+  for (let index = baseColorCount; index < targetColorCount; index += 1) {
+    const category = categoryDefinitions[index % categoryDefinitions.length];
+    const sequence = Math.floor(
+      (index - baseColorCount) / categoryDefinitions.length,
+    );
+    const saturation =
+      category.id === "monochrome" ? 6 + (sequence % 8) : 48 + (sequence % 38);
+    const lightness =
+      category.id === "neon" ? 42 + (sequence % 20) : 28 + (sequence % 48);
+    paletteData.push({
+      category: category.id,
+      name: `${category.en} ${String(sequence + 1).padStart(3, "0")}`,
+      code: generatedHex(
+        (category.hue + sequence * 11) % 360,
+        saturation / 100,
+        lightness / 100,
+      ),
+    });
+  }
+  const categoriesById = Object.fromEntries(
+    categoryDefinitions.map((category) => [category.id, category]),
+  );
+  navLinks.innerHTML = `${navGroups
+    .map(
+      (group) => `<li class="nav-group">
+        <button class="nav-group-toggle" type="button" aria-expanded="false">
+          <span data-fr="${group.fr}" data-en="${group.en}">${group.fr}</span><span aria-hidden="true">⌄</span>
+        </button>
+        <div class="nav-submenu">
+          ${group.categories
+            .map((categoryId) => {
+              const category = categoriesById[categoryId];
+              return `<a href="#${category.id}" data-target=".colors.${category.id}" data-fr="${category.fr}" data-en="${category.en}">${category.fr}</a>`;
+            })
+            .join("")}
+        </div>
+      </li>`,
+    )
+    .join(
+      "",
+    )}<li><a href="#creative-tools" data-fr="Studio" data-en="Studio">Studio</a></li>`;
+  const categoryFilter = document.querySelector("#category-filter");
+  categoryFilter.innerHTML = `<option value="all" data-fr="Toutes" data-en="All">Toutes</option>${categoryDefinitions
+    .map(
+      (category) =>
+        `<option value="${category.id}" data-fr="${category.fr}" data-en="${category.en}">${category.fr}</option>`,
+    )
+    .join("")}`;
 
   Object.entries(paletteLabels).forEach(([category, labels]) => {
     const section = document.createElement("section");
@@ -49,7 +150,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const cards = [...document.querySelectorAll(".colors > div")];
   const sections = [...document.querySelectorAll(".palette")];
   const search = document.querySelector("#color-search");
-  const navLinks = document.querySelector(".nav-links");
   const toast = document.querySelector("#toast");
   const favorites = new Set(
     JSON.parse(localStorage.getItem("palette-favorites") || "[]"),
@@ -1265,6 +1365,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.querySelector(".nav-toggle").addEventListener("click", () => {
     navLinks.classList.toggle("show");
+  });
+  document.querySelectorAll(".nav-group-toggle").forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const group = toggle.closest(".nav-group");
+      const isOpen = group.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
   });
   const homeLogo = document.querySelector("#home-logo");
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
