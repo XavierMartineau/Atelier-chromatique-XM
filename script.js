@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     { id: "jewel", fr: "Bijoux", en: "Jewel", hue: 345 },
     { id: "metallic", fr: "Métalliques", en: "Metallic", hue: 210 },
     { id: "pastel", fr: "Pastels", en: "Pastel", hue: 35 },
-    { id: "other", fr: "Autres", en: "Other", hue: 270 },
+    { id: "other", fr: "Créatives", en: "Creative", hue: 270 },
     { id: "ocean", fr: "Océans", en: "Oceans", hue: 195 },
     { id: "forest", fr: "Forêts", en: "Forest", hue: 125 },
     { id: "sunset", fr: "Couchers de soleil", en: "Sunset", hue: 18 },
@@ -1607,6 +1607,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     card.dataset.favoriteKey = `${name}-${code}`;
     card.style.setProperty("--card-index", index % 12);
   });
+  const colorDialog = document.querySelector("#color-dialog");
+  const colorDialogSwatch = document.querySelector("#color-dialog-swatch");
+  const colorDialogTitle = document.querySelector("#color-dialog-title");
+  const colorDialogName = document.querySelector("#color-dialog-name");
+  const colorDialogHex = document.querySelector("#color-dialog-hex");
+  const colorDialogRgb = document.querySelector("#color-dialog-rgb");
+  const colorDialogHsl = document.querySelector("#color-dialog-hsl");
+  const colorDialogContrast = document.querySelector("#color-dialog-contrast");
+  let selectedColorCode = "#000000";
+  const openColorDialog = (card) => {
+    const code = card.querySelector("[data-code]").dataset.code.toUpperCase();
+    const name = card.dataset.name || "Couleur";
+    const [red, green, blue] = hexToRgb(code);
+    const [hue, saturation, lightness] = hexToHsl(code);
+    selectedColorCode = code;
+    colorDialogSwatch.style.backgroundColor = code;
+    colorDialogTitle.textContent = name;
+    colorDialogName.textContent = name;
+    colorDialogHex.textContent = code;
+    colorDialogRgb.textContent = `${red}, ${green}, ${blue}`;
+    colorDialogHsl.textContent = `${Math.round(hue)}°, ${Math.round(saturation)}%, ${Math.round(lightness)}%`;
+    colorDialogContrast.textContent = `${Number(card.dataset.contrast).toFixed(2)}:1`;
+    colorDialog.showModal();
+  };
+  document
+    .querySelector("#color-dialog-close")
+    .addEventListener("click", () => colorDialog.close());
+  colorDialog.addEventListener("click", (event) => {
+    if (event.target === colorDialog) colorDialog.close();
+  });
+  document
+    .querySelector("#copy-color-details")
+    .addEventListener("click", () => {
+      copyText(selectedColorCode);
+    });
   paletteList.addEventListener("click", (event) => {
     const card = event.target.closest(".colors > div");
     if (!card || !paletteList.contains(card)) return;
@@ -1634,9 +1669,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderManualPalette();
       return;
     }
-    copyText(code);
-    card.classList.add("copied");
-    setTimeout(() => card.classList.remove("copied"), 500);
+    openColorDialog(card);
   });
   renderFavorites();
 

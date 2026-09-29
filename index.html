@@ -101,6 +101,15 @@
           >
         </div>
       </section>
+      <p
+        class="catalog-disclaimer"
+        data-fr="Les noms sont fictifs et servent uniquement à rendre ce terrain de jeu plus amusant. Les codes hexadécimaux et RGB sont les valeurs réelles des couleurs. Clique sur une couleur pour voir sa fiche."
+        data-en="Names are fictional and only make this playground more fun. Hexadecimal and RGB codes are the actual color values. Click a color to view its details."
+      >
+        Les noms sont fictifs et servent uniquement à rendre ce terrain de jeu
+        plus amusant. Les codes hexadécimaux et RGB sont les valeurs réelles des
+        couleurs. Clique sur une couleur pour voir sa fiche.
+      </p>
       <section
         class="favorites-dock"
         id="favorites-dock"
@@ -182,7 +191,7 @@
             <option value="jewel">Bijoux</option>
             <option value="metallic">Métalliques</option>
             <option value="pastel">Pastels</option>
-            <option value="other">Autres</option>
+            <option value="other">Créatives</option>
           </select></label
         >
         <label
@@ -649,6 +658,63 @@
       </div>
       <div id="palette-list" class="palette-list" aria-live="polite"></div>
     </main>
+    <dialog
+      class="color-dialog"
+      id="color-dialog"
+      aria-labelledby="color-dialog-title"
+    >
+      <div class="color-dialog-card">
+        <div class="dialog-heading">
+          <span
+            class="tool-kicker"
+            data-fr="Fiche couleur"
+            data-en="Color details"
+            >Fiche couleur</span
+          >
+          <button
+            class="dialog-close"
+            id="color-dialog-close"
+            type="button"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+        </div>
+        <div class="color-dialog-swatch" id="color-dialog-swatch"></div>
+        <h2 id="color-dialog-title"></h2>
+        <dl class="color-dialog-details">
+          <div>
+            <dt data-fr="Nom" data-en="Name">Nom</dt>
+            <dd id="color-dialog-name"></dd>
+          </div>
+          <div>
+            <dt data-fr="Hexadécimal" data-en="Hexadecimal">Hexadécimal</dt>
+            <dd id="color-dialog-hex"></dd>
+          </div>
+          <div>
+            <dt data-fr="RGB" data-en="RGB">RGB</dt>
+            <dd id="color-dialog-rgb"></dd>
+          </div>
+          <div>
+            <dt data-fr="HSL" data-en="HSL">HSL</dt>
+            <dd id="color-dialog-hsl"></dd>
+          </div>
+          <div>
+            <dt data-fr="Contraste" data-en="Contrast">Contraste</dt>
+            <dd id="color-dialog-contrast"></dd>
+          </div>
+        </dl>
+        <button
+          class="primary-btn"
+          id="copy-color-details"
+          type="button"
+          data-fr="Copier le code"
+          data-en="Copy code"
+        >
+          Copier le code
+        </button>
+      </div>
+    </dialog>
     <dialog class="account-dialog" id="account-dialog">
       <form id="account-form" method="dialog">
         <div class="panda" id="panda" aria-hidden="true">
