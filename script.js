@@ -46,6 +46,631 @@ document.addEventListener("DOMContentLoaded", async () => {
       categories: ["metallic", "pastel", "monochrome", "other"],
     },
   ];
+  const generatedNames = {
+    jewel: {
+      colors: [
+        "Ruby",
+        "Garnet",
+        "Crimson",
+        "Burgundy",
+        "Sapphire",
+        "Cobalt",
+        "Amethyst",
+        "Violet",
+        "Emerald",
+        "Jade",
+        "Malachite",
+        "Turquoise",
+        "Obsidian",
+        "Onyx",
+        "Raspberry",
+        "Plum",
+        "Wine",
+        "Topaz",
+        "Citrine",
+        "Peridot",
+      ],
+      modifiers: [
+        "Royal",
+        "Velvet",
+        "Deep",
+        "Lustrous",
+        "Regal",
+        "Rich",
+        "Midnight",
+        "Burnished",
+        "Vivid",
+        "Dark",
+        "Radiant",
+        "Imperial",
+        "Saturated",
+        "Classic",
+        "Jewel",
+        "Bold",
+        "Majestic",
+        "Brilliant",
+        "Dramatic",
+        "Luxe",
+      ],
+    },
+    metallic: {
+      colors: [
+        "Silver",
+        "Platinum",
+        "Chrome",
+        "Steel",
+        "Titanium",
+        "Gold",
+        "Brass",
+        "Bronze",
+        "Copper",
+        "Rose Gold",
+        "Pewter",
+        "Iron",
+        "Graphite",
+        "Mercury",
+        "Nickel",
+        "Aluminium",
+        "Tin",
+        "Gunmetal",
+        "Champagne",
+        "Copper",
+      ],
+      modifiers: [
+        "Polished",
+        "Antique",
+        "Brushed",
+        "Liquid",
+        "Soft",
+        "Warm",
+        "Cool",
+        "Aged",
+        "Satin",
+        "Hammered",
+        "Matte",
+        "Gleaming",
+        "Forged",
+        "Classic",
+        "Refined",
+        "Burnished",
+        "Industrial",
+        "Luminous",
+        "Smoked",
+        "Luxury",
+      ],
+    },
+    pastel: {
+      colors: [
+        "Blush",
+        "Rose",
+        "Peach",
+        "Apricot",
+        "Lemon",
+        "Buttercup",
+        "Mint",
+        "Sage",
+        "Seafoam",
+        "Powder Blue",
+        "Sky Blue",
+        "Periwinkle",
+        "Lilac",
+        "Lavender",
+        "Orchid",
+        "Cream",
+        "Ivory",
+        "Vanilla",
+        "Pistachio",
+        "Mauve",
+      ],
+      modifiers: [
+        "Soft",
+        "Powder",
+        "Dreamy",
+        "Delicate",
+        "Gentle",
+        "Airy",
+        "Whisper",
+        "Pale",
+        "Light",
+        "Tender",
+        "Cloud",
+        "Frosted",
+        "Misty",
+        "Calm",
+        "Fresh",
+        "Subtle",
+        "Quiet",
+        "Spring",
+        "Sweet",
+        "Barely There",
+      ],
+    },
+    other: {
+      colors: [
+        "Coral",
+        "Terracotta",
+        "Ochre",
+        "Saffron",
+        "Mustard",
+        "Teal",
+        "Denim",
+        "Indigo",
+        "Mauve",
+        "Plum",
+        "Charcoal",
+        "Slate",
+        "Olive",
+        "Khaki",
+        "Sand",
+        "Taupe",
+        "Cocoa",
+        "Espresso",
+        "Snow",
+        "Ink",
+      ],
+      modifiers: [
+        "Warm",
+        "Cool",
+        "Muted",
+        "Dusty",
+        "Natural",
+        "Earthy",
+        "Urban",
+        "Coastal",
+        "Rustic",
+        "Modern",
+        "Smoky",
+        "Weathered",
+        "Soft",
+        "Deep",
+        "Neutral",
+        "Classic",
+        "Sunlit",
+        "Shadow",
+        "Dusk",
+        "Dawn",
+      ],
+    },
+    ocean: {
+      colors: [
+        "Lagoon",
+        "Aqua",
+        "Turquoise",
+        "Teal",
+        "Sea Glass",
+        "Azure",
+        "Cerulean",
+        "Cyan",
+        "Harbor",
+        "Navy",
+        "Marine",
+        "Atlantic",
+        "Pacific",
+        "Tidepool",
+        "Wave",
+        "Reef",
+        "Deep Sea",
+        "Foam",
+        "Driftwood",
+        "Seashell",
+      ],
+      modifiers: [
+        "Calm",
+        "Deep",
+        "Tropical",
+        "Coastal",
+        "Crystal",
+        "Stormy",
+        "Clear",
+        "Sunlit",
+        "Moonlit",
+        "Saltwater",
+        "Misty",
+        "Open",
+        "Cold",
+        "Wild",
+        "Silent",
+        "Blue",
+        "Rolling",
+        "Hidden",
+        "Shimmering",
+        "Endless",
+      ],
+    },
+    forest: {
+      colors: [
+        "Pine",
+        "Moss",
+        "Fern",
+        "Basil",
+        "Sage",
+        "Olive",
+        "Laurel",
+        "Juniper",
+        "Cedar",
+        "Spruce",
+        "Evergreen",
+        "Meadow",
+        "Moss",
+        "Lichen",
+        "Willow",
+        "Clover",
+        "Bamboo",
+        "Avocado",
+        "Leaf",
+        "Canopy",
+      ],
+      modifiers: [
+        "Ancient",
+        "Wild",
+        "Deep",
+        "Misty",
+        "Hidden",
+        "Quiet",
+        "Forest",
+        "Woodland",
+        "Fresh",
+        "Shadow",
+        "Sunlit",
+        "Rainy",
+        "Natural",
+        "Verdant",
+        "Mossy",
+        "Cool",
+        "Earthy",
+        "Whispering",
+        "Secret",
+        "Twilight",
+      ],
+    },
+    sunset: {
+      colors: [
+        "Coral",
+        "Tangerine",
+        "Peach",
+        "Apricot",
+        "Papaya",
+        "Orange",
+        "Vermilion",
+        "Scarlet",
+        "Flame",
+        "Rose",
+        "Magenta",
+        "Fuchsia",
+        "Blush",
+        "Honey",
+        "Amber",
+        "Gold",
+        "Sienna",
+        "Rust",
+        "Mauve",
+        "Twilight",
+      ],
+      modifiers: [
+        "Golden",
+        "Burning",
+        "Last Light",
+        "Evening",
+        "Summer",
+        "Desert",
+        "Horizon",
+        "Warm",
+        "Glowing",
+        "Dusk",
+        "Radiant",
+        "Skyline",
+        "Afterglow",
+        "Blazing",
+        "Soft",
+        "Copper",
+        "Vivid",
+        "Clouded",
+        "Fading",
+        "Twilight",
+      ],
+    },
+    neon: {
+      colors: [
+        "Electric Blue",
+        "Laser Cyan",
+        "Aqua",
+        "Lime",
+        "Chartreuse",
+        "Acid Green",
+        "Yellow",
+        "Orange",
+        "Hot Orange",
+        "Red",
+        "Hot Pink",
+        "Fuchsia",
+        "Magenta",
+        "Purple",
+        "Violet",
+        "Ultraviolet",
+        "Laser Blue",
+        "Mint",
+        "Toxic Green",
+        "Plasma",
+      ],
+      modifiers: [
+        "Electric",
+        "Hyper",
+        "Laser",
+        "Cyber",
+        "Glow",
+        "Ultra",
+        "Vivid",
+        "Acid",
+        "Digital",
+        "Radiant",
+        "Fluorescent",
+        "Arcade",
+        "Future",
+        "Pulse",
+        "Hyperlight",
+        "Nightlife",
+        "Charged",
+        "Synthetic",
+        "High Voltage",
+        "Cosmic",
+      ],
+    },
+    earth: {
+      colors: [
+        "Sand",
+        "Beige",
+        "Camel",
+        "Caramel",
+        "Ochre",
+        "Clay",
+        "Terracotta",
+        "Rust",
+        "Brick",
+        "Canyon",
+        "Umber",
+        "Sienna",
+        "Chestnut",
+        "Walnut",
+        "Bark",
+        "Mushroom",
+        "Stone",
+        "Granite",
+        "Dust",
+        "Soil",
+      ],
+      modifiers: [
+        "Desert",
+        "Natural",
+        "Dry",
+        "Sunbaked",
+        "Warm",
+        "Raw",
+        "Rustic",
+        "Hearth",
+        "Autumn",
+        "Mountain",
+        "Canyon",
+        "Clay",
+        "Grounded",
+        "Earthy",
+        "Weathered",
+        "Harvest",
+        "Ancient",
+        "Organic",
+        "Quiet",
+        "Wild",
+      ],
+    },
+    monochrome: {
+      colors: [
+        "Snow",
+        "Pearl",
+        "Ivory",
+        "Ash",
+        "Silver",
+        "Dove",
+        "Pewter",
+        "Smoke",
+        "Slate",
+        "Graphite",
+        "Charcoal",
+        "Ink",
+        "Onyx",
+        "Obsidian",
+        "Black",
+        "White",
+        "Fog",
+        "Cloud",
+        "Stone",
+        "Shadow",
+      ],
+      modifiers: [
+        "Soft",
+        "Cool",
+        "Warm",
+        "Pale",
+        "Deep",
+        "Muted",
+        "Quiet",
+        "Misty",
+        "Smooth",
+        "Classic",
+        "Modern",
+        "Velvet",
+        "Matte",
+        "Polished",
+        "Smoky",
+        "Dramatic",
+        "Minimal",
+        "Clean",
+        "Gentle",
+        "True",
+      ],
+    },
+    retro: {
+      colors: [
+        "Avocado",
+        "Mustard",
+        "Harvest Gold",
+        "Burnt Orange",
+        "Pumpkin",
+        "Rust",
+        "Brick",
+        "Coral",
+        "Salmon",
+        "Dusty Rose",
+        "Mauve",
+        "Lavender",
+        "Teal",
+        "Petrol",
+        "Denim",
+        "Olive",
+        "Pistachio",
+        "Cream",
+        "Cocoa",
+        "Chocolate",
+      ],
+      modifiers: [
+        "Vintage",
+        "Classic",
+        "Faded",
+        "Old School",
+        "70s",
+        "Midcentury",
+        "Groovy",
+        "Nostalgic",
+        "Muted",
+        "Warm",
+        "Dusty",
+        "Analog",
+        "Sunday",
+        "Record Shop",
+        "Velvet",
+        "Folk",
+        "Retro",
+        "Golden Age",
+        "Throwback",
+        "Heritage",
+      ],
+    },
+    floral: {
+      colors: [
+        "Rose",
+        "Peony",
+        "Fuchsia",
+        "Magenta",
+        "Orchid",
+        "Lilac",
+        "Lavender",
+        "Violet",
+        "Iris",
+        "Poppy",
+        "Dahlia",
+        "Tulip",
+        "Marigold",
+        "Buttercup",
+        "Daffodil",
+        "Jasmine",
+        "Mint",
+        "Sage",
+        "Petal",
+        "Blossom",
+      ],
+      modifiers: [
+        "Wild",
+        "Spring",
+        "Garden",
+        "Fresh",
+        "Soft",
+        "Tropical",
+        "Delicate",
+        "Blooming",
+        "Fragrant",
+        "Morning",
+        "Botanical",
+        "Dewy",
+        "Pastel",
+        "Velvet",
+        "Secret",
+        "Summer",
+        "Meadow",
+        "Romantic",
+        "Petal",
+        "Enchanted",
+      ],
+    },
+  };
+  const standardColorNames = [
+    ["Black", "#000000"],
+    ["White", "#FFFFFF"],
+    ["Red", "#FF0000"],
+    ["Green", "#008000"],
+    ["Blue", "#0000FF"],
+    ["Yellow", "#FFFF00"],
+    ["Cyan", "#00FFFF"],
+    ["Magenta", "#FF00FF"],
+    ["Orange", "#FFA500"],
+    ["Purple", "#800080"],
+    ["Pink", "#FFC0CB"],
+    ["Brown", "#A52A2A"],
+    ["Gray", "#808080"],
+    ["Silver", "#C0C0C0"],
+    ["Gold", "#FFD700"],
+    ["Navy", "#000080"],
+    ["Teal", "#008080"],
+    ["Olive", "#808000"],
+    ["Maroon", "#800000"],
+    ["Lime", "#00FF00"],
+    ["Aqua", "#00FFFF"],
+    ["Fuchsia", "#FF00FF"],
+    ["Crimson", "#DC143C"],
+    ["Coral", "#FF7F50"],
+    ["Salmon", "#FA8072"],
+    ["Tomato", "#FF6347"],
+    ["Chocolate", "#D2691E"],
+    ["Tan", "#D2B48C"],
+    ["Beige", "#F5F5DC"],
+    ["Khaki", "#F0E68C"],
+    ["Lavender", "#E6E6FA"],
+    ["Violet", "#EE82EE"],
+    ["Indigo", "#4B0082"],
+    ["Orchid", "#DA70D6"],
+    ["Plum", "#DDA0DD"],
+    ["Turquoise", "#40E0D0"],
+    ["Aquamarine", "#7FFFD4"],
+    ["SkyBlue", "#87CEEB"],
+    ["RoyalBlue", "#4169E1"],
+    ["SteelBlue", "#4682B4"],
+    ["ForestGreen", "#228B22"],
+    ["SeaGreen", "#2E8B57"],
+    ["DarkGreen", "#006400"],
+    ["DarkRed", "#8B0000"],
+    ["DarkOrange", "#FF8C00"],
+    ["DarkBlue", "#00008B"],
+    ["MidnightBlue", "#191970"],
+    ["RebeccaPurple", "#663399"],
+    ["Chartreuse", "#7FFF00"],
+  ];
+  const hexToRgb = (hex) =>
+    hex
+      .slice(1)
+      .match(/.{2}/g)
+      .map((channel) => parseInt(channel, 16));
+  const nearestStandardColorName = (hex) => {
+    const [red, green, blue] = hexToRgb(hex);
+    return standardColorNames.reduce(
+      (nearest, [name, standardHex]) => {
+        const [standardRed, standardGreen, standardBlue] =
+          hexToRgb(standardHex);
+        const distance =
+          (red - standardRed) ** 2 +
+          (green - standardGreen) ** 2 +
+          (blue - standardBlue) ** 2;
+        return distance < nearest.distance ? { name, distance } : nearest;
+      },
+      { name: "Black", distance: Number.POSITIVE_INFINITY },
+    ).name;
+  };
   const generatedHex = (hue, saturation, lightness) => {
     const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
     const section = hue / 60;
@@ -72,7 +697,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .join("")}`.toUpperCase();
   };
   const baseColorCount = paletteData.length;
-  const targetColorCount = 5000;
+  const targetColorCount = 1000;
   for (let index = baseColorCount; index < targetColorCount; index += 1) {
     const category = categoryDefinitions[index % categoryDefinitions.length];
     const sequence = Math.floor(
@@ -82,9 +707,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       category.id === "monochrome" ? 6 + (sequence % 8) : 48 + (sequence % 38);
     const lightness =
       category.id === "neon" ? 42 + (sequence % 20) : 28 + (sequence % 48);
+    const names = generatedNames[category.id];
+    const colorName = names.colors[sequence % names.colors.length];
+    const modifier =
+      names.modifiers[
+        Math.floor(sequence / names.colors.length) % names.modifiers.length
+      ];
+    const normalizedColorName = colorName.toLowerCase();
+    const normalizedModifier = modifier.toLowerCase();
     paletteData.push({
       category: category.id,
-      name: `${category.en} ${String(sequence + 1).padStart(3, "0")}`,
+      name:
+        normalizedColorName === normalizedModifier ||
+        normalizedColorName.startsWith(`${normalizedModifier} `)
+          ? colorName
+          : `${modifier} ${colorName}`,
       code: generatedHex(
         (category.hue + sequence * 11) % 360,
         saturation / 100,
@@ -97,11 +734,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
   navLinks.innerHTML = `${navGroups
     .map(
-      (group) => `<li class="nav-group">
-        <button class="nav-group-toggle" type="button" aria-expanded="false">
+      (group, groupIndex) => `<li class="nav-group">
+        <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="nav-submenu-${groupIndex}">
           <span data-fr="${group.fr}" data-en="${group.en}">${group.fr}</span><span aria-hidden="true">⌄</span>
         </button>
-        <div class="nav-submenu">
+        <div class="nav-submenu" id="nav-submenu-${groupIndex}">
           ${group.categories
             .map((categoryId) => {
               const category = categoriesById[categoryId];
@@ -122,6 +759,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     )
     .join("")}`;
 
+  const colorsByCategory = Object.groupBy
+    ? Object.groupBy(paletteData, (color) => color.category)
+    : paletteData.reduce((groups, color) => {
+        (groups[color.category] ||= []).push(color);
+        return groups;
+      }, {});
   Object.entries(paletteLabels).forEach(([category, labels]) => {
     const section = document.createElement("section");
     section.className = "palette";
@@ -132,17 +775,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     title.textContent = labels.fr;
     const colors = document.createElement("div");
     colors.className = `colors ${category}`;
-    paletteData
-      .filter((color) => color.category === category)
-      .forEach(({ name, code }) => {
-        const card = document.createElement("div");
-        card.dataset.name = name;
-        const codeElement = document.createElement("span");
-        codeElement.dataset.code = code;
-        codeElement.textContent = code;
-        card.append(codeElement);
-        colors.append(card);
-      });
+    const colorFragment = document.createDocumentFragment();
+    (colorsByCategory[category] || []).forEach(({ name, code }) => {
+      const card = document.createElement("div");
+      card.dataset.name = name;
+      const codeElement = document.createElement("span");
+      codeElement.dataset.code = code;
+      codeElement.textContent = code;
+      card.append(codeElement);
+      colorFragment.append(card);
+    });
+    colors.append(colorFragment);
     section.append(title, colors);
     paletteList.append(section);
   });
@@ -960,21 +1603,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     favorite.textContent = "★";
     favorite.classList.toggle("is-favorite", favorites.has(`${name}-${code}`));
     card.append(favorite);
-    card.addEventListener("click", (event) => {
-      if (event.target === favorite) return;
-      if (manualMode) {
-        if (manualSelection.has(code)) manualSelection.delete(code);
-        else manualSelection.set(code, { name, code });
-        card.classList.toggle("manual-selected", manualSelection.has(code));
-        renderManualPalette();
-        return;
-      }
-      copyText(code);
-      card.classList.add("copied");
-      setTimeout(() => card.classList.remove("copied"), 500);
-    });
-    favorite.addEventListener("click", (event) => {
-      event.stopPropagation();
+    card.dataset.index = index;
+    card.dataset.favoriteKey = `${name}-${code}`;
+    card.style.setProperty("--card-index", index % 12);
+  });
+  paletteList.addEventListener("click", (event) => {
+    const card = event.target.closest(".colors > div");
+    if (!card || !paletteList.contains(card)) return;
+    const code = card.querySelector("[data-code]").dataset.code.toUpperCase();
+    const name = card.dataset.name || "Couleur";
+    const favorite = event.target.closest(".favorite-btn");
+    if (favorite) {
       const key = `${name}-${code}`;
       if (favorites.has(key)) favorites.delete(key);
       else favorites.add(key);
@@ -986,10 +1625,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           ? `${name} ajouté aux favoris`
           : `${name} retiré des favoris`,
       );
-    });
-    card.dataset.index = index;
-    card.dataset.favoriteKey = `${name}-${code}`;
-    card.style.setProperty("--card-index", index % 12);
+      return;
+    }
+    if (manualMode) {
+      if (manualSelection.has(code)) manualSelection.delete(code);
+      else manualSelection.set(code, { name, code });
+      card.classList.toggle("manual-selected", manualSelection.has(code));
+      renderManualPalette();
+      return;
+    }
+    copyText(code);
+    card.classList.add("copied");
+    setTimeout(() => card.classList.remove("copied"), 500);
   });
   renderFavorites();
 
@@ -1200,7 +1847,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const updatePaletteHeight = () => {
       section.style.setProperty(
         "--palette-height",
-        `${paletteColors.scrollHeight}px`,
+        `${paletteColors.scrollHeight + 16}px`,
       );
     };
     updatePaletteHeight();
@@ -1335,6 +1982,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector("#contrast-filter-value").textContent = "1:1";
     updateResults();
   });
+  const searchPanelToggle = document.querySelector("#search-panel-toggle");
+  const setSearchPanelCollapsed = (collapsed) => {
+    document.body.classList.toggle("search-panel-collapsed", collapsed);
+    searchPanelToggle.setAttribute("aria-expanded", String(!collapsed));
+    searchPanelToggle.setAttribute(
+      "aria-label",
+      collapsed
+        ? "Ouvrir la barre de recherche"
+        : "Fermer la barre de recherche",
+    );
+    searchPanelToggle.title = collapsed
+      ? "Ouvrir la barre de recherche"
+      : "Fermer la barre de recherche";
+    searchPanelToggle.textContent = collapsed ? "⌄" : "⌃";
+    localStorage.setItem("palette-search-panel-collapsed", String(collapsed));
+  };
+  searchPanelToggle.addEventListener("click", () => {
+    setSearchPanelCollapsed(
+      !document.body.classList.contains("search-panel-collapsed"),
+    );
+  });
+  setSearchPanelCollapsed(
+    localStorage.getItem("palette-search-panel-collapsed") === "true",
+  );
   document.querySelector("#surprise-btn").addEventListener("click", () => {
     const visibleCards = cards.filter(
       (card) => !card.classList.contains("is-hidden"),
@@ -1363,12 +2034,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   });
 
-  document.querySelector(".nav-toggle").addEventListener("click", () => {
-    navLinks.classList.toggle("show");
+  const navToggle = document.querySelector(".nav-toggle");
+  navToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("show");
+    navToggle.textContent = isOpen ? "×" : "☰";
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Fermer le menu" : "Ouvrir le menu",
+    );
   });
   document.querySelectorAll(".nav-group-toggle").forEach((toggle) => {
     toggle.addEventListener("click", () => {
       const group = toggle.closest(".nav-group");
+      document.querySelectorAll(".nav-group.is-open").forEach((openGroup) => {
+        if (openGroup !== group) {
+          openGroup.classList.remove("is-open");
+          openGroup
+            .querySelector(".nav-group-toggle")
+            .setAttribute("aria-expanded", "false");
+        }
+      });
       const isOpen = group.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", String(isOpen));
     });
@@ -1390,6 +2076,40 @@ document.addEventListener("DOMContentLoaded", async () => {
         : document.querySelector(link.getAttribute("href"));
       target?.scrollIntoView({ behavior: "smooth" });
       navLinks.classList.remove("show");
+      navToggle.textContent = "☰";
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Ouvrir le menu");
+      document.querySelectorAll(".nav-group.is-open").forEach((group) => {
+        group.classList.remove("is-open");
+        group
+          .querySelector(".nav-group-toggle")
+          .setAttribute("aria-expanded", "false");
+      });
+    });
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".navbar")) {
+      navLinks.classList.remove("show");
+      navToggle.textContent = "☰";
+      navToggle.setAttribute("aria-expanded", "false");
+      document.querySelectorAll(".nav-group.is-open").forEach((group) => {
+        group.classList.remove("is-open");
+        group
+          .querySelector(".nav-group-toggle")
+          .setAttribute("aria-expanded", "false");
+      });
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    navLinks.classList.remove("show");
+    navToggle.textContent = "☰";
+    navToggle.setAttribute("aria-expanded", "false");
+    document.querySelectorAll(".nav-group.is-open").forEach((group) => {
+      group.classList.remove("is-open");
+      group
+        .querySelector(".nav-group-toggle")
+        .setAttribute("aria-expanded", "false");
     });
   });
   document.querySelectorAll(".tool-panel, .manual-builder").forEach((panel) => {
@@ -1419,6 +2139,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       : [...panel.classList].find((name) => name.endsWith("-tool")) || "panel";
     panel.dataset.panelKey = panelKey;
     toggle.dataset.panelKey = panelKey;
+    content.id = `panel-content-${panelKey}`;
+    toggle.setAttribute("aria-controls", content.id);
     toggle.textContent = "⌃";
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "Fermer cette section");

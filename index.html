@@ -29,7 +29,15 @@
           >Atelier chromatique</span
         >
       </div>
-      <button class="nav-toggle" aria-label="Ouvrir le menu">☰</button>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="category-nav"
+        aria-label="Ouvrir le menu"
+      >
+        ☰
+      </button>
       <ul class="nav-links" id="category-nav"></ul>
       <div class="nav-actions">
         <button
@@ -115,6 +123,7 @@
             id="favorites-toggle"
             type="button"
             aria-expanded="true"
+            aria-controls="favorite-colors"
             aria-label="Fermer les favoris"
           >
             ⌃
@@ -148,6 +157,17 @@
           data-en="☷ Manual selection"
         >
           ☷ Sélection manuelle
+        </button>
+        <button
+          class="icon-btn search-panel-toggle"
+          id="search-panel-toggle"
+          type="button"
+          aria-expanded="true"
+          aria-controls="smart-filters color-search"
+          aria-label="Fermer la barre de recherche"
+          title="Fermer la barre de recherche"
+        >
+          ⌃
         </button>
       </section>
       <section
